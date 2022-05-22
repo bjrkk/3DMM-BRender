@@ -94,6 +94,9 @@ void BR_ASM_CALL LineRenderPIZ2I(struct temp_vertex_fixed *v0,struct temp_vertex
 		if(dx > 0) {
 			dz = BrFixedDiv((v1->v[Z] - v0->v[Z]),BrIntToFixed(dx));
 			di = BrFixedDiv((v1->comp[C_I] - v0->comp[C_I]),BrIntToFixed(dx));
+		} else {
+			dz = 0;
+			di = 0;
 		}
 
 		ptr = (char *)zb.colour_buffer+X0+Y0*zb.row_width;
@@ -155,6 +158,9 @@ void BR_ASM_CALL LineRenderPIZ2I(struct temp_vertex_fixed *v0,struct temp_vertex
 		if(dy > 0) {
 			dz = BrFixedDiv((v1->v[Z] - v0->v[Z]),BrIntToFixed(dy));
 			di = BrFixedDiv((v1->comp[C_I] - v0->comp[C_I]),BrIntToFixed(dy));
+		} else {
+			dz = 0;
+			di = 0;
 		}
 
 		ptr = (char *)zb.colour_buffer+X0+Y0*zb.row_width;
