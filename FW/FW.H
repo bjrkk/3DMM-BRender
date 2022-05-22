@@ -398,7 +398,7 @@ typedef struct br_framework_state {
 /*
  * Global renderer state
  */
-extern br_framework_state BR_ASM_DATA fw;
+extern br_framework_state fw;
 
 /*
  * Minimum scratch space to allocate for render temps.

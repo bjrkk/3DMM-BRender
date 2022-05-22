@@ -185,7 +185,7 @@ typedef int br_boolean;
 #define BR_PUBLIC_ENTRY __cdecl
 #define BR_CALLBACK __cdecl
 
-#define BR_ASM_DATA __cdecl
+#define BR_ASM_DATA
 #define BR_ASM_CALL __cdecl
 #define BR_ASM_CALLBACK __cdecl
 

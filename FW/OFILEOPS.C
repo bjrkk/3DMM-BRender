@@ -15,8 +15,8 @@
 #include <stddef.h>
 #include <string.h>
 #include <ctype.h>
-#include <argstd.h>
-#include <error.h>
+#include <stdarg.h>
+#include <errno.h>
 #include <math.h>
 
 #include "brender.h"

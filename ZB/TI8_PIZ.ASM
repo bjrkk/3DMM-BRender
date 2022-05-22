@@ -12,6 +12,8 @@
 	.386p
 	.model small,c
 
+	assume DS:_DATA
+
 	include	zb.inc
 	include 586_macs.inc
 
