@@ -51,20 +51,20 @@ struct group_temp_vertex {
  * on their first vertex - all similar vertices are the singly linked in
  * a chain
  */
-STATIC struct pm_temp_edge {
+struct pm_temp_edge {
 	struct pm_temp_edge  *next; /* next in chain */
 	short first;		/* First vertex */
 	short last;			/* Last Vertex */
 	char other;			/* Edge is used in other direction */
 };
 
-STATIC struct pm_temp_edge *pm_edge_table;
-STATIC struct pm_temp_edge **pm_edge_hash;
+static struct pm_temp_edge *pm_edge_table;
+static struct pm_temp_edge **pm_edge_hash;
 
-STATIC char *pm_edge_scratch;
-STATIC int num_edges = 0;
+static char *pm_edge_scratch;
+static int num_edges = 0;
 
-STATIC int FwAddEdge(short first, short last)
+static int FwAddEdge(short first, short last)
 {
 	struct pm_temp_edge *tep;
 
@@ -99,7 +99,7 @@ STATIC int FwAddEdge(short first, short last)
 /*
  * Comparison function for qsorting pointers to faces
  */
-STATIC int BR_CALLBACK FacesCompare(const void *p1, const void *p2)
+static int BR_CALLBACK FacesCompare(const void *p1, const void *p2)
 {
 	const br_face *f1 = *(br_face **)p1, *f2 = *(br_face **)p2;
 
@@ -126,7 +126,7 @@ STATIC int BR_CALLBACK FacesCompare(const void *p1, const void *p2)
 /*
  * Compare temp vertices by  X,Y,Z
  */
-STATIC int BR_CALLBACK TVCompare_XYZ(const void *p1, const void *p2)
+static int BR_CALLBACK TVCompare_XYZ(const void *p1, const void *p2)
 {
 	const struct group_temp_vertex *tv1 = *(struct group_temp_vertex **)p1;
 	const struct group_temp_vertex *tv2 = *(struct group_temp_vertex **)p2;
@@ -149,7 +149,7 @@ STATIC int BR_CALLBACK TVCompare_XYZ(const void *p1, const void *p2)
 /*
  * Compare temp vertices by vertex pointer
  */
-STATIC int BR_CALLBACK TVCompare_V(const void *p1, const void *p2)
+static int BR_CALLBACK TVCompare_V(const void *p1, const void *p2)
 {
 	const struct group_temp_vertex *tv1 = *(struct group_temp_vertex **)p1;
 	const struct group_temp_vertex *tv2 = *(struct group_temp_vertex **)p2;
@@ -166,7 +166,7 @@ STATIC int BR_CALLBACK TVCompare_V(const void *p1, const void *p2)
 /*
  * Compare temp vertices by Material, X,Y,Z,U,V Normal
  */
-STATIC int BR_CALLBACK TVCompare_MXYZUVN(const void *p1, const void *p2)
+static int BR_CALLBACK TVCompare_MXYZUVN(const void *p1, const void *p2)
 {
 	const struct group_temp_vertex *tv1 = *(struct group_temp_vertex **)p1;
 	const struct group_temp_vertex *tv2 = *(struct group_temp_vertex **)p2;
@@ -230,7 +230,7 @@ STATIC int BR_CALLBACK TVCompare_MXYZUVN(const void *p1, const void *p2)
 /*
  * Compare temp vertices by material, vertex pointer, Normal
  */
-STATIC int BR_CALLBACK TVCompare_MVN(const void *p1, const void *p2)
+static int BR_CALLBACK TVCompare_MVN(const void *p1, const void *p2)
 {
 	const struct group_temp_vertex *tv1 = *(struct group_temp_vertex **)p1;
 	const struct group_temp_vertex *tv2 = *(struct group_temp_vertex **)p2;
@@ -280,7 +280,7 @@ STATIC int BR_CALLBACK TVCompare_MVN(const void *p1, const void *p2)
 /*
  * Work out face normals for original faces
  */
-STATIC void PlaneEqn(
+static void PlaneEqn(
 	br_vector3 *v0,
 	br_vector3 *v1,
 	br_vector3 *v2,
@@ -345,7 +345,7 @@ STATIC void PlaneEqn(
 #endif
 }
 
-STATIC void PrepareFaceNormals(br_model *model)
+static void PrepareFaceNormals(br_model *model)
 {
 	br_vertex *vertices = model->vertices;
 	br_face *fp;
@@ -364,7 +364,7 @@ STATIC void PrepareFaceNormals(br_model *model)
 /*
  * Work out face normals for prepared faces
  */
-STATIC void PrepareFaceNormalsFast(br_model *model)
+static void PrepareFaceNormalsFast(br_model *model)
 {
 	br_vector3 a,b,n;
 	br_vertex *vertices = model->prepared_vertices;
@@ -384,7 +384,7 @@ STATIC void PrepareFaceNormalsFast(br_model *model)
 /*
  * Work out vertex normals for prepared vertices - ignores smoothing groups
  */
-STATIC void PrepareVertexNormalsFast(br_model *model)
+static void PrepareVertexNormalsFast(br_model *model)
 {
 	int f,v;
 	br_face *fp;
@@ -423,7 +423,7 @@ STATIC void PrepareVertexNormalsFast(br_model *model)
 /*
  * Rearrange faces into groups by material
  */
-STATIC void PrepareFaces(br_model *model)
+static void PrepareFaces(br_model *model)
 {
 	int f,g,count;
 	br_face **face_ptrs;
@@ -513,7 +513,7 @@ STATIC void PrepareFaces(br_model *model)
 /*
  * Don't do any sorting, the prepared faces are the same as the faces
  */
-STATIC void PrepareFacesFast(br_model *model)
+static void PrepareFacesFast(br_model *model)
 {
 	int f,g,count;
 
@@ -541,7 +541,7 @@ STATIC void PrepareFacesFast(br_model *model)
 	}
 }
 
-STATIC void PrepareFaceGroups(br_model *model)
+static void PrepareFaceGroups(br_model *model)
 {
 	int f,g,count;
 
@@ -587,7 +587,7 @@ STATIC void PrepareFaceGroups(br_model *model)
  * accumulate the normals for each vertex by adding all
  * normals in the groups that share at least 1 smoothing group
  */
-STATIC void AccumulateSmoothing(struct group_temp_vertex **start, struct group_temp_vertex **end)
+static void AccumulateSmoothing(struct group_temp_vertex **start, struct group_temp_vertex **end)
 {
 	struct group_temp_vertex **outer, **inner;
 
@@ -920,7 +920,7 @@ br_material **PrepareVerticesFast(br_model *model)
 	return materials;
 }
 
-STATIC void PrepareVertexGroups(br_model *model, br_material **vertex_materials)
+static void PrepareVertexGroups(br_model *model, br_material **vertex_materials)
 {
 	int g,v,count;
 	br_vertex *vp;
@@ -1008,7 +1008,7 @@ void PrepareEdges(br_model *model)
 /*
  * Find bounding radius of model
  */
-STATIC void PrepareBoundingRadius(br_model *model)
+static void PrepareBoundingRadius(br_model *model)
 {
 	br_scalar d,max = BR_SCALAR(0.0);
 	int v;
@@ -1151,7 +1151,7 @@ void ModelDump(char *prefix, br_model *model)
 /*
  * Find bounding box of model
  */
-STATIC void PrepareBoundingBox(br_model *model)
+static void PrepareBoundingBox(br_model *model)
 {
 	int axis,v;
 	br_vertex *vp;

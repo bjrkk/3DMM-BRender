@@ -19,7 +19,7 @@
  */
 extern br_material _DefaultScriptMaterial;
 
-STATIC struct {
+static struct {
 	char *name;
 	int value;
 } MaterialFlagNames[] = {
@@ -36,7 +36,7 @@ STATIC struct {
 	{ "dither"				, BR_MATF_DITHER		 	},
 };
 
-STATIC WriteScriptMaterial(br_material *mat, void *df)
+static WriteScriptMaterial(br_material *mat, void *df)
 {
 	int i,j;
 

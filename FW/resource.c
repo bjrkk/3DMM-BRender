@@ -60,7 +60,7 @@ struct resource_header {
 /*
  * Align the resource pointer
  */
-STATIC void *ResToUser(struct resource_header *r)
+static void *ResToUser(struct resource_header *r)
 {
 	/*
 	 * Move over the resource_header
@@ -81,7 +81,7 @@ STATIC void *ResToUser(struct resource_header *r)
 /*
  * Unalign the resource pointer
  */
-STATIC struct resource_header *UserToRes(void *r)
+static struct resource_header *UserToRes(void *r)
 {
 	br_uint_32 *l = r;
 
@@ -150,7 +150,7 @@ void * BR_PUBLIC_ENTRY BrResAllocate(void *vparent, br_size_t size, int class)
  *
  * If the resource class has a destructor, that function is called
  */
-STATIC void BrResInternalFree(struct resource_header *res)
+static void BrResInternalFree(struct resource_header *res)
 {
 	UASSERT(ISRESOURCE(res));
 	UASSERT(fw.resource_class_index[res->class] != NULL);
@@ -373,7 +373,7 @@ char * BR_PUBLIC_ENTRY BrResStrDup(void *vparent, char *str)
  *
  * Invokes a callback with each text line of the dump
  */
-STATIC void InternalResourceDump(struct resource_header *res, void (*putline)(char *str, void *arg), void *arg, int level)
+static void InternalResourceDump(struct resource_header *res, void (*putline)(char *str, void *arg), void *arg, int level)
 {
 #if 1
 	int i;

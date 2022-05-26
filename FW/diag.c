@@ -66,9 +66,9 @@ void BR_PUBLIC_ENTRY BrFatal(char *name, int line, char *s,...)
 	va_list args;
  	int n;
 
-	n = sprintf(_diag_scratch,"FATAL %s:%d %s\n",name,line);
+	n = sprintf(_diag_scratch, "FATAL %s:%d \n", name, line);
 	va_start(args,s);
-	vsprintf(_diag_scratch+n,s,args);
+	vsprintf(_diag_scratch + n, s, args);
 	va_end(args);
 
 #if DEBUG

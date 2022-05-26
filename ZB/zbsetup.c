@@ -54,7 +54,7 @@ void BR_ASM_CALL PointRender_Null(struct temp_vertex_fixed *v0);
 #define IDENT(x) NULL
 #endif
 
-STATIC struct zb_material_type mat_types_index_8[] = {
+static struct zb_material_type mat_types_index_8[] = {
 
 //	/*
 //	 * Perspective texture mapping
@@ -268,7 +268,7 @@ STATIC struct zb_material_type mat_types_index_8[] = {
 /*
  * Material types for RGB_555, DEPTH_16
  */
-STATIC struct zb_material_type mat_types_rgb_555[] = {
+static struct zb_material_type mat_types_rgb_555[] = {
 	{
 		IDENT("Texture mapped (linear) AW"),
 		MT_MASK_T | BR_MATF_LIGHT | BR_MATF_PRELIT, ZB_MATF_HAS_MAP,
@@ -281,16 +281,16 @@ STATIC struct zb_material_type mat_types_rgb_555[] = {
 		IDENT("Smooth shading"),
 		MT_MASK, BR_MATF_SMOOTH,
 		0, 0, 0,
-//		ZbRenderFaceGroup, TriangleRenderPIZ2I_RGB_555, LineRenderPIZ2I_RGB_555, PointRenderPIZ2_RGB_555,
-		ZbRenderFaceGroup, TriangleRender_Null, LineRender_Null, PointRender_Null,
+		ZbRenderFaceGroup, TriangleRenderPIZ2I_RGB_555, LineRenderPIZ2I_RGB_555, PointRenderPIZ2_RGB_555,
+//		ZbRenderFaceGroup, TriangleRender_Null, LineRender_Null, PointRender_Null,
 		CM_COORDS | CM_R | CM_G | CM_B, CM_R | CM_G | CM_B,
 	},
 	{
 		IDENT("Flat shading"),
 		0, 0,
 		0, 0, 0,
-//		ZbRenderFaceGroup_FaceRGB, TriangleRenderPIZ2_RGB_555, LineRenderPIZ2I_RGB_555, PointRenderPIZ2_RGB_555,
-		ZbRenderFaceGroup, TriangleRender_Null, LineRender_Null, PointRender_Null,
+		ZbRenderFaceGroup_FaceRGB, TriangleRenderPIZ2_RGB_555, LineRenderPIZ2I_RGB_555, PointRenderPIZ2_RGB_555,
+//		ZbRenderFaceGroup, TriangleRender_Null, LineRender_Null, PointRender_Null,
 		CM_COORDS, CM_R | CM_G | CM_B,
 	},
 };
@@ -298,7 +298,7 @@ STATIC struct zb_material_type mat_types_rgb_555[] = {
 /*
  * Material types for RGB_888, DEPTH_16
  */
-STATIC struct zb_material_type mat_types_rgb_888[] = {
+static struct zb_material_type mat_types_rgb_888[] = {
 	{
 		IDENT("Texture mapped (linear) AW"),
 		MT_MASK_T | BR_MATF_LIGHT | BR_MATF_PRELIT, ZB_MATF_HAS_MAP,
@@ -311,16 +311,16 @@ STATIC struct zb_material_type mat_types_rgb_888[] = {
 		IDENT("Smooth shading"),
 		BR_MATF_SMOOTH, BR_MATF_SMOOTH,
 		0, 0, 0,
-//		ZbRenderFaceGroup, TriangleRenderPIZ2I_RGB_888, LineRenderPIZ2I_RGB_888, PointRenderPIZ2_RGB_888,
-		ZbRenderFaceGroup, TriangleRender_Null, LineRender_Null, PointRender_Null,
+		ZbRenderFaceGroup, TriangleRenderPIZ2I_RGB_888, LineRenderPIZ2I_RGB_888, PointRenderPIZ2_RGB_888,
+//		ZbRenderFaceGroup, TriangleRender_Null, LineRender_Null, PointRender_Null,
 		CM_COORDS | CM_R | CM_G | CM_B, CM_R | CM_G | CM_B,
 	},
 	{
 		IDENT("Flat shading"),
 		0,0,
 		0, 0, 0,
-//		ZbRenderFaceGroup_FaceRGB, TriangleRenderPIZ2_RGB_888, LineRenderPIZ2I_RGB_888, PointRenderPIZ2_RGB_888,
-		ZbRenderFaceGroup, TriangleRender_Null, LineRender_Null, PointRender_Null,
+		ZbRenderFaceGroup_FaceRGB, TriangleRenderPIZ2_RGB_888, LineRenderPIZ2I_RGB_888, PointRenderPIZ2_RGB_888,
+//		ZbRenderFaceGroup, TriangleRender_Null, LineRender_Null, PointRender_Null,
 		CM_COORDS, CM_R | CM_G | CM_B,
 	},
 };
@@ -328,7 +328,7 @@ STATIC struct zb_material_type mat_types_rgb_888[] = {
 /*
  * Table of valid render types
  */
-STATIC struct zb_render_type rtype_table[] = {
+static struct zb_render_type rtype_table[] = {
 	{
 		IDENT("8 bit indexed, 16 bit Z"),
 		BR_PMT_INDEX_8,		BR_PMT_DEPTH_16,	0,

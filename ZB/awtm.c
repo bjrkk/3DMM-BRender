@@ -36,15 +36,10 @@ ArbitraryWidthScanLine BR_ASM_DATA awsl;
 BR_ASM_DATA_EXTRA(awsl)
 
 #ifdef __WATCOMC__
-
 extern int sar16(int);
-
 #pragma aux sar16 = "sar eax,16" parm [eax]
-
 #else
-
 #define sar16 _sar16
-
 #endif
 
 typedef void BR_ASM_CALL TrapezoidRenderCall(void);
@@ -63,13 +58,13 @@ BR_ASM_CALL_EXTRA(TrapezoidRenderPIZ2TA24)
 
 #define FNAME TriangleRenderPIZ2TIA
 #define LIGHT 1
-#include "innera.h"
+#include "innera.inc.c"
 #undef LIGHT
 #undef FNAME
 
 #define FNAME TriangleRenderPIZ2TA
 #define LIGHT 0
-#include "innera.h"
+#include "innera.inc.c"
 #undef LIGHT
 #undef FNAME
 
@@ -78,7 +73,7 @@ BR_ASM_CALL_EXTRA(TrapezoidRenderPIZ2TA24)
 
 #define FNAME TriangleRenderPIZ2TA24
 #define LIGHT 0
-#include "innera.h"
+#include "innera.inc.c"
 #undef LIGHT
 #undef FNAME
 
@@ -87,7 +82,7 @@ BR_ASM_CALL_EXTRA(TrapezoidRenderPIZ2TA24)
 
 #define FNAME TriangleRenderPIZ2TA15
 #define LIGHT 0
-#include "innera.h"
+#include "innera.inc.c"
 #undef LIGHT
 #undef FNAME
 

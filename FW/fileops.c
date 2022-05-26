@@ -30,12 +30,12 @@ static char rscid[] = "$Id: fileops.c 1.33 1995/08/31 16:29:25 sam Exp $";
  ** End Marker
  **/
 
-STATIC int FopRead_END(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_END(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	return 1;
 }
 
-STATIC int FopWrite_END(br_datafile *df)
+static int FopWrite_END(br_datafile *df)
 {
 	df->prims->chunk_write(df,FID_END,0);
 
@@ -50,7 +50,7 @@ struct file_info {
 	br_uint_32 version;
 };
 
-STATIC br_file_enum_member file_type_FM[] = {
+static br_file_enum_member file_type_FM[] = {
 	_ENUM_MEMBER(FILE_TYPE_NONE),
 
 	_ENUM_MEMBER(FILE_TYPE_ACTORS),
@@ -64,18 +64,18 @@ STATIC br_file_enum_member file_type_FM[] = {
 	_ENUM_MEMBER(FILE_TYPE_TREE),
 };
 
-STATIC _FILE_ENUM(file_type);
+static _FILE_ENUM(file_type);
 
 #define _STRUCT_NAME struct file_info
-STATIC br_file_struct_member file_info_FM[] = {
+static br_file_struct_member file_info_FM[] = {
 	_ENUM_32(type,file_type_F),
 	_UINT_32(version),
 };
-STATIC _FILE_STRUCT(file_info);
+static _FILE_STRUCT(file_info);
 #undef _STRUCT_NAME
 
 #if 0
-STATIC int FopRead_FILE_INFO(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_FILE_INFO(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	struct file_info fi;
 
@@ -85,7 +85,7 @@ STATIC int FopRead_FILE_INFO(br_datafile *df, br_uint_32 id, br_uint_32 length, 
 }
 #endif
 
-STATIC int FopWrite_FILE_INFO(br_datafile *df, br_uint_32 type)
+static int FopWrite_FILE_INFO(br_datafile *df, br_uint_32 type)
 {
 	struct file_info fi;
 
@@ -103,18 +103,18 @@ STATIC int FopWrite_FILE_INFO(br_datafile *df, br_uint_32 type)
  **/
 
 #define _STRUCT_NAME struct br_vertex
-STATIC br_file_struct_member br_vertex_FM[] = {
+static br_file_struct_member br_vertex_FM[] = {
 	_SCALAR(p.v[X]),
 	_SCALAR(p.v[Y]),
 	_SCALAR(p.v[Z]),
 };
-STATIC _FILE_STRUCT(br_vertex);
+static _FILE_STRUCT(br_vertex);
 #undef _STRUCT_NAME
 
 /*
  * Write out the vertices from a model
  */
-STATIC int FopWrite_VERTICES(br_datafile *df, br_vertex *vertices, int nvertices)
+static int FopWrite_VERTICES(br_datafile *df, br_vertex *vertices, int nvertices)
 {
 	df->prims->chunk_write(df,FID_VERTICES,
 		df->prims->count_size(df) + nvertices * df->prims->struct_size(df,&br_vertex_F,NULL));
@@ -128,7 +128,7 @@ STATIC int FopWrite_VERTICES(br_datafile *df, br_vertex *vertices, int nvertices
  * Adds an array of vertices to a model that is on the stack
  *
  */
-STATIC int FopRead_VERTICES(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_VERTICES(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_model *mp = DfTop(DFST_MODEL,0);
 
@@ -143,7 +143,7 @@ STATIC int FopRead_VERTICES(br_datafile *df, br_uint_32 id, br_uint_32 length, b
  * Builds an array of vertices and pushes it onto the stack
  *
  */
-STATIC int FopRead_OLD_VERTICES(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_OLD_VERTICES(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	void *ptr;
 
@@ -162,17 +162,17 @@ STATIC int FopRead_OLD_VERTICES(br_datafile *df, br_uint_32 id, br_uint_32 lengt
  ** Per Vertex UV
  **/
 #define _STRUCT_NAME struct br_vertex
-STATIC br_file_struct_member br_vertex_uv_FM[] = {
+static br_file_struct_member br_vertex_uv_FM[] = {
 	_SCALAR(map.v[0]),
 	_SCALAR(map.v[1]),
 };
-STATIC _FILE_STRUCT(br_vertex_uv);
+static _FILE_STRUCT(br_vertex_uv);
 #undef _STRUCT_NAME
 
 /*
  * Write out an array of vertices and their texture coordinates
  */
-STATIC int FopWrite_VERTEX_UV(br_datafile *df, br_vertex *vertices, int nvertices)
+static int FopWrite_VERTEX_UV(br_datafile *df, br_vertex *vertices, int nvertices)
 {
 	df->prims->chunk_write(df,FID_VERTEX_UV,
 		df->prims->count_size(df) + nvertices * df->prims->struct_size(df,&br_vertex_uv_F,NULL));
@@ -189,7 +189,7 @@ STATIC int FopWrite_VERTEX_UV(br_datafile *df, br_vertex *vertices, int nvertice
  *
  * The incoming array has to be <= the existing vertex array
  */
-STATIC int FopRead_VERTEX_UV(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_VERTEX_UV(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_model *mp = DfTop(DFST_MODEL,0);
 
@@ -202,20 +202,20 @@ STATIC int FopRead_VERTEX_UV(br_datafile *df, br_uint_32 id, br_uint_32 length, 
 }
 
 #define _STRUCT_NAME struct br_vertex
-STATIC br_file_struct_member br_old_vertex_uv_FM[] = {
+static br_file_struct_member br_old_vertex_uv_FM[] = {
 	_SCALAR(p.v[X]),
 	_SCALAR(p.v[Y]),
 	_SCALAR(p.v[Z]),
 	_SCALAR(map.v[0]),
 	_SCALAR(map.v[1]),
 };
-STATIC _FILE_STRUCT(br_old_vertex_uv);
+static _FILE_STRUCT(br_old_vertex_uv);
 #undef _STRUCT_NAME
 
 /*
  * Read an array of vertices and push it onto the stack
  */
-STATIC int FopRead_OLD_VERTICES_UV(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_OLD_VERTICES_UV(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	void *ptr;
 
@@ -237,7 +237,7 @@ STATIC int FopRead_OLD_VERTICES_UV(br_datafile *df, br_uint_32 id, br_uint_32 le
 /*
  * Read a material index and push it onto the stack
  */
-STATIC int FopRead_MATERIAL_INDEX(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_MATERIAL_INDEX(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	char name[BR_MAX_NAME];
 	br_material **mip;
@@ -269,7 +269,7 @@ STATIC int FopRead_MATERIAL_INDEX(br_datafile *df, br_uint_32 id, br_uint_32 len
  * Write out the material naes from a table of material pointers
  *
  */
-STATIC int FopWrite_MATERIAL_INDEX(br_datafile *df, br_material **materials, int nmaterials)
+static int FopWrite_MATERIAL_INDEX(br_datafile *df, br_material **materials, int nmaterials)
 {
 	int i,s;
 
@@ -295,7 +295,7 @@ STATIC int FopWrite_MATERIAL_INDEX(br_datafile *df, br_material **materials, int
 /*
  * Read an old-style material index (no count) and push it onto the stack
  */
-STATIC int FopRead_OLD_MATERIAL_INDEX(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_OLD_MATERIAL_INDEX(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	char		*mblock,*cp;
 	int		i,num_materials;
@@ -347,20 +347,20 @@ STATIC int FopRead_OLD_MATERIAL_INDEX(br_datafile *df, br_uint_32 id, br_uint_32
  ** Faces 
  **/
 #define _STRUCT_NAME struct br_face
-STATIC br_file_struct_member br_face_FM[] = {
+static br_file_struct_member br_face_FM[] = {
 	_UINT_16(vertices[0]),
 	_UINT_16(vertices[1]),
 	_UINT_16(vertices[2]),
 	_UINT_16(smoothing),
 	_UINT_8(flags),
 };
-STATIC _FILE_STRUCT(br_face);
+static _FILE_STRUCT(br_face);
 #undef _STRUCT_NAME
 
 /*
  * Read an array of triangular faces and add it to model on the stack
  */
-STATIC int FopRead_FACES(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_FACES(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	struct br_model *mp;
 	int i;
@@ -391,7 +391,7 @@ STATIC int FopRead_FACES(br_datafile *df, br_uint_32 id, br_uint_32 length, br_u
 /*
  * Write out an array of faces
  */
-STATIC int FopWrite_FACES(br_datafile *df, br_face *faces, int nfaces)
+static int FopWrite_FACES(br_datafile *df, br_face *faces, int nfaces)
 {
 	df->prims->chunk_write(df,FID_FACES,
 		df->prims->count_size(df) + nfaces * df->prims->struct_size(df,&br_face_F,NULL));
@@ -406,20 +406,20 @@ STATIC int FopWrite_FACES(br_datafile *df, br_face *faces, int nfaces)
  ** Obselete Faces (before 16 bit smoothing values)
  **/
 #define _STRUCT_NAME struct br_face
-STATIC br_file_struct_member br_old_face_1_FM[] = {
+static br_file_struct_member br_old_face_1_FM[] = {
 	_UINT_16(vertices[0]),
 	_UINT_16(vertices[1]),
 	_UINT_16(vertices[2]),
 	_UINT_8(smoothing),
 	_UINT_8(flags),
 };
-STATIC _FILE_STRUCT(br_old_face_1);
+static _FILE_STRUCT(br_old_face_1);
 #undef _STRUCT_NAME
 
 /*
  * Read an array of triangular faces and add it to model on the stack
  */
-STATIC int FopRead_OLD_FACES_1(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_OLD_FACES_1(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	struct br_model *mp;
 	int i;
@@ -454,7 +454,7 @@ STATIC int FopRead_OLD_FACES_1(br_datafile *df, br_uint_32 id, br_uint_32 length
  * Old faces
  */
 #define _STRUCT_NAME struct br_face
-STATIC br_file_struct_member br_old_face_FM[] = {
+static br_file_struct_member br_old_face_FM[] = {
 	_UINT_16(vertices[0]),
 	_UINT_16(vertices[1]),
 	_UINT_16(vertices[2]),
@@ -462,10 +462,10 @@ STATIC br_file_struct_member br_old_face_FM[] = {
 	_UINT_16(material),
 	_UINT_32(smoothing),
 };
-STATIC _FILE_STRUCT(br_old_face);
+static _FILE_STRUCT(br_old_face);
 #undef _STRUCT_NAME
 
-STATIC int FopRead_OLD_FACES(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_OLD_FACES(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	struct br_face *fp;
 	br_material **mip;
@@ -516,7 +516,7 @@ STATIC int FopRead_OLD_FACES(br_datafile *df, br_uint_32 id, br_uint_32 length, 
  ** Per face material indices
  **/
 
-STATIC int FopWrite_FACE_MATERIAL(br_datafile *df, br_face *faces, int nfaces, br_material **mindex, int nmaterials)
+static int FopWrite_FACE_MATERIAL(br_datafile *df, br_face *faces, int nfaces, br_material **mindex, int nmaterials)
 {
 	br_uint_16 *block,*ip;
 	br_face *fp;
@@ -558,7 +558,7 @@ STATIC int FopWrite_FACE_MATERIAL(br_datafile *df, br_face *faces, int nfaces, b
 	return 0;
 }
 
-STATIC int FopRead_FACE_MATERIAL(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_FACE_MATERIAL(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_material **mindex;
 	int nmaterials;
@@ -606,14 +606,14 @@ STATIC int FopRead_FACE_MATERIAL(br_datafile *df, br_uint_32 id, br_uint_32 leng
  ** Model
  **/
 #define _STRUCT_NAME struct br_model
-STATIC br_file_struct_member br_model_FM[] = {
+static br_file_struct_member br_model_FM[] = {
 	_UINT_16(flags),
 	_ASCIZ(identifier),
 };
-STATIC _FILE_STRUCT(br_model);
+static _FILE_STRUCT(br_model);
 #undef _STRUCT_NAME
 
-STATIC int FopRead_MODEL(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_MODEL(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_model *mp;
 
@@ -638,7 +638,7 @@ STATIC int FopRead_MODEL(br_datafile *df, br_uint_32 id, br_uint_32 length, br_u
 	return 0;
 }
 
-STATIC int FopWrite_MODEL(br_datafile *df, br_model *mp)
+static int FopWrite_MODEL(br_datafile *df, br_model *mp)
 {
 	br_model temp_model = *mp;
 
@@ -657,13 +657,13 @@ STATIC int FopWrite_MODEL(br_datafile *df, br_model *mp)
  ** Old model
  **/
 #define _STRUCT_NAME struct br_model
-STATIC br_file_struct_member br_old_model_1_FM[] = {
+static br_file_struct_member br_old_model_1_FM[] = {
 	_ASCIZ(identifier),
 };
-STATIC _FILE_STRUCT(br_old_model_1);
+static _FILE_STRUCT(br_old_model_1);
 #undef _STRUCT_NAME
 
-STATIC int FopRead_OLD_MODEL_1(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_OLD_MODEL_1(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_model *mp;
 
@@ -684,7 +684,7 @@ STATIC int FopRead_OLD_MODEL_1(br_datafile *df, br_uint_32 id, br_uint_32 length
 }
 
 
-STATIC int FopRead_OLD_MODEL(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_OLD_MODEL(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_model *mp;
 	int i;
@@ -726,15 +726,15 @@ STATIC int FopRead_OLD_MODEL(br_datafile *df, br_uint_32 id, br_uint_32 length, 
  ** Pivot
  **/
 #define _STRUCT_NAME struct br_model
-STATIC br_file_struct_member br_pivot_FM[] = {
+static br_file_struct_member br_pivot_FM[] = {
 	_SCALAR(pivot.v[X]),
 	_SCALAR(pivot.v[Y]),
 	_SCALAR(pivot.v[Z]),
 };
-STATIC _FILE_STRUCT(br_pivot);
+static _FILE_STRUCT(br_pivot);
 #undef _STRUCT_NAME
 
-STATIC int FopRead_PIVOT(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_PIVOT(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_model *mp;
 
@@ -751,7 +751,7 @@ STATIC int FopRead_PIVOT(br_datafile *df, br_uint_32 id, br_uint_32 length, br_u
  ** Material 
  **/
 #define _STRUCT_NAME struct br_material
-STATIC br_file_struct_member br_material_FM[] = {
+static br_file_struct_member br_material_FM[] = {
 	_COLOUR(colour),
 	_UINT_8(opacity),
 	_UFRACTION(ka),
@@ -767,10 +767,10 @@ STATIC br_file_struct_member br_material_FM[] = {
 	_ASCIZ(identifier),
 };
 
-STATIC _FILE_STRUCT(br_material);
+static _FILE_STRUCT(br_material);
 #undef _STRUCT_NAME
 
-STATIC int FopRead_MATERIAL(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_MATERIAL(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_material *mp;
 
@@ -790,7 +790,7 @@ STATIC int FopRead_MATERIAL(br_datafile *df, br_uint_32 id, br_uint_32 length, b
 	return 0;
 }
 
-STATIC int FopWrite_MATERIAL(br_datafile *df, br_material *mp)
+static int FopWrite_MATERIAL(br_datafile *df, br_material *mp)
 {
 	df->prims->chunk_write(df,FID_MATERIAL, df->prims->struct_size(df,&br_material_F, mp));
 	df->prims->struct_write(df,&br_material_F, mp);
@@ -805,7 +805,7 @@ STATIC int FopWrite_MATERIAL(br_datafile *df, br_material *mp)
 /*
  * Table of chunk id's versus offsets in material structure
  */
-STATIC struct {
+static struct {
 	br_uint_32 id;
 	size_t offset;
 	int table;
@@ -816,7 +816,7 @@ STATIC struct {
 	{FID_SCREENDOOR_REF,	offsetof(struct br_material,screendoor),		1},
 };
 
-STATIC int FopRead_PIXELMAP_REF(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_PIXELMAP_REF(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_pixelmap *pm;
 	char name[BR_MAX_NAME];
@@ -850,7 +850,7 @@ STATIC int FopRead_PIXELMAP_REF(br_datafile *df, br_uint_32 id, br_uint_32 lengt
 /*
  * Wrtie out a reference to a pixelmap
  */
-STATIC int FopWrite_PIXELMAP_REF(br_datafile *df, int id, br_pixelmap *pixelmap)
+static int FopWrite_PIXELMAP_REF(br_datafile *df, int id, br_pixelmap *pixelmap)
 {
 	ASSERT(pixelmap && pixelmap->identifier);
 
@@ -862,7 +862,7 @@ STATIC int FopWrite_PIXELMAP_REF(br_datafile *df, int id, br_pixelmap *pixelmap)
 /**
  ** Pixelmap
  **/
-STATIC br_file_enum_member pixelmap_type_FM[] = {
+static br_file_enum_member pixelmap_type_FM[] = {
 	_ENUM_MEMBER(BR_PMT_INDEX_1),
 	_ENUM_MEMBER(BR_PMT_INDEX_2),
 	_ENUM_MEMBER(BR_PMT_INDEX_4),
@@ -880,10 +880,10 @@ STATIC br_file_enum_member pixelmap_type_FM[] = {
 	_ENUM_MEMBER(BR_PMT_INDEXA_88),
 };
 
-STATIC _FILE_ENUM(pixelmap_type);
+static _FILE_ENUM(pixelmap_type);
 
 #define _STRUCT_NAME struct br_pixelmap
-STATIC br_file_struct_member br_pixelmap_FM[] = {
+static br_file_struct_member br_pixelmap_FM[] = {
 	_ENUM_8(type,pixelmap_type_F),
 	_UINT_16(row_bytes),
 	_UINT_16(width),
@@ -893,10 +893,10 @@ STATIC br_file_struct_member br_pixelmap_FM[] = {
 	_ASCIZ(identifier),
 };
 
-STATIC _FILE_STRUCT(br_pixelmap);
+static _FILE_STRUCT(br_pixelmap);
 #undef _STRUCT_NAME
 
-STATIC int FopWrite_PIXELMAP(br_datafile *df, br_pixelmap *pp)
+static int FopWrite_PIXELMAP(br_datafile *df, br_pixelmap *pp)
 {
 	br_pixelmap pixelmap = *pp;
 
@@ -908,7 +908,7 @@ STATIC int FopWrite_PIXELMAP(br_datafile *df, br_pixelmap *pp)
 	return 0;
 }
 
-STATIC int FopRead_PIXELMAP(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_PIXELMAP(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_pixelmap *pp;
 
@@ -933,7 +933,7 @@ STATIC int FopRead_PIXELMAP(br_datafile *df, br_uint_32 id, br_uint_32 length, b
 /**
  ** Pixel bytes
  **/
-STATIC int FopWrite_PIXELS(br_datafile *df, br_pixelmap *pixelmap)
+static int FopWrite_PIXELS(br_datafile *df, br_pixelmap *pixelmap)
 {
 	int size = BrPixelmapFileSize(pixelmap);
 	int bpp = BrPixelmapPixelSize(pixelmap);
@@ -963,7 +963,7 @@ STATIC int FopWrite_PIXELS(br_datafile *df, br_pixelmap *pixelmap)
 	return 0;
 }
 
-STATIC int FopRead_PIXELS(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_PIXELS(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	int icount;
 	br_pixelmap *pp;
@@ -983,14 +983,14 @@ STATIC int FopRead_PIXELS(br_datafile *df, br_uint_32 id, br_uint_32 length, br_
 /**
  ** Connecting a map to an indexed pixelmap
  **/
-STATIC int FopWrite_ADD_MAP(br_datafile *df)
+static int FopWrite_ADD_MAP(br_datafile *df)
 {
 	df->prims->chunk_write(df,FID_ADD_MAP,0);
 
 	return 0;
 }
 
-STATIC int FopRead_ADD_MAP(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_ADD_MAP(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_pixelmap *pp,*map;
 
@@ -1006,7 +1006,7 @@ STATIC int FopRead_ADD_MAP(br_datafile *df, br_uint_32 id, br_uint_32 length, br
  ** Actor
  **/
 
-STATIC br_file_enum_member actor_type_FM[] = {
+static br_file_enum_member actor_type_FM[] = {
 	_ENUM_MEMBER(BR_ACTOR_NONE),
 	_ENUM_MEMBER(BR_ACTOR_MODEL),
 	_ENUM_MEMBER(BR_ACTOR_LIGHT),
@@ -1017,9 +1017,9 @@ STATIC br_file_enum_member actor_type_FM[] = {
 	_ENUM_MEMBER(BR_ACTOR_CLIP_PLANE),
 };
 
-STATIC _FILE_ENUM(actor_type);
+static _FILE_ENUM(actor_type);
 
-STATIC br_file_enum_member render_style_FM[] = {
+static br_file_enum_member render_style_FM[] = {
 	_ENUM_MEMBER(BR_RSTYLE_DEFAULT),
 	_ENUM_MEMBER(BR_RSTYLE_NONE),
 	_ENUM_MEMBER(BR_RSTYLE_POINTS),
@@ -1030,18 +1030,18 @@ STATIC br_file_enum_member render_style_FM[] = {
 	_ENUM_MEMBER(BR_RSTYLE_BOUNDING_FACES),
 };
 
-STATIC _FILE_ENUM(render_style);
+static _FILE_ENUM(render_style);
 
 #define _STRUCT_NAME struct br_actor
-STATIC br_file_struct_member br_actor_FM[] = {
+static br_file_struct_member br_actor_FM[] = {
 	_ENUM_8(type,actor_type_F),
 	_ENUM_8(render_style,render_style_F),
 	_ASCIZ(identifier),
 };
-STATIC _FILE_STRUCT(br_actor);
+static _FILE_STRUCT(br_actor);
 #undef _STRUCT_NAME
 
-STATIC int FopWrite_ACTOR(br_datafile *df, br_actor *ap)
+static int FopWrite_ACTOR(br_datafile *df, br_actor *ap)
 {
 	df->prims->chunk_write(df,FID_ACTOR, df->prims->struct_size(df,&br_actor_F, ap));
 	df->prims->struct_write(df,&br_actor_F, ap);
@@ -1049,7 +1049,7 @@ STATIC int FopWrite_ACTOR(br_datafile *df, br_actor *ap)
 	return 0;
 }
 
-STATIC int FopRead_ACTOR(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_ACTOR(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_actor *ap;
 
@@ -1074,7 +1074,7 @@ STATIC int FopRead_ACTOR(br_datafile *df, br_uint_32 id, br_uint_32 length, br_u
 /**
  ** Actor's reference to a model
  **/
-STATIC int FopWrite_ACTOR_MODEL(br_datafile *df, br_model *model)
+static int FopWrite_ACTOR_MODEL(br_datafile *df, br_model *model)
 {
 	ASSERT(model && model->identifier);
 
@@ -1083,7 +1083,7 @@ STATIC int FopWrite_ACTOR_MODEL(br_datafile *df, br_model *model)
 	return 0;
 }
 
-STATIC int FopRead_ACTOR_MODEL(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_ACTOR_MODEL(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	char name[BR_MAX_NAME];
 	br_actor *a;
@@ -1101,7 +1101,7 @@ STATIC int FopRead_ACTOR_MODEL(br_datafile *df, br_uint_32 id, br_uint_32 length
 /**
  ** Actor's reference to a material
  **/
-STATIC int FopWrite_ACTOR_MATERIAL(br_datafile *df, br_material *material)
+static int FopWrite_ACTOR_MATERIAL(br_datafile *df, br_material *material)
 {
 	ASSERT(material && material->identifier);
 
@@ -1110,7 +1110,7 @@ STATIC int FopWrite_ACTOR_MATERIAL(br_datafile *df, br_material *material)
 	return 0;
 }
 
-STATIC int FopRead_ACTOR_MATERIAL(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_ACTOR_MATERIAL(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	char name[BR_MAX_NAME];
 	br_actor *a;
@@ -1128,14 +1128,14 @@ STATIC int FopRead_ACTOR_MATERIAL(br_datafile *df, br_uint_32 id, br_uint_32 len
 /**
  ** Actor's transform
  **/
-STATIC int FopWrite_ACTOR_TRANSFORM(br_datafile *df)
+static int FopWrite_ACTOR_TRANSFORM(br_datafile *df)
 {
 	df->prims->chunk_write(df,FID_ACTOR_TRANSFORM,0);
 
 	return 0;
 }
 
-STATIC int FopRead_ACTOR_TRANSFORM(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_ACTOR_TRANSFORM(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_actor *a;
 	br_transform *tp;
@@ -1163,14 +1163,14 @@ STATIC int FopRead_ACTOR_TRANSFORM(br_datafile *df, br_uint_32 id, br_uint_32 le
  ** Add light to actor
  **/
 
-STATIC int FopWrite_ACTOR_LIGHT(br_datafile *df)
+static int FopWrite_ACTOR_LIGHT(br_datafile *df)
 {
 	df->prims->chunk_write(df,FID_ACTOR_LIGHT,0);
 
 	return 0;
 }
 
-STATIC int FopRead_ACTOR_LIGHT(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_ACTOR_LIGHT(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_actor *a;
 	br_light *lp;
@@ -1193,14 +1193,14 @@ STATIC int FopRead_ACTOR_LIGHT(br_datafile *df, br_uint_32 id, br_uint_32 length
  ** Add camera to actor
  **/
 
-STATIC int FopWrite_ACTOR_CAMERA(br_datafile *df)
+static int FopWrite_ACTOR_CAMERA(br_datafile *df)
 {
 	df->prims->chunk_write(df,FID_ACTOR_CAMERA,0);
 
 	return 0;
 }
 
-STATIC int FopRead_ACTOR_CAMERA(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_ACTOR_CAMERA(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_actor *a;
 	br_light *cp;
@@ -1223,14 +1223,14 @@ STATIC int FopRead_ACTOR_CAMERA(br_datafile *df, br_uint_32 id, br_uint_32 lengt
  ** Add bounds to actor
  **/
 
-STATIC int FopWrite_ACTOR_BOUNDS(br_datafile *df)
+static int FopWrite_ACTOR_BOUNDS(br_datafile *df)
 {
 	df->prims->chunk_write(df,FID_ACTOR_BOUNDS,0);
 
 	return 0;
 }
 
-STATIC int FopRead_ACTOR_BOUNDS(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_ACTOR_BOUNDS(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_actor *a;
 	br_bounds *bp;
@@ -1253,14 +1253,14 @@ STATIC int FopRead_ACTOR_BOUNDS(br_datafile *df, br_uint_32 id, br_uint_32 lengt
  ** Add Clip plane to actor
  **/
 
-STATIC int FopWrite_ACTOR_CLIP_PLANE(br_datafile *df)
+static int FopWrite_ACTOR_CLIP_PLANE(br_datafile *df)
 {
 	df->prims->chunk_write(df,FID_ACTOR_CLIP_PLANE,0);
 
 	return 0;
 }
 
-STATIC int FopRead_ACTOR_CLIP_PLANE(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_ACTOR_CLIP_PLANE(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_actor *a;
 	br_vector4 *vp;
@@ -1279,7 +1279,7 @@ STATIC int FopRead_ACTOR_CLIP_PLANE(br_datafile *df, br_uint_32 id, br_uint_32 l
 	return 0;
 }
 
-STATIC int FopWrite_ACTOR_ADD_CHILD(br_datafile *df)
+static int FopWrite_ACTOR_ADD_CHILD(br_datafile *df)
 {
 	df->prims->chunk_write(df,FID_ACTOR_ADD_CHILD,0);
 
@@ -1289,7 +1289,7 @@ STATIC int FopWrite_ACTOR_ADD_CHILD(br_datafile *df)
 /*
  * Add actor at top of stack as a child of actor next on stack
  */
-STATIC int FopRead_ACTOR_ADD_CHILD(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_ACTOR_ADD_CHILD(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_actor *a,*p;
 
@@ -1305,7 +1305,7 @@ STATIC int FopRead_ACTOR_ADD_CHILD(br_datafile *df, br_uint_32 id, br_uint_32 le
  ** Transforms
  **/
 #define _STRUCT_NAME struct br_transform
-STATIC br_file_struct_member br_transform_matrix34_FM[] = {
+static br_file_struct_member br_transform_matrix34_FM[] = {
 	/*
 	 * XXX Assumes rows of matrix can be cast to vectors
 	 */
@@ -1315,11 +1315,11 @@ STATIC br_file_struct_member br_transform_matrix34_FM[] = {
 	_VECTOR3(t.mat.m[3]),
 };
 
-STATIC _FILE_STRUCT(br_transform_matrix34);
+static _FILE_STRUCT(br_transform_matrix34);
 #undef _STRUCT_NAME
 
 #define _STRUCT_NAME struct br_transform
-STATIC br_file_struct_member br_transform_quat_FM[] = {
+static br_file_struct_member br_transform_quat_FM[] = {
 	_SCALAR(t.quat.q.x),
 	_SCALAR(t.quat.q.y),
 	_SCALAR(t.quat.q.z),
@@ -1328,10 +1328,10 @@ STATIC br_file_struct_member br_transform_quat_FM[] = {
 	_VECTOR3(t.quat.t),
 };
 
-STATIC _FILE_STRUCT(br_transform_quat);
+static _FILE_STRUCT(br_transform_quat);
 #undef _STRUCT_NAME
 
-STATIC br_file_enum_member angle_order_FM[] = {
+static br_file_enum_member angle_order_FM[] = {
 	_ENUM_MEMBER(BR_EULER_XYZ_S),
 	_ENUM_MEMBER(BR_EULER_XYX_S),
 	_ENUM_MEMBER(BR_EULER_XZY_S),
@@ -1359,10 +1359,10 @@ STATIC br_file_enum_member angle_order_FM[] = {
 	_ENUM_MEMBER(BR_EULER_ZYZ_R),
 };
 
-STATIC _FILE_ENUM(angle_order);
+static _FILE_ENUM(angle_order);
 
 #define _STRUCT_NAME struct br_transform
-STATIC br_file_struct_member br_transform_euler_FM[] = {
+static br_file_struct_member br_transform_euler_FM[] = {
 	_ENUM_8(t.euler.e.order,angle_order_F),
 	_ANGLE(t.euler.e.a),
 	_ANGLE(t.euler.e.b),
@@ -1371,31 +1371,31 @@ STATIC br_file_struct_member br_transform_euler_FM[] = {
 	_VECTOR3(t.euler.t),
 };
 
-STATIC _FILE_STRUCT(br_transform_euler);
+static _FILE_STRUCT(br_transform_euler);
 #undef _STRUCT_NAME
 
 #define _STRUCT_NAME struct br_transform
-STATIC br_file_struct_member br_transform_look_up_FM[] = {
+static br_file_struct_member br_transform_look_up_FM[] = {
 	_VECTOR3(t.look_up.look),
 	_VECTOR3(t.look_up.up),
 	_VECTOR3(t.look_up.t),
 };
 
-STATIC _FILE_STRUCT(br_transform_look_up);
+static _FILE_STRUCT(br_transform_look_up);
 #undef _STRUCT_NAME
 
 #define _STRUCT_NAME struct br_transform
-STATIC br_file_struct_member br_transform_translation_FM[] = {
+static br_file_struct_member br_transform_translation_FM[] = {
 	_VECTOR3(t.translate.t),
 };
 
-STATIC _FILE_STRUCT(br_transform_translation);
+static _FILE_STRUCT(br_transform_translation);
 #undef _STRUCT_NAME
 
 /*
  * Index (by transform type), of chunk ID and file struct to use
  */
-STATIC struct transform_type {
+static struct transform_type {
 	int id;
 	struct br_file_struct *fs;
 } TransformTypes[] = {
@@ -1408,7 +1408,7 @@ STATIC struct transform_type {
 	{FID_TRANSFORM_IDENTITY,		NULL},
 };
 
-STATIC int FopWrite_TRANSFORM(br_datafile *df, br_transform *t)
+static int FopWrite_TRANSFORM(br_datafile *df, br_transform *t)
 {
 	struct transform_type *tt;
 
@@ -1426,7 +1426,7 @@ STATIC int FopWrite_TRANSFORM(br_datafile *df, br_transform *t)
 	return 0;
 }
 
-STATIC int FopRead_TRANSFORM(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_TRANSFORM(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	int t;
 	br_transform *tp;
@@ -1466,15 +1466,15 @@ STATIC int FopRead_TRANSFORM(br_datafile *df, br_uint_32 id, br_uint_32 length, 
  **/
 
 #define _STRUCT_NAME struct br_bounds3
-STATIC br_file_struct_member br_bounds3_FM[] = {
+static br_file_struct_member br_bounds3_FM[] = {
 	_VECTOR3(min),
 	_VECTOR3(max),
 };
 
-STATIC _FILE_STRUCT(br_bounds3);
+static _FILE_STRUCT(br_bounds3);
 #undef _STRUCT_NAME
 
-STATIC int FopWrite_BOUNDS(br_datafile *df, br_bounds *bp)
+static int FopWrite_BOUNDS(br_datafile *df, br_bounds *bp)
 {
 	df->prims->chunk_write(df,FID_BOUNDS, df->prims->struct_size(df,&br_bounds3_F, bp));
 	df->prims->struct_write(df,&br_bounds3_F, bp);
@@ -1508,14 +1508,14 @@ int FopRead_BOUNDS(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32
 struct br_plane { br_vector4 *eqn; };
 
 #define _STRUCT_NAME struct br_plane
-STATIC br_file_struct_member br_plane_FM[] = {
+static br_file_struct_member br_plane_FM[] = {
 	_VECTOR4(eqn),
 };
 
-STATIC _FILE_STRUCT(br_plane);
+static _FILE_STRUCT(br_plane);
 #undef _STRUCT_NAME
 
-STATIC int FopWrite_PLANE(br_datafile *df, br_vector4 *pp)
+static int FopWrite_PLANE(br_datafile *df, br_vector4 *pp)
 {
 	df->prims->chunk_write(df,FID_PLANE, df->prims->struct_size(df,&br_plane_F, pp));
 	df->prims->struct_write(df,&br_plane_F, pp);
@@ -1524,7 +1524,7 @@ STATIC int FopWrite_PLANE(br_datafile *df, br_vector4 *pp)
 }
 
 
-STATIC int FopRead_PLANE(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_PLANE(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_vector4 *pp;
 
@@ -1547,7 +1547,7 @@ STATIC int FopRead_PLANE(br_datafile *df, br_uint_32 id, br_uint_32 length, br_u
 /**
  ** Light
  **/
-STATIC br_file_enum_member light_type_FM[] = {
+static br_file_enum_member light_type_FM[] = {
 	 _ENUM_MEMBER(BR_LIGHT_POINT),
  	 _ENUM_MEMBER(BR_LIGHT_DIRECT),
 	 _ENUM_MEMBER(BR_LIGHT_SPOT),
@@ -1557,10 +1557,10 @@ STATIC br_file_enum_member light_type_FM[] = {
 	 _ENUM_MEMBER(BR_LIGHT_VIEW|BR_LIGHT_SPOT),
 };
 
-STATIC _FILE_ENUM(light_type);
+static _FILE_ENUM(light_type);
 
 #define _STRUCT_NAME struct br_light
-STATIC br_file_struct_member br_light_FM[] = {
+static br_file_struct_member br_light_FM[] = {
 	_ENUM_8(type,light_type_F),
 
 	_COLOUR(colour),
@@ -1574,10 +1574,10 @@ STATIC br_file_struct_member br_light_FM[] = {
 
 	_ASCIZ(identifier),
 };
-STATIC _FILE_STRUCT(br_light);
+static _FILE_STRUCT(br_light);
 #undef _STRUCT_NAME
 
-STATIC int FopWrite_LIGHT(br_datafile *df, br_light *lp)
+static int FopWrite_LIGHT(br_datafile *df, br_light *lp)
 {
 	df->prims->chunk_write(df,FID_LIGHT, df->prims->struct_size(df,&br_light_F, lp));
 	df->prims->struct_write(df,&br_light_F, lp);
@@ -1585,7 +1585,7 @@ STATIC int FopWrite_LIGHT(br_datafile *df, br_light *lp)
 	return 0;
 }
 
-STATIC int FopRead_LIGHT(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_LIGHT(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_light *lp;
 
@@ -1608,15 +1608,15 @@ STATIC int FopRead_LIGHT(br_datafile *df, br_uint_32 id, br_uint_32 length, br_u
 /**
  ** Camera
  **/
-STATIC br_file_enum_member camera_type_FM[] = {
+static br_file_enum_member camera_type_FM[] = {
 	 _ENUM_MEMBER(BR_CAMERA_PARALLEL),
 	 _ENUM_MEMBER(BR_CAMERA_PERSPECTIVE),
 };
 
-STATIC _FILE_ENUM(camera_type);
+static _FILE_ENUM(camera_type);
 
 #define _STRUCT_NAME struct br_camera
-STATIC br_file_struct_member br_camera_FM[] = {
+static br_file_struct_member br_camera_FM[] = {
 	_ENUM_8(type,camera_type_F),
 	_ANGLE(field_of_view),
 	_SCALAR(hither_z),
@@ -1624,10 +1624,10 @@ STATIC br_file_struct_member br_camera_FM[] = {
 	_SCALAR(aspect),
 	_ASCIZ(identifier),
 };
-STATIC _FILE_STRUCT(br_camera);
+static _FILE_STRUCT(br_camera);
 #undef _STRUCT_NAME
 
-STATIC int FopWrite_CAMERA(br_datafile *df, br_camera *cp)
+static int FopWrite_CAMERA(br_datafile *df, br_camera *cp)
 {
 	df->prims->chunk_write(df,FID_CAMERA, df->prims->struct_size(df,&br_camera_F, cp));
 	df->prims->struct_write(df,&br_camera_F, cp);
@@ -1635,7 +1635,7 @@ STATIC int FopWrite_CAMERA(br_datafile *df, br_camera *cp)
 	return 0;
 }
 
-STATIC int FopRead_CAMERA(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
+static int FopRead_CAMERA(br_datafile *df, br_uint_32 id, br_uint_32 length, br_uint_32 count)
 {
 	br_camera *cp;
 
@@ -1665,7 +1665,7 @@ STATIC int FopRead_CAMERA(br_datafile *df, br_uint_32 id, br_uint_32 length, br_
  * does not exist.
  */
 
-STATIC br_chunks_table_entry ModelLoadEntries[] = {
+static br_chunks_table_entry ModelLoadEntries[] = {
 	{FID_END,					0,FopRead_END},
 
 	{FID_OLD_MATERIAL_INDEX,	0,FopRead_OLD_MATERIAL_INDEX},
@@ -1685,7 +1685,7 @@ STATIC br_chunks_table_entry ModelLoadEntries[] = {
 	{FID_PIVOT,					0,FopRead_PIVOT},
 };
 
-STATIC br_chunks_table ModelLoadTable = {
+static br_chunks_table ModelLoadTable = {
 	BR_ASIZE(ModelLoadEntries),
 	ModelLoadEntries,
 };
@@ -1724,12 +1724,12 @@ br_uint_32 BR_PUBLIC_ENTRY BrModelLoadMany(char *filename,br_model **models,br_u
  * staying the same.
  */
 
-STATIC int BR_CALLBACK PtrCompare(const void *a, const void *b)
+static int BR_CALLBACK PtrCompare(const void *a, const void *b)
 {
 	return *((char **)b) - *((char **)a);
 }
 
-STATIC br_uint_32 BR_CALLBACK WriteModel(br_model *mp, br_datafile *df)
+static br_uint_32 BR_CALLBACK WriteModel(br_model *mp, br_datafile *df)
 {
 	br_material **mindex;
 	br_vertex *vp;
@@ -1845,7 +1845,7 @@ br_uint_32 BR_PUBLIC_ENTRY BrModelSaveMany(char *filename,br_model **models,br_u
  * Load a hierachy of 1 or more actors and their transforms described in
  * a file
  */
-STATIC br_chunks_table_entry ActorLoadEntries[] = {
+static br_chunks_table_entry ActorLoadEntries[] = {
 	{FID_END,					0,FopRead_END},
 
 	{FID_ACTOR,					0,FopRead_ACTOR},
@@ -1872,7 +1872,7 @@ STATIC br_chunks_table_entry ActorLoadEntries[] = {
 	{FID_PLANE,					0,FopRead_PLANE},
 };
 
-STATIC br_chunks_table ActorLoadTable = {
+static br_chunks_table ActorLoadTable = {
 	BR_ASIZE(ActorLoadEntries),
 	ActorLoadEntries,
 };
@@ -1906,7 +1906,7 @@ br_uint_32 BR_PUBLIC_ENTRY BrActorLoadMany(char *filename, br_actor **actors, br
 /*
  * Save a hierachy of 1 or more actors and their transforms described in a file
  */
-STATIC int WriteActor(br_actor *a, br_datafile *df)
+static int WriteActor(br_actor *a, br_datafile *df)
 {
 	br_actor *ap;
 
@@ -2004,7 +2004,7 @@ br_uint_32 BR_PUBLIC_ENTRY BrActorSaveMany(char *filename, br_actor **actors, br
 /*
  * Load a group of materials from a file
  */
-STATIC br_chunks_table_entry MaterialLoadEntries[] = {
+static br_chunks_table_entry MaterialLoadEntries[] = {
 	{FID_END,					0,FopRead_END},
 	{FID_MATERIAL,				0,FopRead_MATERIAL},
 	{FID_COLOUR_MAP_REF,		0,FopRead_PIXELMAP_REF},
@@ -2013,7 +2013,7 @@ STATIC br_chunks_table_entry MaterialLoadEntries[] = {
 	{FID_SCREENDOOR_REF,		0,FopRead_PIXELMAP_REF},
 };
 
-STATIC br_chunks_table MaterialLoadTable = {
+static br_chunks_table MaterialLoadTable = {
 	BR_ASIZE(MaterialLoadEntries),
 	MaterialLoadEntries,
 };
@@ -2049,7 +2049,7 @@ br_uint_32 BR_PUBLIC_ENTRY BrMaterialLoadMany(char *filename,br_material **mater
  *
  * if materials == NULL, then all registered materials are saved
  */
-STATIC br_uint_32 BR_CALLBACK WriteMaterial(br_material *mp, br_datafile *df)
+static br_uint_32 BR_CALLBACK WriteMaterial(br_material *mp, br_datafile *df)
 {
 	/*
 	 * Write base material structure
@@ -2110,14 +2110,14 @@ br_uint_32 BR_PUBLIC_ENTRY BrMaterialSaveMany(char *filename,br_material **mater
 /*
  * Load a group of pixelmaps from a file
  */
-STATIC br_chunks_table_entry PixelmapLoadEntries[] = {
+static br_chunks_table_entry PixelmapLoadEntries[] = {
 	{FID_END,					0,FopRead_END},
 	{FID_PIXELMAP,				0,FopRead_PIXELMAP},
 	{FID_PIXELS,				0,FopRead_PIXELS},
 	{FID_ADD_MAP,				0,FopRead_ADD_MAP},
 };
 
-STATIC br_chunks_table PixelmapLoadTable = {
+static br_chunks_table PixelmapLoadTable = {
 	BR_ASIZE(PixelmapLoadEntries),
 	PixelmapLoadEntries,
 };
@@ -2151,7 +2151,7 @@ br_uint_32 BR_PUBLIC_ENTRY BrPixelmapLoadMany(char *filename,br_pixelmap **pixel
 /*
  * Save a group of pixelmaps to a file
  */
-STATIC int WritePixelmap(br_pixelmap *pp, br_datafile *df)
+static int WritePixelmap(br_pixelmap *pp, br_datafile *df)
 {
 	ASSERT(!(pp->flags & BR_PMF_NO_ACCESS));
 

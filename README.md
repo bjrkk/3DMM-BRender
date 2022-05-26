@@ -1,6 +1,8 @@
 # Argonaut Blazing Render (BRender)
 
-This is the source code to version 1.1.2 of the BRender engine by Argonaut Software/Argonaut Games, from approximately 1995/09/07.
+This is the source code to version 1.1.2 of the BRender engine by Argonaut Software/Argonaut Games, from approximately 1995/09/07, upgraded to work with CMake.
+
+The CMake support isn't exactly complete, however. Some of the automation done in the old build system (such as running `h2inc` on certain header files) remain unimplemented. the `TOOLS` and `DOSIO` backend for BRender have been completely removed (for now). Despite all of that, it is *completely buildable*.
 
 This is intended as a basic release to let others build on, and more info on how to build and use this code will be added later.
 

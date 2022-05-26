@@ -12,7 +12,7 @@
 
 static char rscid[] = "$Id: pick.c 1.15 1995/08/31 16:29:36 sam Exp $";
 
-STATIC br_matrix34 pick_model_to_view;
+static br_matrix34 pick_model_to_view;
 
 /*
  * Test a bounding box 'b' against the current pick ray '*rp - t . *rd'
@@ -24,7 +24,7 @@ STATIC br_matrix34 pick_model_to_view;
  * If the active section of the ray intersets the box, then returns
  * TRUE, and stores the new t_near and t_far
  */
-STATIC int PickBoundsTestRay(br_bounds *b,
+static int PickBoundsTestRay(br_bounds *b,
 	br_vector3 *rp, br_vector3 *rd, br_scalar t_near, br_scalar t_far,
 	br_scalar *new_t_near, br_scalar *new_t_far)
 {
@@ -117,7 +117,7 @@ STATIC int PickBoundsTestRay(br_bounds *b,
  * Traversal function for Picking, tests and actor, and recurse for
  * children
  */
-STATIC int ActorPick2D(br_actor *ap, br_model *model, br_material *material,
+static int ActorPick2D(br_actor *ap, br_model *model, br_material *material,
 	br_pick2d_cbfn *callback, void *arg)
 {
 	br_actor *a;
@@ -323,7 +323,7 @@ int BR_PUBLIC_ENTRY BrScenePick2D(
 			eqn.v[Z],((eqn.v[Z]>0)?(bounds->max.v[Z]):(bounds->min.v[Z]))) <\
 			eqn.v[W])
 
-STATIC int PickBoundsTestBox(br_bounds *model_bounds,br_bounds *bounds, br_matrix34 *m_to_p)
+static int PickBoundsTestBox(br_bounds *model_bounds,br_bounds *bounds, br_matrix34 *m_to_p)
 {
 	br_matrix34 p_to_m;
 	br_vector4 eqn;
@@ -359,7 +359,7 @@ STATIC int PickBoundsTestBox(br_bounds *model_bounds,br_bounds *bounds, br_matri
 /*
  * Recursive function for 3D picking within a hierachy
  */
-STATIC int ActorPick3D(br_actor *ap, br_model *model, br_material *material,
+static int ActorPick3D(br_actor *ap, br_model *model, br_material *material,
 	br_bounds *bounds,
 	br_pick3d_cbfn *callback, void *arg)
 {

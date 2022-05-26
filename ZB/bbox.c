@@ -69,7 +69,7 @@ static struct br_vertex_group zb_bounds_vertex_groups[] = {
 	{NULL,zb_bounds_vertices,8}
 };
 
-STATIC struct br_model zb_bounds_model = {
+static struct br_model zb_bounds_model = {
 	"zb_bounds",
 	zb_bounds_vertices,
 	zb_bounds_faces,
@@ -111,7 +111,7 @@ STATIC struct br_model zb_bounds_model = {
 /*
  * Fills in above cuboid mesh that represents the given bounding box
  */
-STATIC br_model * ZbMakeMeshFromBounds(br_bounds *b)
+static br_model * ZbMakeMeshFromBounds(br_bounds *b)
 {
 	int i;
 

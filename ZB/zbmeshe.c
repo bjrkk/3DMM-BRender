@@ -17,7 +17,7 @@ static char rscid[] = "$Id: zbmeshe.c 1.19 1995/08/31 16:47:57 sam Exp $";
  * Clip a line to an arbitary plane eqn. Return true if any part
  * of the line remains
  */
-STATIC int ClipLineToPlane(
+static int ClipLineToPlane(
 		struct temp_vertex *in,
 		struct temp_vertex *out,
 		br_vector4 *plane,
@@ -101,7 +101,7 @@ STATIC int ClipLineToPlane(
  * Accumulate visiblity counts for edges and vertices, mark
  * materials, and fill in vertices for edges
  */
-STATIC void ZbEdgeFindVisibleFaces(void)
+static void ZbEdgeFindVisibleFaces(void)
 {
 	int f,g;
 	br_face *fp = zb.model->prepared_faces;
@@ -200,7 +200,7 @@ STATIC void ZbEdgeFindVisibleFaces(void)
 /*
  * For each edge, check outcodes, fill in edges and allocate temp_vertices
  */
-STATIC void ZbEdgeFindEdgesAndVertices(void)
+static void ZbEdgeFindEdgesAndVertices(void)
 {
 	int e,j,v,vt;
 	struct temp_edge *tep = zb.temp_edges;
@@ -249,7 +249,7 @@ STATIC void ZbEdgeFindEdgesAndVertices(void)
 /*
  * Do per-vertex paramter calculations (intensity, u & v)
  */
-STATIC void ZbEdgeFindVertexParameters(void)
+static void ZbEdgeFindVertexParameters(void)
 {
 	int i;
 	struct temp_vertex *avp;
@@ -294,7 +294,7 @@ STATIC void ZbEdgeFindVertexParameters(void)
 /*
  * Do per-vertex paramter calculations (intensity, u & v)
  */
-STATIC void ZbEdgeFindVertexParameters(void)
+static void ZbEdgeFindVertexParameters(void)
 {
 	int gv,g,v;
 	struct temp_vertex *avp;
@@ -342,7 +342,7 @@ STATIC void ZbEdgeFindVertexParameters(void)
 	}
 }
 
-STATIC void ZbLineClipRender(struct temp_edge *tep, int mask, br_line_fn *renderfn, br_uint_32 convert_mask)
+static void ZbLineClipRender(struct temp_edge *tep, int mask, br_line_fn *renderfn, br_uint_32 convert_mask)
 {
 	static br_vector4 plane_px = BR_VECTOR4(-1, 0, 0,1);
 	static br_vector4 plane_nx = BR_VECTOR4( 1, 0, 0,1);
@@ -441,7 +441,7 @@ STATIC void ZbLineClipRender(struct temp_edge *tep, int mask, br_line_fn *render
 	renderfn((struct temp_vertex_fixed *)(tv+0),(struct temp_vertex_fixed *)(tv+1));
 }
 
-STATIC void ZbRenderEdges(void)
+static void ZbRenderEdges(void)
 {
 	br_uint_32 e,i;
 	struct temp_edge *tep = zb.temp_edges;

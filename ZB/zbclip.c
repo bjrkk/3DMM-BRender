@@ -21,7 +21,7 @@ static char rscid[] = "$Id: zbclip.c 1.4 1995/08/31 16:47:51 sam Exp $";
  *
  * Clip a polygon to an arbitary plane eqn.
  */
-STATIC int ZbClipFaceToPlane(
+static int ZbClipFaceToPlane(
 		struct clip_vertex *vp,
 		struct clip_vertex *verts_out,
 		int num_in,
@@ -125,7 +125,7 @@ STATIC int ZbClipFaceToPlane(
 /*
  * Special case for plane that has one of the axes as a normal
  */
-STATIC int ZbClipFaceToAxisPlane(
+static int ZbClipFaceToAxisPlane(
 		struct clip_vertex *vp,
 		struct clip_vertex *verts_out,
 		int num_in,
@@ -188,7 +188,7 @@ STATIC int ZbClipFaceToAxisPlane(
 /*
  * Special case of sign = 1, k = 1.0
  */
-STATIC int ZbClipFaceToPlus1(
+static int ZbClipFaceToPlus1(
 		struct clip_vertex *vp,
 		struct clip_vertex *verts_out,
 		int num_in,
@@ -286,7 +286,7 @@ STATIC int ZbClipFaceToPlus1(
 /*
  * Special case of sign = -1, k = 1.0
  */
-STATIC int ZbClipFaceToMinus1(
+static int ZbClipFaceToMinus1(
 		struct clip_vertex *vp,
 		struct clip_vertex *verts_out,
 		int num_in,
@@ -383,7 +383,7 @@ STATIC int ZbClipFaceToMinus1(
 /*
  * Special case of sign = 1, k = 0.0
  */
-STATIC int ZbClipFaceToZero(
+static int ZbClipFaceToZero(
 		struct clip_vertex *vp,
 		struct clip_vertex *verts_out,
 		int num_in,

@@ -196,7 +196,7 @@ void BR_ASM_CALL LineRenderPIZ2I(struct temp_vertex_fixed *v0,struct temp_vertex
 		}
 
 	}
-}
+} 
 
 
 /*

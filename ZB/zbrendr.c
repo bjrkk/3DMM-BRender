@@ -19,7 +19,7 @@ static char rscid[] = "$Id: zbrendr.c 1.36 1995/08/31 16:48:02 sam Exp $";
 extern br_model default_model;
 extern br_material default_material;
 
-STATIC void ZbActorRenderOnScreen(br_actor *ap,
+static void ZbActorRenderOnScreen(br_actor *ap,
 								  br_model *model,
 								  br_material *material,
 								  br_uint_8 style);
@@ -28,7 +28,7 @@ STATIC void ZbActorRenderOnScreen(br_actor *ap,
  * Table of functions to call for each render style
  */
 
-STATIC void (*ZbRenderStyleCalls[])(
+static void (*ZbRenderStyleCalls[])(
 				br_actor *actor,
 				br_model *model,
 				br_material *material,
@@ -76,7 +76,7 @@ void BR_PUBLIC_ENTRY BrZbModelRender(br_actor *actor,
  * Rendering traversal for the given actor
  *
  */
-STATIC void ZbActorRender(br_actor *ap,
+static void ZbActorRender(br_actor *ap,
 						  br_model *model,
 						  br_material *material,
 						  br_uint_8 style)
@@ -257,7 +257,7 @@ STATIC void ZbActorRender(br_actor *ap,
  * Rendering traversal for an actor that is completely on screen, along
  * with any children
  */
-STATIC void ZbActorRenderOnScreen(br_actor *ap,
+static void ZbActorRenderOnScreen(br_actor *ap,
 								  br_model *model,
 								  br_material *material,
 								  br_uint_8 style)
@@ -516,7 +516,7 @@ void BR_PUBLIC_ENTRY BrZbSceneRender(br_actor *world,
 /*
  * Render function for BR_RSTYLE_NONE
  */
-STATIC void ZbNullRender(br_actor *actor,
+static void ZbNullRender(br_actor *actor,
 				  br_model *model,
 				  br_material *material,
 				  br_uint_8 style,

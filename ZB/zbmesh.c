@@ -25,7 +25,7 @@ static char rscid[] = "$Id: zbmesh.c 1.67 1995/08/31 16:47:54 sam Exp $";
 #define FAST_CULL 	 0
 #endif
 
-STATIC void ClearDirections(void)
+static void ClearDirections(void)
 {
 	int v;
 
@@ -253,7 +253,7 @@ void ZbTransformVertices(void)
 /*
  * Do per face work - find all the faces that are on screen
  */
-STATIC void ZbFindFacesAndVertices(void)
+static void ZbFindFacesAndVertices(void)
 {
 	int f,g,j;
 	br_face *fp = zb.model->prepared_faces;
@@ -330,7 +330,7 @@ STATIC void ZbFindFacesAndVertices(void)
 /*
  * Render a clipped face using the indiciated callback for triangle rendering
  */
-STATIC void ZbFaceRender(struct clip_vertex *cp_in, int n)
+static void ZbFaceRender(struct clip_vertex *cp_in, int n)
 {
 	int j;
 	struct temp_vertex tv[3],*tvp1,*tvp2,*tvpt;
@@ -387,7 +387,7 @@ STATIC void ZbFaceRender(struct clip_vertex *cp_in, int n)
 /*
  * Render visible faces with clipping
  */
-STATIC void ZbRenderFaces(void)
+static void ZbRenderFaces(void)
 {
 	br_face_group *gp = zb.model->face_groups;
 	struct temp_face *tfp = zb.temp_faces;
@@ -1007,7 +1007,7 @@ void BR_ASM_CALL ZbRenderFaceGroup_FaceRGB(br_face_group *gp, struct temp_face *
 /*
  * Do per-vertex paramter calculations (intensity, u & v)
  */
-STATIC void ZbFindVertexParameters(void)
+static void ZbFindVertexParameters(void)
 {
 	int gv,g,v;
 	struct temp_vertex *avp;
@@ -1079,7 +1079,7 @@ STATIC void ZbFindVertexParameters(void)
  * Go through model's face list - find forward facing faces and light them
  */
 
-STATIC void ZbOnScreenFindFacesVerts(void)
+static void ZbOnScreenFindFacesVerts(void)
 {
 	int f,g,j,v,vt,df;
 	br_face *fp = zb.model->prepared_faces;
@@ -1203,7 +1203,7 @@ STATIC void ZbOnScreenFindFacesVerts(void)
 	}
 }
 
-STATIC void ZbOnScreenFindFacesVertsPar(void)
+static void ZbOnScreenFindFacesVertsPar(void)
 {
 	int f,g,j,v,vt,df;
 	br_face *fp = zb.model->prepared_faces;
@@ -1319,7 +1319,7 @@ STATIC void ZbOnScreenFindFacesVertsPar(void)
  * For all the active vertices, transform them and work out
  * the per vertex parameters
  */
-STATIC void ZbOnScreenTransformVertices(void)
+static void ZbOnScreenTransformVertices(void)
 {
 	int v,g,gv;
 	struct temp_vertex *avp;
@@ -1387,7 +1387,12 @@ STATIC void ZbOnScreenTransformVertices(void)
 			if(zb.bounds_call) {
 
 #if FAST_PROJECT
-				ZbOSTVGroupLitBC_A(gp->vertices,avp,gp->nvertices,(br_uint_8 *)zb.vertex_counts+v);
+				ZbOSTVGroupLitBC_A(
+					gp->vertices,
+					(struct temp_vertex_fixed*)avp,
+					gp->nvertices,
+					(br_uint_8 *)zb.vertex_counts+v
+				);
 				avp += gp->nvertices;
 				v += gp->nvertices;
 #else
@@ -1412,7 +1417,12 @@ STATIC void ZbOnScreenTransformVertices(void)
 				 * Do surface function  per vertex
 				 */
 #if FAST_PROJECT
-				ZbOSTVGroupLit_A(gp->vertices,avp,gp->nvertices,(br_uint_8 *)zb.vertex_counts+v);
+				ZbOSTVGroupLit_A(
+					gp->vertices,
+					(struct temp_vertex_fixed*)avp,
+					gp->nvertices,
+					(br_uint_8 *)zb.vertex_counts+v
+				);
 				avp += gp->nvertices;
 				v += gp->nvertices;
 #else
@@ -1434,7 +1444,12 @@ STATIC void ZbOnScreenTransformVertices(void)
 				 * Do bounds update per vertex
 				 */
 #if FAST_PROJECT
-				ZbOSTVGroupBC_A(gp->vertices,avp,gp->nvertices,(br_uint_8 *)zb.vertex_counts+v);
+				ZbOSTVGroupBC_A(
+					gp->vertices,
+					(struct temp_vertex_fixed*)avp,
+					gp->nvertices,
+					(br_uint_8 *)zb.vertex_counts+v
+				);
 				avp += gp->nvertices;
 				v += gp->nvertices;
 #else
@@ -1453,7 +1468,12 @@ STATIC void ZbOnScreenTransformVertices(void)
 				 * Just transform
 				 */
 #if FAST_PROJECT
-				ZbOSTVGroup_A(gp->vertices,avp,gp->nvertices,(br_uint_8 *)zb.vertex_counts+v);
+				ZbOSTVGroup_A(
+					gp->vertices,
+					(struct temp_vertex_fixed*)avp,
+					gp->nvertices,
+					(br_uint_8 *)zb.vertex_counts+v
+				);
 				avp += gp->nvertices;
 				v += gp->nvertices;
 #else

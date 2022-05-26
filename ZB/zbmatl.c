@@ -13,7 +13,7 @@
 
 static char rscid[] = "$Id: zbmatl.c 1.4 1995/03/01 15:49:47 sam Exp $";
 
-STATIC br_uint_16 PixelmapHasZeros(br_pixelmap *pm);
+static br_uint_16 PixelmapHasZeros(br_pixelmap *pm);
 
 /*
  * ZB renderer specific processing for a material
@@ -132,7 +132,7 @@ void ZbMaterialUpdate(br_material *mat, br_uint_16 update_flags)
 /*
  * Find out if a pixelmap has any zero pixels
  */
-STATIC br_uint_16 PixelmapHasZeros(br_pixelmap *pm)
+static br_uint_16 PixelmapHasZeros(br_pixelmap *pm)
 {
 	int x,y,bpp;
 	char *row_ptr,*pp;

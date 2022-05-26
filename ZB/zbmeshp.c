@@ -15,7 +15,7 @@ static char rscid[] = "$Id: zbmeshp.c 1.20 1995/08/31 16:48:00 sam Exp $";
 /*
  * Render visible points
  */
-STATIC void ZbPointsRender(void)
+static void ZbPointsRender(void)
 {
 	int g,v,gv;
 	br_vertex_group *gp = zb.model->vertex_groups;
@@ -66,7 +66,7 @@ STATIC void ZbPointsRender(void)
 /*
  * Do per-vertex parameter calculations (intensity, u & v)
  */
-STATIC void ZbPointFindVertexParameters(void)
+static void ZbPointFindVertexParameters(void)
 {
 	int gv,g,v;
 	struct temp_vertex *avp;
@@ -117,7 +117,7 @@ STATIC void ZbPointFindVertexParameters(void)
  * Do per face work - find all the faces that are on screen and
  * allocate temp_vertex structures
  */
-STATIC void ZbPointFindFacesAndVertices(void)
+static void ZbPointFindFacesAndVertices(void)
 {
 	int f,g,j;
 	br_face *fp = zb.model->prepared_faces;

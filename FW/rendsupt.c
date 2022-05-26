@@ -148,7 +148,7 @@ br_actor * BR_PUBLIC_ENTRY BrActorSearch(br_actor *root, char *pattern)
 /*
  * Recursive function to propgate depth number down a hierachy
  */
-STATIC void RenumberActor(br_actor *a,int d)
+static void RenumberActor(br_actor *a,int d)
 {
 	br_actor *ac;
 
@@ -311,7 +311,7 @@ br_actor * BR_PUBLIC_ENTRY BrActorAllocate(br_uint_8 type, void *type_data)
 /*
  * Free an actor
  */
-STATIC void InternalActorFree(br_actor *a)
+static void InternalActorFree(br_actor *a)
 {
 	/*
 	 * Release any children

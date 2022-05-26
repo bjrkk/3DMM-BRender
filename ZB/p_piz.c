@@ -215,9 +215,9 @@ void BR_ASM_CALL PointRenderPIZ2_Generic_RGB_555(point_type mode,struct temp_ver
 
 	if(*(unsigned short *)((char *)zb.depth_buffer+oz) > (unsigned short)(tvp->v[Z] >> 16)) {
 		if (mode==LINE_TEXTURE) {
+		  texel = *(unsigned short *)(zb.texture_buffer+(pv>>16)*stride+2*(pu>>16));
 		  if (texel) {
 		    *(unsigned short *)((char *)zb.depth_buffer+oz) = (unsigned short)(tvp->v[Z] >> 16);
-		    texel = *(unsigned short *)(zb.texture_buffer+(pv>>16)*stride+2*(pu>>16));
 		    *(unsigned short *)(zb.colour_buffer+oc) = texel;
 		  }
 		} else {

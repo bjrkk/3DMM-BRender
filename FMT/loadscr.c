@@ -130,14 +130,14 @@ typedef enum {
 
 } scr_token_id;
 
-STATIC char * token_names[] = {
+static char * token_names[] = {
 	"end of file",
 	"scalar",
 	"string",
 	"identfier",
 };
 
-STATIC char * token_keywords[] = {
+static char * token_keywords[] = {
 	"material",
 	"identifier",
 	"name",
@@ -195,7 +195,7 @@ struct scr_token {
 /*
  * The current token
  */
-STATIC struct scr_token Current;
+static struct scr_token Current;
 
 /*
  * The current file
@@ -210,7 +210,7 @@ struct lex_file {
 /*
  * Start processing a file
  */
-STATIC int LexAddFile(char *filename)
+static int LexAddFile(char *filename)
 {
 	int mode = BR_FS_MODE_TEXT;
 
@@ -240,7 +240,7 @@ STATIC int LexAddFile(char *filename)
 /*
  * Close file
  */
-STATIC void LexCloseFile(void)
+static void LexCloseFile(void)
 {
 #if LEX_DEBUG
 	printf("LexCloseFile\n");
@@ -251,7 +251,7 @@ STATIC void LexCloseFile(void)
 /*
  * Report an error, including file name and line number
  */
-STATIC int LexError(char *string)
+static int LexError(char *string)
 {
 	LexCloseFile();
 
@@ -263,7 +263,7 @@ STATIC int LexError(char *string)
 /*
  * Report an expected token
  */
-STATIC int LexTokenError(scr_token_id token)
+static int LexTokenError(scr_token_id token)
 {
 	LexCloseFile();
 
@@ -293,7 +293,7 @@ STATIC int LexTokenError(scr_token_id token)
  * Collect next token from script file
  */
 
-STATIC void LexAdvanceReal(void)
+static void LexAdvanceReal(void)
 {
 	int n;
 	static char lex_buffer[256];
@@ -421,7 +421,7 @@ STATIC void LexAdvanceReal(void)
 }
 
 #if LEX_DEBUG
-STATIC void LexAdvanceDebug(void)
+static void LexAdvanceDebug(void)
 {
 	int i;
 

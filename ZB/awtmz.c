@@ -57,7 +57,7 @@ TrapezoidRenderCall TrapezoidRenderPIZ2TIANT;
 #define TNAME TrapezoidRenderPIZ2TIA
 #define BUMP 0
 #define LIGHT 1
-#include "awtmi.h"
+#include "awtmi.inc.c"
 #undef LIGHT
 #undef BUMP
 #undef FNAME
@@ -67,7 +67,7 @@ TrapezoidRenderCall TrapezoidRenderPIZ2TIANT;
 #define TNAME TrapezoidRenderPIZ2TIANT
 #define BUMP 0
 #define LIGHT 1
-#include "awtmi.h"
+#include "awtmi.inc.c"
 #undef LIGHT
 #undef BUMP
 #undef FNAME

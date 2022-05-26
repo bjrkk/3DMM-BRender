@@ -69,7 +69,7 @@ extern int decl(int);
 #define SIZE 256
 #define LIGHT 1
 #define LINEAR TriangleRenderPIZ2TI
-#include "perspi.h"
+#include "perspi.inc.c"
 #undef LINEAR
 #undef LIGHT
 #undef SIZE
@@ -81,7 +81,7 @@ extern int decl(int);
 #define SIZE 256
 #define LIGHT 0
 #define LINEAR TriangleRenderPIZ2T
-#include "perspi.h"
+#include "perspi.inc.c"
 #undef LINEAR
 #undef LIGHT
 #undef SIZE
@@ -93,7 +93,7 @@ extern int decl(int);
 #define SIZE 64
 #define LIGHT 1
 #define LINEAR TriangleRenderPIZ2TIA
-#include "perspi.h"
+#include "perspi.inc.c"
 #undef LINEAR
 #undef LIGHT
 #undef SIZE
@@ -105,7 +105,7 @@ extern int decl(int);
 #define SIZE 64
 #define LIGHT 0
 #define LINEAR TriangleRenderPIZ2TA
-#include "perspi.h"
+#include "perspi.inc.c"
 #undef LINEAR
 #undef LIGHT
 #undef SIZE
@@ -117,7 +117,7 @@ extern int decl(int);
 #define SIZE 1024
 #define LIGHT 0
 #define LINEAR TriangleRenderPIZ2TA
-#include "perspi.h"
+#include "perspi.inc.c"
 #undef LINEAR
 #undef LIGHT
 #undef SIZE
@@ -129,7 +129,7 @@ extern int decl(int);
 #define SIZE 1024
 #define LIGHT 1
 #define LINEAR TriangleRenderPIZ2TIA
-#include "perspi.h"
+#include "perspi.inc.c"
 #undef LINEAR
 #undef LIGHT
 #undef SIZE
@@ -146,7 +146,7 @@ extern int decl(int);
 #define SNAME ScanLinePIZ2TPD1024
 #define SIZE 1024
 #define LIGHT 0
-#include "perspi.h"
+#include "perspi.inc.c"
 #undef LINEAR
 #undef LIGHT
 #undef SIZE

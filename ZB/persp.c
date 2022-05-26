@@ -66,7 +66,7 @@ extern int decl(int);
 #define FNAME TriangleRenderPIZ2TIP256
 #define SIZE 256
 #define LIGHT 1
-#include "innerp.h"
+#include "innerp.inc.c"
 #undef LIGHT
 #undef SIZE
 #undef FNAME
@@ -74,7 +74,7 @@ extern int decl(int);
 #define FNAME TriangleRenderPIZ2TP256
 #define SIZE 256
 #define LIGHT 0
-#include "innerp.h"
+#include "innerp.inc.c"
 #undef LIGHT
 #undef SIZE
 #undef FNAME
@@ -82,7 +82,7 @@ extern int decl(int);
 #define FNAME TriangleRenderPIZ2TIP64
 #define SIZE 64
 #define LIGHT 1
-#include "innerp.h"
+#include "innerp.inc.c"
 #undef LIGHT
 #undef SIZE
 #undef FNAME
@@ -90,7 +90,7 @@ extern int decl(int);
 #define FNAME TriangleRenderPIZ2TP64
 #define SIZE 64
 #define LIGHT 0
-#include "innerp.h"
+#include "innerp.inc.c"
 #undef LIGHT
 #undef SIZE
 #undef FNAME
@@ -98,7 +98,7 @@ extern int decl(int);
 #define FNAME TriangleRenderPIZ2TP1024
 #define SIZE 1024
 #define LIGHT 0
-#include "innerp.h"
+#include "innerp.inc.c"
 #undef LIGHT
 #undef SIZE
 #undef FNAME

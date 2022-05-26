@@ -1,4 +1,0 @@
-set BASED_FLOAT=1
-set DEBUG=0
-set EXTENEDER=DOS4GW
-set STATIC=static

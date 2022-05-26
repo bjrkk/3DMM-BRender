@@ -214,11 +214,12 @@ void BR_ASM_CALL _BrGenericDirtyRectangleCopy(br_context *ctx,
 void BR_ASM_CALL _BrGenericDirtyRectangleFill(br_context *ctx,
 	br_pixelmap *dst,br_uint_16 x,br_uint_16 y,br_uint_16 w,br_uint_16 h,
 	br_uint_32 colour);
+
 void BR_ASM_CALL _BrGenericRectangle(br_context *ctx, br_pixelmap *dst,
-	br_int_16 x,br_int_16 y,br_uint_16 w,br_uint_16 h,
+	br_uint_16 x,br_uint_16 y,br_uint_16 w,br_uint_16 h,
 	br_uint_32 colour);
 void BR_ASM_CALL _BrGenericRectangle2(br_context *ctx, br_pixelmap *dst,
-	br_int_16 x,br_int_16 y,br_uint_16 w,br_uint_16 h,
+	br_uint_16 x,br_uint_16 y,br_uint_16 w,br_uint_16 h,
 	br_uint_32 colour1,br_uint_32 colour2);
 
 void BR_ASM_CALL _BrGenericRectangleCopy(br_context *ctx,

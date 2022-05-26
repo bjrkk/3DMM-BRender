@@ -30,7 +30,7 @@ extern br_file_primitives _BrFilePrimsNull;
 /*
  * System resource classes
  */
-STATIC br_resource_class SystemResourceClasses[] = {
+static br_resource_class SystemResourceClasses[] = {
 	/*
 	 * These two classes have to be initialised by hand
 	 */

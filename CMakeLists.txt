@@ -1,36 +1,25 @@
 cmake_minimum_required(VERSION 3.22)
 project(BRender LANGUAGES C ASM_MASM VERSION 1.1.2)
 
-set(CMAKE_C_STANDARD 17)
+set (CMAKE_C_STANDARD 17)
+set (CMAKE_MSVC_RUNTIME_LIBRARY "")
 
-set(CMAKE_MSVC_RUNTIME_LIBRARY "")
+option (BRENDER_USE_FIXED_POINT 
+	"This determines if BRender should prefer fixed-point math routines over floating-point maths." 
+	ON)
 
-# NOTE(bjrkk): hacky as hell but you know what I don't care
-add_compile_definitions(
-	STATIC=static
+add_compile_definitions (
 	$<$<PLATFORM_ID:Windows>:_CRT_SECURE_NO_WARNINGS>)
 
-add_compile_definitions(
-	BASED_FIXED=1
-	$<$<COMPILE_LANG_AND_ID:C,MSVC>:__VISUALC__=1>
-	$<$<COMPILE_LANG_AND_ID:C,MSVC>:__TARGET_MSC__=1>)
+if (BRENDER_USE_FIXED_POINT)
+	add_compile_definitions(BASED_FIXED=1)
+	set (BRENDER_LIBRAY_SUFFIX "xr")
+else ()
+	add_compile_definitions(BASED_FLOAT=1)
+	set (BRENDER_LIBRAY_SUFFIX "fr")
+endif ()
 
-add_library(FMT)
-target_sources(FMT PRIVATE
-	"${PROJECT_SOURCE_DIR}/FMT/loadnff.c"
-	"${PROJECT_SOURCE_DIR}/FMT/loadasc.c"
-	"${PROJECT_SOURCE_DIR}/FMT/loadscr.c"
-	"${PROJECT_SOURCE_DIR}/FMT/loadgif.c"
-	"${PROJECT_SOURCE_DIR}/FMT/loadiff.c"
-	"${PROJECT_SOURCE_DIR}/FMT/loadbmp.c"
-	"${PROJECT_SOURCE_DIR}/FMT/loadtga.c"
-	"${PROJECT_SOURCE_DIR}/FMT/savescr.c"
-)
-target_include_directories(FMT
-	PUBLIC
-		"${PROJECT_SOURCE_DIR}/INC"
-	PRIVATE
-		"${PROJECT_SOURCE_DIR}/FW")
+include_directories("${PROJECT_SOURCE_DIR}/INC")
 
 add_library(FW)
 target_sources(FW PRIVATE 
@@ -95,9 +84,6 @@ target_sources(FW PRIVATE
 	"${PROJECT_SOURCE_DIR}/FW/fntp7x9.asm"
 	"${PROJECT_SOURCE_DIR}/FW/memloops.asm"
 )
-target_include_directories(FW
-	PUBLIC
-		"${PROJECT_SOURCE_DIR}/INC")
 
 add_library(ZB)
 target_sources(ZB PRIVATE
@@ -122,6 +108,7 @@ target_sources(ZB PRIVATE
 	"${PROJECT_SOURCE_DIR}/ZB/sar16.asm"
 	"${PROJECT_SOURCE_DIR}/ZB/t_piza.asm"
 	"${PROJECT_SOURCE_DIR}/ZB/t_piza2.asm"
+	"${PROJECT_SOURCE_DIR}/ZB/ti8_pfz.asm"
 	"${PROJECT_SOURCE_DIR}/ZB/ti8_piz.asm"
 	"${PROJECT_SOURCE_DIR}/ZB/ti8_pizp.asm"
 	"${PROJECT_SOURCE_DIR}/ZB/tt15_piz.asm"
@@ -129,6 +116,35 @@ target_sources(ZB PRIVATE
 )
 
 target_include_directories(ZB
-	PUBLIC
-		"${PROJECT_SOURCE_DIR}/INC"
+	PRIVATE
 		"${PROJECT_SOURCE_DIR}/FW")
+
+add_library(FMT)
+target_sources(FMT PRIVATE
+	"${PROJECT_SOURCE_DIR}/FMT/loadnff.c"
+	"${PROJECT_SOURCE_DIR}/FMT/loadasc.c"
+	"${PROJECT_SOURCE_DIR}/FMT/loadscr.c"
+	"${PROJECT_SOURCE_DIR}/FMT/loadgif.c"
+	"${PROJECT_SOURCE_DIR}/FMT/loadiff.c"
+	"${PROJECT_SOURCE_DIR}/FMT/loadbmp.c"
+	"${PROJECT_SOURCE_DIR}/FMT/loadtga.c"
+	"${PROJECT_SOURCE_DIR}/FMT/savescr.c"
+)
+target_include_directories(FMT
+	PRIVATE
+		"${PROJECT_SOURCE_DIR}/FW")
+
+add_library(STD)
+target_sources(STD PRIVATE
+	"${PROJECT_SOURCE_DIR}/STD/stdfile.c"
+	"${PROJECT_SOURCE_DIR}/STD/stdmem.c"
+	"${PROJECT_SOURCE_DIR}/STD/stddiag.c"
+)
+target_include_directories(STD
+	PRIVATE
+		"${PROJECT_SOURCE_DIR}/FW")
+
+set_property(TARGET FW PROPERTY OUTPUT_NAME "brfwm${BRENDER_LIBRAY_SUFFIX}")
+set_property(TARGET ZB PROPERTY OUTPUT_NAME "brzbm${BRENDER_LIBRAY_SUFFIX}")
+set_property(TARGET FMT PROPERTY OUTPUT_NAME "brfmm${BRENDER_LIBRAY_SUFFIX}")
+set_property(TARGET STD PROPERTY OUTPUT_NAME "brstm${BRENDER_LIBRAY_SUFFIX}")

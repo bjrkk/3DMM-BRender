@@ -301,7 +301,7 @@ void BR_ASM_CALL _BrGenericDirtyRectangleFill(br_context *ctx,br_pixelmap *dst,b
  * These should be moved into FW
  */
 void BR_ASM_CALL _BrGenericRectangle(br_context *ctx, br_pixelmap *dst,
-			br_int_16 x,br_int_16 y,br_uint_16 w,br_uint_16 h,
+			br_uint_16 x,br_uint_16 y,br_uint_16 w,br_uint_16 h,
 			br_uint_32 colour)
 {
 	int x1,y1;
@@ -317,7 +317,7 @@ void BR_ASM_CALL _BrGenericRectangle(br_context *ctx, br_pixelmap *dst,
 }
 
 void BR_ASM_CALL _BrGenericRectangle2(br_context *ctx, br_pixelmap *dst,
-			br_int_16 x,br_int_16 y,br_uint_16 w,br_uint_16 h,
+			br_uint_16 x,br_uint_16 y,br_uint_16 w,br_uint_16 h,
 			br_uint_32 colour1,br_uint_32 colour2)
 {
 	int x1,y1;
