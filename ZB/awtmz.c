@@ -45,10 +45,10 @@ TrapezoidRenderCall TrapezoidRenderPIZ2TIA;
 TrapezoidRenderCall TrapezoidRenderPIZ2TIA_RGB_555;
 TrapezoidRenderCall TrapezoidRenderPIZ2TIA_RGB_888;
 
-inline void TriangleRender_Generic_AWTMI(struct temp_vertex_fixed *a, struct temp_vertex_fixed *b,
-                                         struct temp_vertex_fixed *c, br_boolean use_z_buffer, br_uint_32 bpp,
-                                         TrapezoidRenderCall trapezoid_render, br_boolean use_bump,
-                                         br_boolean use_light)
+static inline void TriangleRender_Generic_AWTMI(struct temp_vertex_fixed *a, struct temp_vertex_fixed *b,
+                                  struct temp_vertex_fixed *c, br_boolean use_z_buffer, br_uint_32 bpp,
+                                  TrapezoidRenderCall trapezoid_render, br_boolean use_bump,
+                                  br_boolean use_light)
 {
     /*
      * v[0] and v[1] contain the (fractional) screen coordinates
