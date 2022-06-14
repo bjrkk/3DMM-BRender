@@ -13,33 +13,31 @@
 
 static void BR_CALLBACK BrStdioWarning(char *message)
 {
-	fflush(stdout);
-	fputs(message,stderr);
-	fputc('\n',stderr);
-	fflush(stderr);
+    fflush(stdout);
+    fputs(message, stderr);
+    fputc('\n', stderr);
+    fflush(stderr);
 }
 
 static void BR_CALLBACK BrStdioError(char *message)
 {
-	fflush(stdout);
-	fputs(message,stderr);
-	fputc('\n',stderr);
-	fflush(stderr);
-	exit(10);
+    fflush(stdout);
+    fputs(message, stderr);
+    fputc('\n', stderr);
+    fflush(stderr);
+    exit(10);
 }
 
 /*
  * ErrorHandler structure
  */
 br_errorhandler BrStdioErrorHandler = {
-	"Stdio ErrorHandler",
-	BrStdioWarning,
-	BrStdioError,
+    "Stdio ErrorHandler",
+    BrStdioWarning,
+    BrStdioError,
 };
 
 /*
  * Override default
  */
 br_errorhandler *_BrDefaultErrorHandler = &BrStdioErrorHandler;
-
-

@@ -5,6 +5,9 @@ set (CMAKE_C_STANDARD 17)
 set (CMAKE_MSVC_RUNTIME_LIBRARY "")
 set (CMAKE_C_EXTENSIONS OFF)
 
+if(MINGW)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -Wextra" )
+endif()
 option (BRENDER_USE_FIXED_POINT 
 	"This determines if BRender should prefer fixed-point math routines over floating-point maths." 
 	ON)

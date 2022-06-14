@@ -15,24 +15,24 @@
 #define _BRHTON_H_
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-/*
- * Mac is in network order already - little endian
- *
- * XXX SANE format
- */
+    /*
+     * Mac is in network order already - little endian
+     *
+     * XXX SANE format
+     */
 
 #if BR_ENDIAN_BIG
 
-typedef float br_float;
+    typedef float br_float;
 
 #define BrHtoNL(x) (x)
 #define BrNtoHL(x) (x)
 #define BrHtoNS(x) (x)
 #define BrNtoHS(x) (x)
-
 
 #define BrHtoNF(x) (x)
 #define BrNtoHF(x) (x)
@@ -54,9 +54,7 @@ typedef float br_float;
 
 #endif
 
-
 #ifdef __cplusplus
 };
 #endif
 #endif
-

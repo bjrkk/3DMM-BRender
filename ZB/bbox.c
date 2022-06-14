@@ -27,157 +27,142 @@ static char rscid[] = "$Id: bbox.c 1.22 1995/08/31 16:47:31 sam Exp $";
  * 8 Vertices
  */
 static struct br_vertex zb_bounds_vertices[] = {
-	{BR_VECTOR3(-1,-1,-1),BR_VECTOR2(0,0),0,0,0,0,0,BR_FVECTOR3(-0.666,-0.333,-0.666)},	/*    0 */
-	{BR_VECTOR3(-1,-1, 1),BR_VECTOR2(0,0),0,0,0,0,0,BR_FVECTOR3(-0.333,-0.666, 0.666)},	/*    1 */
-	{BR_VECTOR3(-1, 1,-1),BR_VECTOR2(0,0),0,0,0,0,0,BR_FVECTOR3(-0.408, 0.816,-0.408)},	/*    2 */
-	{BR_VECTOR3(-1, 1, 1),BR_VECTOR2(0,0),0,0,0,0,0,BR_FVECTOR3(-0.816, 0.408, 0.408)},	/*    3 */
-	{BR_VECTOR3( 1,-1,-1),BR_VECTOR2(0,0),0,0,0,0,0,BR_FVECTOR3( 0.408,-0.816,-0.408)},	/*    4 */
-	{BR_VECTOR3( 1,-1, 1),BR_VECTOR2(0,0),0,0,0,0,0,BR_FVECTOR3( 0.816,-0.408, 0.408)},	/*    5 */
-	{BR_VECTOR3( 1, 1,-1),BR_VECTOR2(0,0),0,0,0,0,0,BR_FVECTOR3( 0.666, 0.333,-0.666)},	/*    6 */
-	{BR_VECTOR3( 1, 1, 1),BR_VECTOR2(0,0),0,0,0,0,0,BR_FVECTOR3( 0.333, 0.666, 0.666)},	/*    7 */
+    {BR_VECTOR3(-1, -1, -1), BR_VECTOR2(0, 0), 0, 0, 0, 0, 0, BR_FVECTOR3(-0.666, -0.333, -0.666)}, /*    0 */
+    {BR_VECTOR3(-1, -1, 1), BR_VECTOR2(0, 0), 0, 0, 0, 0, 0, BR_FVECTOR3(-0.333, -0.666, 0.666)},   /*    1 */
+    {BR_VECTOR3(-1, 1, -1), BR_VECTOR2(0, 0), 0, 0, 0, 0, 0, BR_FVECTOR3(-0.408, 0.816, -0.408)},   /*    2 */
+    {BR_VECTOR3(-1, 1, 1), BR_VECTOR2(0, 0), 0, 0, 0, 0, 0, BR_FVECTOR3(-0.816, 0.408, 0.408)},     /*    3 */
+    {BR_VECTOR3(1, -1, -1), BR_VECTOR2(0, 0), 0, 0, 0, 0, 0, BR_FVECTOR3(0.408, -0.816, -0.408)},   /*    4 */
+    {BR_VECTOR3(1, -1, 1), BR_VECTOR2(0, 0), 0, 0, 0, 0, 0, BR_FVECTOR3(0.816, -0.408, 0.408)},     /*    5 */
+    {BR_VECTOR3(1, 1, -1), BR_VECTOR2(0, 0), 0, 0, 0, 0, 0, BR_FVECTOR3(0.666, 0.333, -0.666)},     /*    6 */
+    {BR_VECTOR3(1, 1, 1), BR_VECTOR2(0, 0), 0, 0, 0, 0, 0, BR_FVECTOR3(0.333, 0.666, 0.666)},       /*    7 */
 };
 
 /*
  * 12 Faces
  */
 static struct br_face zb_bounds_faces[] = {
-	{{5,6,7},{ 5,13,14},NULL,1,1,0,BR_FVECTOR3( 1, 0, 0),BR_SCALAR(1)},	/*    6 */
-	{{5,4,6},{ 3, 4, 5},NULL,1,4,0,BR_FVECTOR3( 1, 0, 0),BR_SCALAR(1)},	/*    1 */
-	{{7,6,2},{13, 6,17},NULL,1,4,0,BR_FVECTOR3( 0, 1, 0),BR_SCALAR(1)},	/*    9 */
-	{{7,2,3},{17, 0,16},NULL,1,1,0,BR_FVECTOR3( 0, 1, 0),BR_SCALAR(1)},	/*   10 */
-	{{1,5,7},{11,14,15},NULL,1,4,0,BR_FVECTOR3( 0, 0, 1),BR_SCALAR(1)},	/*    7 */
-	{{1,7,3},{15,16,12},NULL,1,1,0,BR_FVECTOR3( 0, 0, 1),BR_SCALAR(1)},	/*    8 */
-	{{3,0,1},{ 2, 8,12},NULL,1,1,0,BR_FVECTOR3(-1, 0, 0),BR_SCALAR(1)},	/*    5 */
-	{{3,2,0},{ 0, 1, 2},NULL,1,4,0,BR_FVECTOR3(-1, 0, 0),BR_SCALAR(1)},	/*    0 */
-	{{1,0,4},{ 8, 9,10},NULL,1,4,0,BR_FVECTOR3( 0,-1, 0),BR_SCALAR(1)},	/*    3 */
-	{{1,4,5},{10, 3,11},NULL,1,1,0,BR_FVECTOR3( 0,-1, 0),BR_SCALAR(1)},	/*    4 */
-	{{0,6,4},{ 7, 4, 9},NULL,1,1,0,BR_FVECTOR3( 0, 0,-1),BR_SCALAR(1)},	/*   11 */
-	{{0,2,6},{ 1, 6, 7},NULL,1,4,0,BR_FVECTOR3( 0, 0,-1),BR_SCALAR(1)},	/*    2 */
+    {{5, 6, 7}, {5, 13, 14}, NULL, 1, 1, 0, BR_FVECTOR3(1, 0, 0), BR_SCALAR(1)},  /*    6 */
+    {{5, 4, 6}, {3, 4, 5}, NULL, 1, 4, 0, BR_FVECTOR3(1, 0, 0), BR_SCALAR(1)},    /*    1 */
+    {{7, 6, 2}, {13, 6, 17}, NULL, 1, 4, 0, BR_FVECTOR3(0, 1, 0), BR_SCALAR(1)},  /*    9 */
+    {{7, 2, 3}, {17, 0, 16}, NULL, 1, 1, 0, BR_FVECTOR3(0, 1, 0), BR_SCALAR(1)},  /*   10 */
+    {{1, 5, 7}, {11, 14, 15}, NULL, 1, 4, 0, BR_FVECTOR3(0, 0, 1), BR_SCALAR(1)}, /*    7 */
+    {{1, 7, 3}, {15, 16, 12}, NULL, 1, 1, 0, BR_FVECTOR3(0, 0, 1), BR_SCALAR(1)}, /*    8 */
+    {{3, 0, 1}, {2, 8, 12}, NULL, 1, 1, 0, BR_FVECTOR3(-1, 0, 0), BR_SCALAR(1)},  /*    5 */
+    {{3, 2, 0}, {0, 1, 2}, NULL, 1, 4, 0, BR_FVECTOR3(-1, 0, 0), BR_SCALAR(1)},   /*    0 */
+    {{1, 0, 4}, {8, 9, 10}, NULL, 1, 4, 0, BR_FVECTOR3(0, -1, 0), BR_SCALAR(1)},  /*    3 */
+    {{1, 4, 5}, {10, 3, 11}, NULL, 1, 1, 0, BR_FVECTOR3(0, -1, 0), BR_SCALAR(1)}, /*    4 */
+    {{0, 6, 4}, {7, 4, 9}, NULL, 1, 1, 0, BR_FVECTOR3(0, 0, -1), BR_SCALAR(1)},   /*   11 */
+    {{0, 2, 6}, {1, 6, 7}, NULL, 1, 4, 0, BR_FVECTOR3(0, 0, -1), BR_SCALAR(1)},   /*    2 */
 };
 
 /*
  * 1 Face Group
  */
-static struct br_face_group zb_bounds_face_groups[] = {
-	{NULL,zb_bounds_faces,12}
-};
+static struct br_face_group zb_bounds_face_groups[] = {{NULL, zb_bounds_faces, 12}};
 
 /*
  * 1 Vertex Group
  */
-static struct br_vertex_group zb_bounds_vertex_groups[] = {
-	{NULL,zb_bounds_vertices,8}
-};
+static struct br_vertex_group zb_bounds_vertex_groups[] = {{NULL, zb_bounds_vertices, 8}};
 
 static struct br_model zb_bounds_model = {
-	"zb_bounds",
-	zb_bounds_vertices,
-	zb_bounds_faces,
+    "zb_bounds",
+    zb_bounds_vertices,
+    zb_bounds_faces,
 
-	8,12, /* nV nF */
+    8,
+    12, /* nV nF */
 
-	BR_VECTOR3(0,0,0), /* pivot */
+    BR_VECTOR3(0, 0, 0), /* pivot */
 
-	0,					/* Flags */
+    0, /* Flags */
 
-	NULL, NULL,			/* Custom, user */
+    NULL,
+    NULL, /* Custom, user */
 
-	BR_SCALAR(1.73205), /* radius */
+    BR_SCALAR(1.73205), /* radius */
 
-	{
-		BR_VECTOR3(-1,-1,-1), /* min */
-		BR_VECTOR3(1,1,1), /* max */
-	},
+    {
+        BR_VECTOR3(-1, -1, -1), /* min */
+        BR_VECTOR3(1, 1, 1),    /* max */
+    },
 
-	8,		/* nprepared_vertices */
-	12,		/* nprepared_faces */
+    8,  /* nprepared_vertices */
+    12, /* nprepared_faces */
 
-	zb_bounds_faces,
-	zb_bounds_vertices,
+    zb_bounds_faces,
+    zb_bounds_vertices,
 
-	1,		/* nface_groups */
-	1,		/* nvertex_groups */
+    1, /* nface_groups */
+    1, /* nvertex_groups */
 
-	zb_bounds_face_groups,
-	zb_bounds_vertex_groups,
+    zb_bounds_face_groups,
+    zb_bounds_vertex_groups,
 
-	18,		/* nEdges */
+    18, /* nEdges */
 
-	NULL,
-	NULL,
+    NULL,
+    NULL,
 };
-
 
 /*
  * Fills in above cuboid mesh that represents the given bounding box
  */
-static br_model * ZbMakeMeshFromBounds(br_bounds *b)
+static br_model *ZbMakeMeshFromBounds(br_bounds *b)
 {
-	int i;
+    int i;
 
-	/*
-	 * Fill in vertices
-	 */
-	BrVector3Set(&zb_bounds_vertices[0].p,b->min.v[X],b->min.v[Y],b->min.v[Z]);
-	BrVector3Set(&zb_bounds_vertices[1].p,b->min.v[X],b->min.v[Y],b->max.v[Z]);
-	BrVector3Set(&zb_bounds_vertices[2].p,b->min.v[X],b->max.v[Y],b->min.v[Z]);
-	BrVector3Set(&zb_bounds_vertices[3].p,b->min.v[X],b->max.v[Y],b->max.v[Z]);
-	BrVector3Set(&zb_bounds_vertices[4].p,b->max.v[X],b->min.v[Y],b->min.v[Z]);
-	BrVector3Set(&zb_bounds_vertices[5].p,b->max.v[X],b->min.v[Y],b->max.v[Z]);
-	BrVector3Set(&zb_bounds_vertices[6].p,b->max.v[X],b->max.v[Y],b->min.v[Z]);
-	BrVector3Set(&zb_bounds_vertices[7].p,b->max.v[X],b->max.v[Y],b->max.v[Z]);
+    /*
+     * Fill in vertices
+     */
+    BrVector3Set(&zb_bounds_vertices[0].p, b->min.v[X], b->min.v[Y], b->min.v[Z]);
+    BrVector3Set(&zb_bounds_vertices[1].p, b->min.v[X], b->min.v[Y], b->max.v[Z]);
+    BrVector3Set(&zb_bounds_vertices[2].p, b->min.v[X], b->max.v[Y], b->min.v[Z]);
+    BrVector3Set(&zb_bounds_vertices[3].p, b->min.v[X], b->max.v[Y], b->max.v[Z]);
+    BrVector3Set(&zb_bounds_vertices[4].p, b->max.v[X], b->min.v[Y], b->min.v[Z]);
+    BrVector3Set(&zb_bounds_vertices[5].p, b->max.v[X], b->min.v[Y], b->max.v[Z]);
+    BrVector3Set(&zb_bounds_vertices[6].p, b->max.v[X], b->max.v[Y], b->min.v[Z]);
+    BrVector3Set(&zb_bounds_vertices[7].p, b->max.v[X], b->max.v[Y], b->max.v[Z]);
 
+    /*
+     * Fill in plane equations of faces
+     */
+    for (i = 0; i < 3; i++)
+    {
+        zb_bounds_faces[i * 2].d = zb_bounds_faces[1 + i * 2].d = b->max.v[i];
+        zb_bounds_faces[6 + i * 2].d = zb_bounds_faces[7 + i * 2].d = -b->min.v[i];
+    }
 
-	/*
-	 * Fill in plane equations of faces
-	 */
-	for(i=0; i< 3; i++) {
-		zb_bounds_faces[  i*2].d = zb_bounds_faces[1+i*2].d =  b->max.v[i];
-		zb_bounds_faces[6+i*2].d = zb_bounds_faces[7+i*2].d = -b->min.v[i];
-	}
+    /*
+     * Fill in bounds
+     */
+    zb_bounds_model.bounds = *b;
 
-	/*
-	 * Fill in bounds
-	 */
-	zb_bounds_model.bounds = *b;
-	
-	return &zb_bounds_model;
+    return &zb_bounds_model;
 }
 
 /*
  * Render bounding box points
  */
-void ZbBoundingBoxRenderPoints(br_actor *actor,
-				  br_model *model,
-				  br_material *material,
-				  br_uint_8 style,
-				  int on_screen)
+void ZbBoundingBoxRenderPoints(br_actor *actor, br_model *model, br_material *material, br_uint_8 style, int on_screen)
 {
-	ZbMeshRenderPoints(actor,ZbMakeMeshFromBounds(&model->bounds),material,style,on_screen);
+    ZbMeshRenderPoints(actor, ZbMakeMeshFromBounds(&model->bounds), material, style, on_screen);
 }
 
 /*
  * Render bounding box edges
  */
-void ZbBoundingBoxRenderEdges(br_actor *actor,
-				  br_model *model,
-				  br_material *material,
-				  br_uint_8 style,
-				  int on_screen)
+void ZbBoundingBoxRenderEdges(br_actor *actor, br_model *model, br_material *material, br_uint_8 style, int on_screen)
 {
-	ZbMeshRenderEdges(actor,ZbMakeMeshFromBounds(&model->bounds),material,style,on_screen);
+    ZbMeshRenderEdges(actor, ZbMakeMeshFromBounds(&model->bounds), material, style, on_screen);
 }
 
 /*
  * Render bounding box faces
  */
-void ZbBoundingBoxRenderFaces(br_actor *actor,
-				  br_model *model,
-				  br_material *material,
-				  br_uint_8 style,
-				  int on_screen)
+void ZbBoundingBoxRenderFaces(br_actor *actor, br_model *model, br_material *material, br_uint_8 style, int on_screen)
 {
-	ZbMeshRender(actor,ZbMakeMeshFromBounds(&model->bounds),material,style,on_screen);
+    ZbMeshRender(actor, ZbMakeMeshFromBounds(&model->bounds), material, style, on_screen);
 }
 
 #if 0
@@ -334,7 +319,3 @@ void EndBoundingBox(int on_screen)
 }
 #endif
 
-
-
-
-

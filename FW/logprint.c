@@ -17,17 +17,17 @@
 
 static char rscid[] = "$Id: logprint.c 1.5 1995/03/01 15:26:10 sam Exp $";
 
-int  BrLogPrintf(char *fmt, ...)
+int BrLogPrintf(char *fmt, ...)
 {
-	int n;
-	va_list args;
+    int n;
+    va_list args;
 
-	va_start(args, fmt);
-	n = vsprintf(_br_scratch_string, fmt, args);
-	va_end(args);
+    va_start(args, fmt);
+    n = vsprintf(_br_scratch_string, fmt, args);
+    va_end(args);
 
-	fwrite(_br_scratch_string, 1, n, stderr);
+    fwrite(_br_scratch_string, 1, n, stderr);
 
-	return n;
+    return n;
 }
 #endif

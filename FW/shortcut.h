@@ -11,10 +11,10 @@
 /*
  * Matrices
  */
-#define M(x,y) mat->m[x][y]
-#define A(x,y) A->m[x][y]
-#define B(x,y) B->m[x][y]
-#define C(x,y) C->m[x][y]
+#define M(x, y) mat->m[x][y]
+#define A(x, y) A->m[x][y]
+#define B(x, y) B->m[x][y]
+#define C(x, y) C->m[x][y]
 
 /*
  * Quaternions
@@ -57,8 +57,8 @@
 /*
  * Scalars
  */
-#define S1	BR_SCALAR(1.0)
-#define S0	BR_SCALAR(0.0)
+#define S1 BR_SCALAR(1.0)
+#define S0 BR_SCALAR(0.0)
 
 /*
  * For digging around in points etc - makes things slightly easier to read
@@ -70,4 +70,3 @@
 
 #define U 0
 #define V 1
-

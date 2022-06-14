@@ -14,40 +14,42 @@
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-/*
- * Exception types are the same as error types
- *
- * A value of zero is reserved
- */
-typedef br_error br_exception;
+    /*
+     * Exception types are the same as error types
+     *
+     * A value of zero is reserved
+     */
+    typedef br_error br_exception;
 
 /*
  * Useful macros for generating types
  */
 #define BR_EXCEPTION(num) BR_##_EXCEPTION_CLASS##_EXEPCTION_SUBCLASS##_##num
 
-/*
- * Exception handler - allocated as a resource 
- */
-typedef struct br_exception_handler {
-	struct br_exception_handler *prev;
+    /*
+     * Exception handler - allocated as a resource
+     */
+    typedef struct br_exception_handler
+    {
+        struct br_exception_handler *prev;
 
-	/*
-	 * setjmp/longjmp context to throw to
-	 */
+        /*
+         * setjmp/longjmp context to throw to
+         */
 #ifndef __H2INC__
-	jmp_buf context;
+        jmp_buf context;
 #endif
-} br_exception_handler;
+    } br_exception_handler;
 
 /*
  * Public macros
  */
-#define BrExceptionCatch(evp) (_BrExceptionValueFetch((br_exception)setjmp(_BrExceptionCatch()->context),(evp)))
-#define BrExceptionThrow(et,ev) _BrExceptionThrow((br_exception)(ev),(void *)(ev))
+#define BrExceptionCatch(evp) (_BrExceptionValueFetch((br_exception)setjmp(_BrExceptionCatch()->context), (evp)))
+#define BrExceptionThrow(et, ev) _BrExceptionThrow((br_exception)(ev), (void *)(ev))
 #define BR_EXCEPTION_RESOURCE _BrExceptionHandler
 
 #ifdef __cplusplus

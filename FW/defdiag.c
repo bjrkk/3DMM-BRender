@@ -20,13 +20,12 @@ static void BrNullFailure(char *message)
  * DiagHandler structure
  */
 br_errorhandler BrNullDiagHandler = {
-	"Null DiagHandler",
-	BrNullWarning,
-	BrNullFailure,
+    "Null DiagHandler",
+    BrNullWarning,
+    BrNullFailure,
 };
 
 /*
  * Global variable that can be overridden by linking something first
  */
 br_diaghandler *_BrDefaultDiagHandler = &BrNullDiagHandler;
-
