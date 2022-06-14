@@ -13,8 +13,13 @@
 
 static char rscid[] = "$Id: l_piz.c 1.1 1995/08/31 16:52:48 sam Exp $";
 
-#define ABS(x) (((x)< 0)?-(x):(x))
-#define SWAP(type,a,b) { type _t; _t = a; a = b; b = _t; }
+#define ABS(x) (((x) < 0) ? -(x) : (x))
+#define SWAP(type, a, b) { \
+	type _; \
+	_ = a; \
+	a = b; \
+	b = _; \
+}
 
 #define ScalarsToRGB15(r,g,b) \
     (((r) >> 19) & 0x1f | ((g) >> 14) & 0x3e0 | ((b) >> 9) & 0x7c00)
@@ -71,9 +76,8 @@ void BR_ASM_CALL LineRenderPIZ2I(struct temp_vertex_fixed *v0,struct temp_vertex
 		/*
 		 * Major axis is X axis - ensure dx is +ve
 		 */
-
-
-		if(dx < 0) {
+		
+		if (dx < 0) {
 			SWAP(struct temp_vertex_fixed *,v0,v1);
 			SWAP(int,X0,X1);
 			SWAP(int,Y0,Y1);
@@ -85,8 +89,9 @@ void BR_ASM_CALL LineRenderPIZ2I(struct temp_vertex_fixed *v0,struct temp_vertex
 		dzptr = 2+(dy>0 ? zb.depth_row_width : -zb.depth_row_width);
 		dy = ABS(dy);
 
-		if (dx<0)
+		if (dx < 0) {
 			return;
+		}
 			
 		pz = v0->v[Z];
 		pi = v0->comp[C_I];
@@ -104,7 +109,7 @@ void BR_ASM_CALL LineRenderPIZ2I(struct temp_vertex_fixed *v0,struct temp_vertex
 
 		count = dx;
 
-		while(count-- >= 0) {
+		while (count-- >= 0) {
 		    /*
 		     * plot pixel
 		     */
@@ -168,7 +173,7 @@ void BR_ASM_CALL LineRenderPIZ2I(struct temp_vertex_fixed *v0,struct temp_vertex
 
 		count = dy;
 
-		while(count-- >= 0) {
+		while (count-- >= 0) {
 		    /*
 		     * plot pixel
 		     */
@@ -180,12 +185,12 @@ void BR_ASM_CALL LineRenderPIZ2I(struct temp_vertex_fixed *v0,struct temp_vertex
 
 		    error += dx;
 		    if (error>0) {
-		      error -= dy;
-		      ptr += dptr;
-		      zptr += dzptr;
+		    	error -= dy;
+		    	ptr += dptr;
+		    	zptr += dzptr;
 		    } else {
-		      ptr += zb.row_width;
-		      zptr += zb.depth_row_width;
+		    	ptr += zb.row_width;
+		    	zptr += zb.depth_row_width;
 		    }
 
 		    /*

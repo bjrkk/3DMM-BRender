@@ -532,10 +532,6 @@ enum view_to_screen_type {
 #include "fwiproto.h"
 #endif
 
-#ifndef _FWIPXTRA_H_
-#include "fwipxtra.h"
-#endif
-
 #ifndef _NO_VECTOR_MACROS
 #ifndef _VECIFNS_H_
 #include "vecifns.h"

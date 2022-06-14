@@ -10,18 +10,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include <brbuiltin.h>
+
 #define FIX 1
 
 #include "zb.h"
 #include "shortcut.h"
 #include "brassert.h"
 
-#define swap(type,a,b) { type _; _ = a; a = b; b = _; }
-
-#define high8(a) (*((unsigned char *)&a+3))
-
-#define F_ABS(x) ((x)>0 ? (x) : -(x))
-#define F_LENGTH(x,y) ((x)>(y) ? (x)+(y)*11/32 : (y)+(x)*11/32)
+#define swap(type, a, b) { \
+	type _; \
+	_ = a; \
+	a = b; \
+	b = _; \
+}
 
 extern float frcp[100];
 
@@ -57,7 +59,7 @@ extern int decl(int);
 
 #else
 
-#define sar16 _sar16
+#define sar16(num) (br_int_32)(br_int_16)((br_uint_32)(num) >> 16)
 
 #endif
 
@@ -152,4 +154,3 @@ extern int decl(int);
 #undef SIZE
 #undef SNAME
 #undef FNAME
-

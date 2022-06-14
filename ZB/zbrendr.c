@@ -395,21 +395,12 @@ void BR_PUBLIC_ENTRY BrZbSceneRenderBegin(br_actor *world,
 	zb.row_width = colour_buffer->row_bytes;
 	zb.depth_row_width = depth_buffer->row_bytes;
 
-
-	zb.colour_buffer = (char *)colour_buffer->pixels+
-			colour_buffer->base_y*colour_buffer->row_bytes;
-
-
-	zb.depth_buffer = (void *)((char *)depth_buffer->pixels+
-		depth_buffer->base_y*depth_buffer->row_bytes);
+	zb.colour_buffer = (br_uint_8*)colour_buffer->pixels + colour_buffer->base_y * colour_buffer->row_bytes;
+	zb.depth_buffer = (br_fixed_ls*)depth_buffer->pixels + depth_buffer->base_y * depth_buffer->row_bytes;
 
 	/*
 	 * Parameters of viewport (origin is at pixel centre, so add [0.5,0.5])
 	 */
-	if(colour_buffer->width > MAX_OUTPUT_WIDTH ||
-	   colour_buffer->height > MAX_OUTPUT_HEIGHT)
-		BR_ERROR("BrZbSceneRender: pixelmap is too big");
-
 	fw.vp_ox = BR_SCALAR(colour_buffer->base_x+colour_buffer->width/2)+BR_SCALAR(0.5);
 	fw.vp_width = BR_SCALAR(colour_buffer->width/2);
 
@@ -428,8 +419,9 @@ void BR_PUBLIC_ENTRY BrZbSceneRenderBegin(br_actor *world,
 	 * the camera and the root - this is so that model->view
 	 * transforms can use the shortest route, rather than via the root
 	 */
-	for(i=0; i< MAX_CAMERA_DEPTH; i++)
+	for(i = 0; i < MAX_CAMERA_DEPTH; i++) {
 		fw.camera_path[i].a = NULL;
+	}
 
 	i = camera->depth;
 	a = camera;
@@ -444,15 +436,16 @@ void BR_PUBLIC_ENTRY BrZbSceneRenderBegin(br_actor *world,
 	}
 #endif
 
-	for( ; i > 0; a = a->parent, i--) {
+	for(; i > 0; a = a->parent, i--) {
 		ASSERT(a != NULL);
 		BrMatrix34Transform(&camera_tfm,&a->t);
 		BrMatrix34Mul(&fw.camera_path[i-1].m,&fw.camera_path[i].m,&camera_tfm);
 		fw.camera_path[i].a = a;
 	}
 	
-	if(world != a)
+	if (world != a) {
 		BR_ERROR0("camera is not in world hierachy");
+	}
 
 	/*
 	 * Make world->view as initial model->view

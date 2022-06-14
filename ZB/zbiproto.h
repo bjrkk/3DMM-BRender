@@ -79,10 +79,12 @@ void BR_ASM_CALL TriangleRenderPIZ2TPD1024(struct temp_vertex_fixed *a,struct te
  * awtmz.c
  */
 void BR_ASM_CALL TriangleRenderPIZ2TA(struct temp_vertex_fixed *a,struct temp_vertex_fixed *b,struct temp_vertex_fixed *c);
+void BR_ASM_CALL TriangleRenderPIZ2TA_RGB_555(struct temp_vertex_fixed *a,struct temp_vertex_fixed *b,struct temp_vertex_fixed *c);
+void BR_ASM_CALL TriangleRenderPIZ2TA_RGB_888(struct temp_vertex_fixed *a,struct temp_vertex_fixed *b,struct temp_vertex_fixed *c);
+
 void BR_ASM_CALL TriangleRenderPIZ2TIA(struct temp_vertex_fixed *a,struct temp_vertex_fixed *b,struct temp_vertex_fixed *c);
-void BR_ASM_CALL TriangleRenderPIZ2TIANT(struct temp_vertex_fixed *a,struct temp_vertex_fixed *b,struct temp_vertex_fixed *c);
-void BR_ASM_CALL TriangleRenderPIZ2TA15(struct temp_vertex_fixed *a,struct temp_vertex_fixed *b,struct temp_vertex_fixed *c);
-void BR_ASM_CALL TriangleRenderPIZ2TA24(struct temp_vertex_fixed *a,struct temp_vertex_fixed *b,struct temp_vertex_fixed *c);
+void BR_ASM_CALL TriangleRenderPIZ2TIA_RGB_555(struct temp_vertex_fixed *a,struct temp_vertex_fixed *b,struct temp_vertex_fixed *c);
+void BR_ASM_CALL TriangleRenderPIZ2TIA_RGB_888(struct temp_vertex_fixed *a,struct temp_vertex_fixed *b,struct temp_vertex_fixed *c);
 
 /*
  * mesh386.asm
@@ -208,11 +210,6 @@ struct clip_vertex *ZbTempClip(struct temp_vertex *tvp, struct temp_face *tfp, i
  * zbmatl.c
  */
 void ZbMaterialUpdate(br_material *mat, br_uint_16 flags);
-
-/*
- * sar16.asm
- */
-int BR_ASM_CALL _sar16(int a);
 
 /*
  * decalz.c

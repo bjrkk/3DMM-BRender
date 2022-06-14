@@ -30,9 +30,7 @@ br_device _BrMemoryDevice = {
 br_context _BrMemoryContext = {
 	"Memory Context",
 	&_BrMemoryDevice,
-//	&_FontFixed3x5,
-	NULL,			// Hawkeye
-	0,
+	&_FontFixed3x5,
 
 	_BrGenericFree,
 	_BrGenericMatch,
@@ -77,10 +75,10 @@ void BR_ASM_CALL _BrPmMemFill(br_context *ctx, br_pixelmap *dst,
 		 * Don't consider row ends - just blat the whole pixel block
 		 */
 		dest = PMAP_ADDRESS(dst,0,(dst->row_bytes > 0)?0:(dst->height-1),bytes);
-		_MemFill_A(dest, ctx->qualifier, dst->width * dst->height, bytes, colour);
+		_MemFill_A(dest, dst->width * dst->height, bytes, colour);
 	} else {
 		dest = PMAP_ADDRESS(dst,0,0,bytes);
-		_MemRectFill_A(dest, ctx->qualifier, dst->width, dst->height, dst->row_bytes, bytes, colour);
+		_MemRectFill_A(dest, dst->width, dst->height, dst->row_bytes, bytes, colour);
 	}
 }
 
@@ -106,8 +104,8 @@ void BR_ASM_CALL _BrPmMemRectangleCopyTo(br_context *ctx,
 	source = PMAP_ADDRESS(src,sx,sy,bytes);
 	dest   = PMAP_ADDRESS(dst,dx,dy,bytes);
 
-	_MemRectCopy_A(dest,
-		ctx->qualifier, source, src_ctx->qualifier, w, h,
+	_MemRectCopy_A(dest, 
+	    source, w, h,
 		dst->row_bytes, src->row_bytes, bytes);
 }
 
@@ -134,7 +132,7 @@ void BR_ASM_CALL _BrPmMemRectangleCopyFrom(br_context *ctx,
 	dest   = PMAP_ADDRESS(dst,dx,dy,bytes);
 
 	_MemRectCopy_A(dest,
-		dst_context->qualifier, source, ctx->qualifier, w, h,
+		source, w, h,
 		dst->row_bytes, src->row_bytes, bytes);
 }
 
@@ -149,7 +147,7 @@ void BR_ASM_CALL _BrPmMemRectangleFill(br_context *ctx,
 
 	dest = PMAP_ADDRESS(dst,x,y,bytes);
 
-	_MemRectFill_A(dest, ctx->qualifier, w, h, dst->row_bytes, bytes, colour);
+	_MemRectFill_A(dest, w, h, dst->row_bytes, bytes, colour);
 }
 
 void BR_ASM_CALL _BrPmMemDirtyRectangleCopy(br_context *ctx,
@@ -190,15 +188,12 @@ void BR_ASM_CALL _BrPmMemCopy(br_context *ctx,
 		dest = PMAP_ADDRESS(dst,0,(dst->row_bytes > 0)?0:(dst->height-1),bytes);
 		source = PMAP_ADDRESS(src,0,(dst->row_bytes > 0)?0:(dst->height-1),bytes);
 
-		_MemCopy_A(dest, ctx->qualifier, source,
-		src_ctx->qualifier, (dst->row_bytes * dst->height)/bytes, bytes);
+		_MemCopy_A(dest, source, (dst->row_bytes * dst->height)/bytes, bytes);
 	} else {
 		dest = PMAP_ADDRESS(dst,0,0,bytes);
 		source = PMAP_ADDRESS(src,0,0,bytes);
 		
-		_MemRectCopy_A(dest, ctx->qualifier, source,
-			src_ctx->qualifier,
-			dst->width, dst->height, dst->row_bytes, src->row_bytes, bytes);
+		_MemRectCopy_A(dest, source, dst->width, dst->height, dst->row_bytes, src->row_bytes, bytes);
 	}
 }
 
@@ -215,7 +210,7 @@ void BR_ASM_CALL _BrPmMemPixelSet(br_context *ctx,
 
 	dest = PMAP_ADDRESS(dst,x,y,bytes);
 
-	_MemPixelSet(dest,ctx->qualifier,bytes,colour);
+	_MemPixelSet(dest,bytes,colour);
 }
 
 br_uint_32 BR_ASM_CALL _BrPmMemPixelGet(br_context *ctx,
@@ -231,7 +226,7 @@ br_uint_32 BR_ASM_CALL _BrPmMemPixelGet(br_context *ctx,
 
 	dest = PMAP_ADDRESS(dst,x,y,bytes);
 
-	return _MemPixelGet(dest,ctx->qualifier,bytes);
+	return _MemPixelGet(dest, bytes);
 }
 
 void BR_ASM_CALL _BrPmMemLine(br_context *ctx,
@@ -249,7 +244,7 @@ void BR_ASM_CALL _BrPmMemLine(br_context *ctx,
 	} else {								\
 		dest = PMAP_ADDRESS(dst,x,y,bytes); \
 	}										\
-	_MemPixelSet(dest,ctx->qualifier,bytes,colour);	\
+	_MemPixelSet(dest,bytes,colour);	\
 } while(0)
 
 #define swap(a,b)           {a^=b; b^=a; a^=b;}
@@ -268,7 +263,7 @@ void BR_ASM_CALL _BrPmMemLine(br_context *ctx,
 
 	if(dx == 0 && dy == 0) {
 		dest = PMAP_ADDRESS(dst,a1,b1,bytes);
-		_MemPixelSet(dest,ctx->qualifier,bytes,colour);
+		_MemPixelSet(dest, bytes,colour);
 		return;
 	};
 
@@ -447,7 +442,7 @@ void BR_ASM_CALL _BrPmMemCopyBits(br_context *ctx, br_pixelmap *dst,
 {
 	int bytes = BrPixelmapPixelSize(dst) >> 3;
 
-	_MemCopyBits_A(PMAP_ADDRESS(dst,x,y,bytes), ctx->qualifier, dst->row_bytes,
+	_MemCopyBits_A(PMAP_ADDRESS(dst,x,y,bytes), dst->row_bytes,
 				   src, s_stride, start_bit, end_bit, nrows,
 				   bytes, colour);
 }

@@ -3,6 +3,7 @@ project(BRender LANGUAGES C ASM_MASM VERSION 1.1.2)
 
 set (CMAKE_C_STANDARD 17)
 set (CMAKE_MSVC_RUNTIME_LIBRARY "")
+set (CMAKE_C_EXTENSIONS OFF)
 
 option (BRENDER_USE_FIXED_POINT 
 	"This determines if BRender should prefer fixed-point math routines over floating-point maths." 
@@ -10,6 +11,18 @@ option (BRENDER_USE_FIXED_POINT
 
 add_compile_definitions (
 	$<$<PLATFORM_ID:Windows>:_CRT_SECURE_NO_WARNINGS>)
+
+if (CMAKE_C_BYTE_ORDER MATCHES BIG_ENDIAN)
+	add_compile_definitions ("BR_ENDIAN_BIG=1")
+else()
+	add_compile_definitions ("BR_ENDIAN_BIG=0")
+endif()
+
+if (CMAKE_C_BYTE_ORDER MATCHES LITTLE_ENDIAN)
+	add_compile_definitions ("BR_ENDIAN_LITTLE=1")
+else()
+	add_compile_definitions ("BR_ENDIAN_LITTLE=0")
+endif ()
 
 if (BRENDER_USE_FIXED_POINT)
 	add_compile_definitions(BASED_FIXED=1)
@@ -75,14 +88,12 @@ target_sources(FW PRIVATE
 	"${PROJECT_SOURCE_DIR}/FW/transfrm.c"
 	"${PROJECT_SOURCE_DIR}/FW/vector.c"
 
-	"${PROJECT_SOURCE_DIR}/FW/fixed386.asm"
-	"${PROJECT_SOURCE_DIR}/FW/fxadc386.asm"
-	"${PROJECT_SOURCE_DIR}/FW/blockops.asm"
-	"${PROJECT_SOURCE_DIR}/FW/magicsym.asm"
-	"${PROJECT_SOURCE_DIR}/FW/fnt3x5.asm"
-	"${PROJECT_SOURCE_DIR}/FW/fntp4x6.asm"
-	"${PROJECT_SOURCE_DIR}/FW/fntp7x9.asm"
-	"${PROJECT_SOURCE_DIR}/FW/memloops.asm"
+	"${PROJECT_SOURCE_DIR}/FW/fixed_agnostic.c"
+	"${PROJECT_SOURCE_DIR}/FW/blockops.c"
+	"${PROJECT_SOURCE_DIR}/FW/font_f_3x5.c"
+	"${PROJECT_SOURCE_DIR}/FW/font_p_4x6.c"
+	"${PROJECT_SOURCE_DIR}/FW/font_p_7x9.c"
+	"${PROJECT_SOURCE_DIR}/FW/memloops.c"
 )
 
 add_library(ZB)
@@ -102,17 +113,14 @@ target_sources(ZB PRIVATE
 	"${PROJECT_SOURCE_DIR}/ZB/zbmeshp.c"
 	"${PROJECT_SOURCE_DIR}/ZB/zbrendr.c"
 	"${PROJECT_SOURCE_DIR}/ZB/zbsetup.c"
-
-	"${PROJECT_SOURCE_DIR}/ZB/mesh386.asm"
-	"${PROJECT_SOURCE_DIR}/ZB/safediv.asm"
-	"${PROJECT_SOURCE_DIR}/ZB/sar16.asm"
-	"${PROJECT_SOURCE_DIR}/ZB/t_piza.asm"
-	"${PROJECT_SOURCE_DIR}/ZB/t_piza2.asm"
-	"${PROJECT_SOURCE_DIR}/ZB/ti8_pfz.asm"
-	"${PROJECT_SOURCE_DIR}/ZB/ti8_piz.asm"
-	"${PROJECT_SOURCE_DIR}/ZB/ti8_pizp.asm"
-	"${PROJECT_SOURCE_DIR}/ZB/tt15_piz.asm"
-	"${PROJECT_SOURCE_DIR}/ZB/tt24_piz.asm"
+	
+	"${PROJECT_SOURCE_DIR}/ZB/mesh_agnostic.c"
+	"${PROJECT_SOURCE_DIR}/ZB/safediv.c"
+	"${PROJECT_SOURCE_DIR}/ZB/t_piza.c"
+	"${PROJECT_SOURCE_DIR}/ZB/ti8_pizp.c"
+	"${PROJECT_SOURCE_DIR}/ZB/ti8_piz.c"
+	"${PROJECT_SOURCE_DIR}/ZB/tt15_piz.c"
+	"${PROJECT_SOURCE_DIR}/ZB/tt24_piz.c"
 )
 
 target_include_directories(ZB

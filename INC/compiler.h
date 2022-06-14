@@ -6,29 +6,36 @@
  *
  * Misc host compiler configuration (types & special declarators etc.)
  */
+
+#include <stdint.h>
+
 #ifndef _COMPILER_H_
 #define _COMPILER_H_
 
 #ifdef __cplusplus
-	extern "C" {
+extern "C" {
 #endif
 
 /*
  * Fixed bitsize integers
  */
-typedef signed long br_int_32;
-typedef unsigned long br_uint_32;
 
-typedef signed short br_int_16;
-typedef unsigned short br_uint_16;
-
-typedef signed char br_int_8;
-typedef unsigned char br_uint_8;
+typedef int64_t br_int_64;
+typedef uint64_t br_uint_64;
+typedef int32_t br_int_32;
+typedef uint32_t br_uint_32;
+typedef int16_t br_int_16;
+typedef uint16_t br_uint_16;
+typedef int8_t br_int_8;
+typedef uint8_t br_uint_8;
 
 /*
  * Generic size type (in case target environment does not have size_t)
  */
-typedef unsigned int br_size_t;
+typedef size_t br_size_t;
+
+typedef uintptr_t br_uint_ptr;
+typedef intptr_t br_int_ptr;
 
 /*
  * Boolean type
@@ -38,7 +45,7 @@ typedef int br_boolean;
 #define BR_TRUE		1
 #define BR_FALSE	0
 
-#define BR_BOOLEAN(a)	((a) != 0)
+#define BR_BOOLEAN(a)	((a) != BR_FALSE)
 
 /**
  ** Compiler specific declarations
@@ -182,6 +189,7 @@ typedef int br_boolean;
  * Microsoft Visual C++
  */
 #elif defined (_MSC_VER)
+
 #define BR_PUBLIC_ENTRY __cdecl
 #define BR_CALLBACK __cdecl
 
@@ -308,20 +316,20 @@ typedef int br_boolean;
 #endif
 
 #if DEBUG
-#	define BR_SUFFIX_DEBUG "-DEBUG"
+#define BR_SUFFIX_DEBUG "-DEBUG"
 #else
-#	define BR_SUFFIX_DEBUG ""
+#define BR_SUFFIX_DEBUG ""
 #endif
 
 /*
  * Macros for producing banners & copyright messages
  */
-#define BR_BANNER(title,year,revision)do {\
-	static char _revision[] = revision;\
-	fprintf(stderr,title);\
-	fwrite(_revision+10,1,sizeof(_revision)-12,stderr);\
-	fprintf(stderr,"Copyright (C) " year " by Argonaut Technologies Limited\n");\
-} while(0);
+#define BR_BANNER(title, year, revision) { \
+	static char _revision[] = revision; \
+	fprintf(stderr, title); \
+	fwrite(_revision + 10, 1, sizeof(_revision) - 12, stderr); \
+	fprintf(stderr, "Copyright (C) " year " by Argonaut Technologies Limited\n"); \
+}
 
 /*
  * Useful macro for sizing an array
@@ -329,8 +337,6 @@ typedef int br_boolean;
 #define BR_ASIZE(a) (sizeof(a)/sizeof((a)[0]))
 
 #ifdef __cplusplus
-	};
+};
 #endif
 #endif
-
-

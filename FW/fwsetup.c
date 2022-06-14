@@ -78,17 +78,15 @@ void BR_PUBLIC_ENTRY BrBegin(void)
 	/*
 	 * Set handlers to use defaults
 	 */
-	if(fw.diag == NULL)
+	if (fw.diag == NULL) {
 		fw.diag = _BrDefaultDiagHandler;
-	if(fw.fsys == NULL)
+	}
+	if (fw.fsys == NULL) {
 		fw.fsys = _BrDefaultFilesystem;
-	if(fw.mem == NULL)
+	}
+	if (fw.mem == NULL) {
 		fw.mem = _BrDefaultAllocator;
-
-	/*
-	 * Set the qualifier for the system memory
-	 */
-	_BrMemoryContext.qualifier = _GetSysQual();
+	}
 
 	/*
 	 * Set up initial state of file writing
@@ -188,10 +186,11 @@ br_allocator * BR_PUBLIC_ENTRY BrAllocatorSet(br_allocator *newal)
 {
 	br_allocator *old = fw.mem;
 
-	if(newal == NULL)
+	if (newal == NULL) {
 		fw.mem = _BrDefaultAllocator;
-	else
+	} else {
 		fw.mem = newal;
+	}
 
 	return old;
 }

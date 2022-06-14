@@ -51,7 +51,7 @@ void BR_ASM_CALL PointRender_Null(struct temp_vertex_fixed *v0);
 #if DEBUG
 #define IDENT(x) x
 #else
-#define IDENT(x) NULL
+#define IDENT(x) x
 #endif
 
 static struct zb_material_type mat_types_index_8[] = {
@@ -193,31 +193,6 @@ static struct zb_material_type mat_types_index_8[] = {
 		CM_COORDS | CM_U | CM_V | CM_I, CM_U | CM_V | CM_I,
 	},
 
-	/*	Special Non-Transparent Rendering. (Textures only - the rest have
-		transparency, but it doesn't really matter. */
-
-	{
-		IDENT("Texture mapped (linear) AWNT"),
-		MT_MASK_T | BR_MATF_LIGHT | BR_MATF_PRELIT, ZB_MATF_HAS_MAP,
-		BR_PMT_INDEX_8, 0, 0,
-		ZbRenderFaceGroup_FaceIV, TriangleRenderPIZ2TIANT, LineRenderPIZ2TI, PointRenderPIZ2TI,
-		CM_COORDS | CM_U | CM_V , CM_U | CM_V,
-	},
-	{
-		IDENT("Lit flat texture mapped (linear) AWNT"),
-		MT_MASK_T | BR_MATF_LIGHT, BR_MATF_LIGHT | ZB_MATF_HAS_MAP,
-		BR_PMT_INDEX_8, 0, 0,
-		ZbRenderFaceGroup_FaceIV, TriangleRenderPIZ2TIANT, LineRenderPIZ2TI, PointRenderPIZ2TI,
-		CM_COORDS | CM_U | CM_V | CM_I, CM_U | CM_V | CM_I,
-	},
-	{
-		IDENT("Lit smooth texture mapped (linear) AWNT"),
-		MT_MASK_T | BR_MATF_LIGHT, BR_MATF_SMOOTH | BR_MATF_LIGHT | ZB_MATF_HAS_MAP,
-		BR_PMT_INDEX_8, 0, 0,
-		ZbRenderFaceGroup, TriangleRenderPIZ2TIANT, LineRenderPIZ2TI, PointRenderPIZ2TI,
-		CM_COORDS | CM_U | CM_V | CM_I, CM_U | CM_V | CM_I,
-	},
-
 //	/*
 //	 * Arbitary width general texture mapping + decal
 //	 */
@@ -273,16 +248,30 @@ static struct zb_material_type mat_types_rgb_555[] = {
 		IDENT("Texture mapped (linear) AW"),
 		MT_MASK_T | BR_MATF_LIGHT | BR_MATF_PRELIT, ZB_MATF_HAS_MAP,
 		BR_PMT_RGB_555, 0, 0,
-//		ZbRenderFaceGroup, TriangleRenderPIZ2TA15, LineRenderPIZ2T_RGB_555, PointRenderPIZ2T_RGB_555,
-		ZbRenderFaceGroup, TriangleRender_Null, LineRender_Null, PointRender_Null,
+		ZbRenderFaceGroup_FaceIV, TriangleRenderPIZ2TIA_RGB_555, LineRenderPIZ2T_RGB_555, PointRenderPIZ2T_RGB_555,
 		CM_COORDS | CM_U | CM_V , CM_U | CM_V,
 	},
+	{
+		IDENT("Lit flat texture mapped (linear) AW"),
+		MT_MASK_T | BR_MATF_LIGHT | ZB_MATF_MAP_TRANSPARENT, BR_MATF_LIGHT | ZB_MATF_HAS_MAP | ZB_MATF_MAP_TRANSPARENT,
+		BR_PMT_RGB_555, 0, 0,
+		ZbRenderFaceGroup_FaceIV, TriangleRenderPIZ2TIA_RGB_555, LineRenderPIZ2T_RGB_555, PointRenderPIZ2T_RGB_555,
+		CM_COORDS | CM_U | CM_V | CM_I, CM_U | CM_V | CM_I,
+	},
+	{
+		IDENT("Lit smooth texture mapped (linear) AW"),
+		MT_MASK_T | BR_MATF_LIGHT | ZB_MATF_MAP_TRANSPARENT, BR_MATF_SMOOTH | BR_MATF_LIGHT | ZB_MATF_HAS_MAP | ZB_MATF_MAP_TRANSPARENT,
+		BR_PMT_RGB_555, 0, 0,
+		ZbRenderFaceGroup, TriangleRenderPIZ2TIA_RGB_555, LineRenderPIZ2T_RGB_555, PointRenderPIZ2T_RGB_555,
+		CM_COORDS | CM_U | CM_V | CM_I, CM_U | CM_V | CM_I,
+	},
+
+
 	{
 		IDENT("Smooth shading"),
 		MT_MASK, BR_MATF_SMOOTH,
 		0, 0, 0,
 		ZbRenderFaceGroup, TriangleRenderPIZ2I_RGB_555, LineRenderPIZ2I_RGB_555, PointRenderPIZ2_RGB_555,
-//		ZbRenderFaceGroup, TriangleRender_Null, LineRender_Null, PointRender_Null,
 		CM_COORDS | CM_R | CM_G | CM_B, CM_R | CM_G | CM_B,
 	},
 	{
@@ -290,7 +279,6 @@ static struct zb_material_type mat_types_rgb_555[] = {
 		0, 0,
 		0, 0, 0,
 		ZbRenderFaceGroup_FaceRGB, TriangleRenderPIZ2_RGB_555, LineRenderPIZ2I_RGB_555, PointRenderPIZ2_RGB_555,
-//		ZbRenderFaceGroup, TriangleRender_Null, LineRender_Null, PointRender_Null,
 		CM_COORDS, CM_R | CM_G | CM_B,
 	},
 };
@@ -303,24 +291,36 @@ static struct zb_material_type mat_types_rgb_888[] = {
 		IDENT("Texture mapped (linear) AW"),
 		MT_MASK_T | BR_MATF_LIGHT | BR_MATF_PRELIT, ZB_MATF_HAS_MAP,
 		BR_PMT_RGB_888, 0, 0,
-//		ZbRenderFaceGroup, TriangleRenderPIZ2TA24, LineRenderPIZ2T_RGB_888, PointRenderPIZ2T_RGB_888,
-		ZbRenderFaceGroup, TriangleRender_Null, LineRender_Null, PointRender_Null,
+		ZbRenderFaceGroup_FaceIV, TriangleRenderPIZ2TIA_RGB_888, LineRenderPIZ2T_RGB_888, PointRenderPIZ2T_RGB_888,
 		CM_COORDS | CM_U | CM_V , CM_U | CM_V,
 	},
+	{
+		IDENT("Lit flat texture mapped (linear) AW"),
+		MT_MASK_T | BR_MATF_LIGHT | ZB_MATF_MAP_TRANSPARENT, BR_MATF_LIGHT | ZB_MATF_HAS_MAP | ZB_MATF_MAP_TRANSPARENT,
+		BR_PMT_RGB_888, 0, 0,
+		ZbRenderFaceGroup_FaceIV, TriangleRenderPIZ2TIA_RGB_888, LineRenderPIZ2T_RGB_888, PointRenderPIZ2T_RGB_888,
+		CM_COORDS | CM_U | CM_V | CM_I, CM_U | CM_V | CM_I,
+	},
+	{
+		IDENT("Lit smooth texture mapped (linear) AW"),
+		MT_MASK_T | BR_MATF_LIGHT | ZB_MATF_MAP_TRANSPARENT, BR_MATF_SMOOTH | BR_MATF_LIGHT | ZB_MATF_HAS_MAP | ZB_MATF_MAP_TRANSPARENT,
+		BR_PMT_RGB_888, 0, 0,
+		ZbRenderFaceGroup, TriangleRenderPIZ2TIA_RGB_888, LineRenderPIZ2T_RGB_888, PointRenderPIZ2T_RGB_888,
+		CM_COORDS | CM_U | CM_V | CM_I, CM_U | CM_V | CM_I,
+	},
+
 	{
 		IDENT("Smooth shading"),
 		BR_MATF_SMOOTH, BR_MATF_SMOOTH,
 		0, 0, 0,
 		ZbRenderFaceGroup, TriangleRenderPIZ2I_RGB_888, LineRenderPIZ2I_RGB_888, PointRenderPIZ2_RGB_888,
-//		ZbRenderFaceGroup, TriangleRender_Null, LineRender_Null, PointRender_Null,
 		CM_COORDS | CM_R | CM_G | CM_B, CM_R | CM_G | CM_B,
 	},
 	{
 		IDENT("Flat shading"),
-		0,0,
+		0, 0,
 		0, 0, 0,
 		ZbRenderFaceGroup_FaceRGB, TriangleRenderPIZ2_RGB_888, LineRenderPIZ2I_RGB_888, PointRenderPIZ2_RGB_888,
-//		ZbRenderFaceGroup, TriangleRender_Null, LineRender_Null, PointRender_Null,
 		CM_COORDS, CM_R | CM_G | CM_B,
 	},
 };

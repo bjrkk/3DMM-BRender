@@ -93,11 +93,6 @@ typedef struct br_context {
 	 */
 	struct br_font					*font;
 
-	/*
-	 * Default qualifier for display memory
-	 */
-	br_uint_32						qualifier;
-
 	/**
 	 ** Function pointers for all the context operations
 	 **/

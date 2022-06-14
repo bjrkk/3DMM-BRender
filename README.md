@@ -1,8 +1,6 @@
 # Argonaut Blazing Render (BRender)
 
-This is the source code to version 1.1.2 of the BRender engine by Argonaut Software/Argonaut Games, from approximately 1995/09/07, upgraded to work with CMake.
-
-The CMake support isn't exactly complete, however. Some of the automation done in the old build system (such as running `h2inc` on certain header files) remain unimplemented. the `TOOLS` and `DOSIO` backend for BRender have been completely removed (for now). Despite all of that, it is *completely buildable*.
+This is the source code to version 1.1.2 of the BRender engine by Argonaut Software/Argonaut Games, from approximately 1995/09/07, but modified to be cross-platform. Meant to (eventually) be used with 3DMMForever.
 
 This is intended as a basic release to let others build on, and more info on how to build and use this code will be added later.
 
@@ -10,7 +8,9 @@ See also [the release of a 1997 version of the BRender engine](https://github.co
 
 ## Source of this code
 
-This code was used (with minor modifications) to build the game Privateer 2: The Darkening by Electronic Arts. No Privater 2 code is included in this release. 
+This code was used (with minor modifications) to build the game Privateer 2: The Darkening by Electronic Arts. No Privater 2 code is included in this release.
+
+[crocguy0688s modification of BRender](https://github.com/crocguy0688/CrocDE-BRender) provided a good reference for how some of the `memloops.asm` routines should be translated over to C.
 
 ## Approval to open source this software
 

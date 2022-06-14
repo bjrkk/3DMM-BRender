@@ -11,8 +11,6 @@
 
 static char rscid[] = "$Id: def_mdl.c 1.13 1995/03/29 16:40:59 sam Exp $";
 
-#define NULL 0
-
 /*
  * 8 Vertices
  */

@@ -94,7 +94,7 @@ outer:
 	mov	ebx,[eax].scan_edge.count
 	test	ebx,ebx
 	jz	exit
-	dec	ebx				; zb.awsl.edge->count--
+	dec	ebx ; zb.awsl.edge->count--
 	mov	[eax].scan_edge.count,ebx
 
 	if	BUMP
@@ -135,13 +135,13 @@ loopf:
 	if	TRANSP
 
 	ifidni	<BPP>,<1>
-	mov	dl,[esi]
-	test	dl,dl
-	jz	failf		; Skip if transparent
+	mov		dl, [esi]
+	test	dl, dl
+	jz		failf ; Skip if transparent
 	elseifidni	<BPP>,<2>
-	mov	dl,[esi]
-	mov	dh,1[esi]
-	or	dl,dh
+	mov		dl, [esi]
+	mov		dh, 1[esi]
+	or		dl, dh
 	jz	failf
 	elseifidni	<BPP>,<3>
 	mov	dl,[esi]
@@ -394,16 +394,16 @@ nosizef:
 scan_back:
 	; Backwards scan
 loopb:
-	mov	ecx,zb.awsl._end
-	cmp	edi,ecx
+	mov	ecx, zb.awsl._end
+	cmp	edi, ecx
 	jle	next
 
-	mov	ecx,zb.pz.currentpix
-	mov	edx,zb.pz.grad_x	; z += dz
-	sub	ecx,edx
+	mov	ecx, zb.pz.currentpix
+	mov	edx, zb.pz.grad_x	; z += dz
+	sub	ecx, edx
 
 	if	LIGHT
-	mov	edx,zb.pi.currentpix
+	mov	edx, zb.pi.currentpix
 	endif
 
 	mov	zb.pz.currentpix,ecx
@@ -556,10 +556,10 @@ nosizeb:
 	elseifidni	<BPP>,<3>
 
 	mov	ecx,[esi]
-	mov	[edi],cl		; Store texel
+	mov	2[edi],cl		; Store texel
 	mov	1[edi],ch		; Store texel
 	ror	ecx,16
-	mov	2[edi],cl		; Store texel
+	mov	[edi],cl		; Store texel
 
 	elseifidni	<BPP>,<4>
 
@@ -699,13 +699,16 @@ fn	endp
 
 	endm
 
-;TriangleRenderZ2	TrapezoidRenderPIZ2TA,0,1,0
-;TriangleRenderZ2	TrapezoidRenderPIZ2TAN,0,1,1
-TriangleRenderZ2	TrapezoidRenderPIZ2TIA,1,1,0	; Hawkeye
-;TriangleRenderZ2	TrapezoidRenderPIZ2TA15,0,2,0
-;TriangleRenderZ2	TrapezoidRenderPIZ2TA24,0,3,0
+TriangleRenderZ2	TrapezoidRenderPIZ2TA,          0, 1, 0
+TriangleRenderZ2	TrapezoidRenderPIZ2TA_RGB_555,  0, 2, 0
+TriangleRenderZ2	TrapezoidRenderPIZ2TA_RGB_888,  0, 3, 0
 
+TriangleRenderZ2	TrapezoidRenderPIZ2TAN,         0, 1, 1
+TriangleRenderZ2	TrapezoidRenderPIZ2TAN_RGB_555, 0, 2, 1
+TriangleRenderZ2	TrapezoidRenderPIZ2TAN_RGB_888, 0, 3, 1
 
+TriangleRenderZ2	TrapezoidRenderPIZ2TIA,         1, 1, 0
+TriangleRenderZ2	TrapezoidRenderPIZ2TIA_RGB_555, 1, 2, 0
+TriangleRenderZ2	TrapezoidRenderPIZ2TIA_RGB_888, 1, 3, 0
 
 	end
-

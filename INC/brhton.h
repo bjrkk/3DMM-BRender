@@ -24,8 +24,7 @@ extern "C" {
  * XXX SANE format
  */
 
-#if defined(__MPW__) ||\
-	defined(__THINKC__)
+#if BR_ENDIAN_BIG
 
 typedef float br_float;
 
@@ -38,21 +37,12 @@ typedef float br_float;
 #define BrHtoNF(x) (x)
 #define BrNtoHF(x) (x)
 
-#define BR_ENDIAN_BIG		1
-#define BR_ENDIAN_LITTLE	0
 #endif
 
 /*
  * PC is little-endian
  */
-#if defined(__GNUC__) ||\
-	defined(__WATCOMC__) || \
-	defined(__ZTC__) || \
-	defined(__PROTONC__) ||\
-	defined(__HIGHC__) ||\
-	defined(__BORLANDC__) ||\
-	defined(__IBMC__) ||\
-	defined(_MSC_VER)
+#if BR_ENDIAN_LITTLE
 
 #define BrNtoHL(x) BrSwap32(x)
 #define BrHtoNL(x) BrSwap32(x)
@@ -61,9 +51,6 @@ typedef float br_float;
 
 #define BrHtoNF(x) BrSwapFloat(x)
 #define BrNtoHF(x) BrSwapFloat(x)
-
-#define BR_ENDIAN_BIG		0
-#define BR_ENDIAN_LITTLE	1
 
 #endif
 

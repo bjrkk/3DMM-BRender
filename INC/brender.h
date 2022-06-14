@@ -128,10 +128,6 @@
 #include "zsproto.h"
 #endif
 
-#ifndef _FWPEXTRA_H_
-#include "fwpextra.h"
-#endif
-
 	/*
 	 * Inline functions
 	 */

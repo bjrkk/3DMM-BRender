@@ -54,12 +54,6 @@ typedef int screen_scalar;
 #endif
 
 /*
- * Maximum output pixelmap dimensions
- */
-#define MAX_OUTPUT_WIDTH	2048
-#define MAX_OUTPUT_HEIGHT	2048
-
-/*
  * Per vertex (in model) structure
  *
  * Some code relies on this structure being 64 bytes long
@@ -179,17 +173,23 @@ struct scan_parameter {
  */
 struct arbitrary_width_scan {
     struct scan_edge *edge;
-    char *start,*end;
-    char *zstart;
-    char *source_current;
+
+    br_uint_8 *start, *end;
+    br_fixed_ls *zstart;
+    br_uint_8 *source_current;
+
     short u_int_current;
+
     short pad;
-    unsigned u_current,du,du_carry,du_nocarry;
-    int du_int,du_int_nocarry,du_int_carry;
-    unsigned v_current,dv,dv_carry,dv_nocarry;
-    int dsource,dsource_carry,dsource_nocarry;
-    char *texture_start;
-    int texture_size,texture_stride,texture_width;
+
+    unsigned u_current, du, du_carry, du_nocarry;
+    int du_int, du_int_nocarry, du_int_carry;
+
+    unsigned v_current, dv, dv_carry, dv_nocarry;
+    int dsource, dsource_carry, dsource_nocarry;
+
+    br_uint_8 *texture_start;
+    int texture_size, texture_stride, texture_width;
 };
 
 /*
@@ -567,10 +567,6 @@ struct zb_render_type {
 #include "fwiproto.h"
 #endif
 
-#endif
-
-#ifndef _ZBIPXTRA_H_
-#include "zbipxtra.h"
 #endif
 
 #endif

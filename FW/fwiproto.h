@@ -122,12 +122,6 @@ void BR_ASM_CALLBACK BrPoolAddChunk(br_pool *pool);
  * fixed386.asm
  */
 
-/*
- * fxadc386.asm
- */
-br_fixed_ls BR_ASM_CALL BrFixedAddCarry(br_fixed_ls a, br_fixed_ls b,
-	char * flag);
-
 #if 1 /* DEBUG */
 /*
  * Debugging printf
@@ -241,35 +235,25 @@ extern struct br_font BR_ASM_DATA _FontProp7x9;
  * memloops.asm
  */
 void BR_ASM_CALL _MemCopyBits_A(
-	char *dest, br_uint_32 dest_qual, br_int_32 d_stride,
+	char *dest, br_int_32 d_stride,
 	br_uint_8 *src,br_uint_32 s_stride,
 	br_uint_32 start_bit,br_uint_32 end_bit,
 	br_uint_32 nrows,br_uint_32 bpp, br_uint_32 colour);
 
-void BR_ASM_CALL _MemFill_A(char *dest,
-	br_uint_32 dest_qual, br_uint_32 pixels, br_uint_32 bpp,
+void BR_ASM_CALL _MemFill_A(char *dest, br_uint_32 pixels, br_uint_32 bpp,
 	br_uint_32 colour);
-void BR_ASM_CALL _MemRectFill_A(char *dest,
-	br_uint_32 dest_qual, br_uint_32 pwidth, br_uint_32 pheight,
+void BR_ASM_CALL _MemRectFill_A(char *dest, br_uint_32 pwidth, br_uint_32 pheight,
 	br_int_32 d_stride, br_uint_32 bpp, br_uint_32 colour);
 
-void BR_ASM_CALL _MemRectCopy_A(char *dest,
-	br_uint_32 dest_qual, char *src, br_uint_32 src_qualifier, 
+void BR_ASM_CALL _MemRectCopy_A(char *dest, char *src, 
 	br_uint_32 pwidth, br_uint_32 pheight,
 	br_int_32 d_stride,br_int_32 s_stride,
 	br_uint_32 bpp);
 
-void BR_ASM_CALL _MemCopy_A(char *dest,
-	br_uint_32 dest_qual, char *src, br_uint_32 src_qualifier, 
-	 br_uint_32 pixels, br_uint_32 bpp);
+void BR_ASM_CALL _MemCopy_A(char *dest, char *src, br_uint_32 pixels, br_uint_32 bpp);
+void BR_ASM_CALL _MemPixelSet(char *dest, br_uint_32 bytes, br_uint_32 colour);
 
-void BR_ASM_CALL _MemPixelSet(char *dest,
-	br_uint_32 dest_qual, br_uint_32 bytes, br_uint_32 colour);
-
-br_uint_32 BR_ASM_CALL _MemPixelGet(char *dest,
-	br_uint_32 dest_qual, br_uint_32 bytes);
-
-br_uint_16 BR_ASM_CALL _GetSysQual(void);
+br_uint_32 BR_ASM_CALL _MemPixelGet(char *dest, br_uint_32 bytes);
 
 /*
  * resource.c

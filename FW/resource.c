@@ -15,6 +15,7 @@
  * XXX
  *	Add optional source file/line tracking
  */
+#include <stddef.h>
 #include <string.h>
 
 #if DEBUG
@@ -39,12 +40,12 @@ static char rscid[] = "$Id: resource.c 1.9 1995/08/31 16:29:45 sam Exp $";
 struct resource_header {
 	br_simple_node node;
 	br_simple_list children;
-	unsigned int class:8;			/* Class of resource 			 	*/
-	int	size:24;					/* Size of resource in 				*/
-									/*  BR_RES_GRANULARITY units 		*/
+	br_uint_8 class;      /* Class of resource 			 	*/
+	br_int_32 size : 32;  /* Size of resource in 				*/
+                          /*  BR_RES_GRANULARITY units 		*/
 #if BR_RES_TAGGING
+	br_uint_32 magic_num;
 	void *magic_ptr;
-	int	  magic_num;
 #endif
 };
 
@@ -55,7 +56,7 @@ struct resource_header {
 #endif
 
 #define RES_BOUNDARY 16
-#define RES_ALIGN(x) ((void *)(((br_uint_32)(x)+(RES_BOUNDARY-1)) & ~(RES_BOUNDARY-1)))
+#define RES_ALIGN(x) ((void*)(((br_uint_ptr)(x) + (RES_BOUNDARY - 1)) & ~(RES_BOUNDARY-1)))
 
 /*
  * Align the resource pointer
@@ -70,7 +71,7 @@ static void *ResToUser(struct resource_header *r)
 	/*
 	 * Allocations should always be at least long word aligned
 	 */
-	ASSERT( (((int)r) & 3)  == 0);
+	ASSERT( (((br_uint_ptr)r) & 3)  == 0);
 
 	/*
 	 * Bump pointer up to next boundary
@@ -83,7 +84,11 @@ static void *ResToUser(struct resource_header *r)
  */
 static struct resource_header *UserToRes(void *r)
 {
-	br_uint_32 *l = r;
+	union {
+		br_uint_32 *p32;
+		br_uint_8 *p8;
+		struct resource_header *pres;
+	} l = { r };
 
 #if 0
 	ASSERT( ((int) r & (RES_BOUNDARY-1)) == 0);
@@ -95,10 +100,13 @@ static struct resource_header *UserToRes(void *r)
 	 *
 	 * Move pointer back until we hit it
 	 */
-	while(*(l - 1) == 0)
-		l--;
+	
+	while (*l.p32 != BR_RES_MAGIC) {
+		l.p32--;
+	}
+	l.p8 -= offsetof(struct resource_header, magic_num);
 
-	return ((struct resource_header *)l) - 1;
+	return l.pres;
 }
 
 /*
@@ -158,24 +166,24 @@ static void BrResInternalFree(struct resource_header *res)
 	/*
 	 * Free any children
 	 */
-	while(BR_SIMPLEHEAD(&res->children))
-		BrResInternalFree((struct resource_header *)BR_SIMPLEREMOVE(BR_SIMPLEHEAD(&res->children)));
+	while (BR_SIMPLEHEAD(&res->children)) {
+		BrResInternalFree((struct resource_header*)BR_SIMPLEREMOVE(BR_SIMPLEHEAD(&res->children)));
+	}
 
 	/*
 	 * Remove from any parent list
 	 */
-	if(BR_SIMPLEINSERTED(res))
+	if (BR_SIMPLEINSERTED(res)) {
 		BR_SIMPLEREMOVE(res);
+	}
 
 	/*
 	 * Call class destructor
 	 */
-	if(fw.resource_class_index[res->class]->free_cb)
-		fw.resource_class_index[res->class]->free_cb(
-			ResToUser(res),
-			res->class,
-			res->size);
-
+	br_resource_class *res_class = fw.resource_class_index[res->class];
+	if (res_class && res_class->free_cb) {
+		res_class->free_cb(ResToUser(res), res->class, res->size);
+	}
 #if BR_RES_TAGGING
 	/*
 	 * Make sure memeory is no longer tagged as a resource

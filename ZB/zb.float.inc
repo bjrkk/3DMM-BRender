@@ -2271,7 +2271,6 @@ br_context		STRUCT 4t
 identifier		@t_95		?
 device		@t_96		?
 font		@t_97		?
-qualifier		br_uint_32		?
 free		@t_98		?
 match		@t_99		?
 clone		@t_100		?
@@ -2743,12 +2742,6 @@ USER_CLIP		EQU		1t
 ;  
 SCREEN_FIXED		EQU		1t
 screen_scalar		TYPEDEF		br_fixed_ls
-
-; 
-;  * Maximum output pixelmap dimensions
-;  
-MAX_OUTPUT_WIDTH		EQU		2048t
-MAX_OUTPUT_HEIGHT		EQU		2048t
 ; 
 ;  * Per vertex (in model) structure
 ;  *

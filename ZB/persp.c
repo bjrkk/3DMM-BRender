@@ -9,14 +9,25 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include <brbuiltin.h>
+
 #define FIX 1
 
 #include "zb.h"
 #include "shortcut.h"
 
-#define swap(type,a,b) { type _; _ = a; a = b; b = _; }
+#define swap(type, a, b) { \
+	type _; \
+	_ = a; \
+	a = b; \
+	b = _; \
+}
 
-#define high8(a) (*((unsigned char *)&a+3))
+#define sar16(num) (br_int_32)(br_int_16)((br_uint_32)(num) >> 16)
+#define incv(a, size) ((a) + (size) & (size) * (size) - 1);
+#define incu(a, size) (((a) + 1 & (size) - 1) | ((a) & ~((size)-1)));
+#define decv(a, size) ((a) - (size) & (size) * (size) - 1);
+#define decu(a, size) ((a) - 1 & (size) - 1) | (a & ~((size) - 1));
 
 extern void BR_ASM_CALL ScanLinePIZ2TIP256(void);
 extern void BR_ASM_CALL ScanLinePIZ2TIP64(void);
@@ -40,28 +51,6 @@ int PerspCheat = 1;
 
 TexturedScanLine BR_ASM_DATA tsl;
 BR_ASM_DATA_EXTRA(tsl)
-
-#ifdef __WATCOMC__
-
-extern int sar16(int);
-
-extern int inch(int);
-extern int incl(int);
-extern int dech(int);
-extern int decl(int);
-
-#pragma aux sar16 = "sar eax,16" parm [eax]
-
-#pragma aux inch = "inc ah" parm [eax]
-#pragma aux incl = "inc al" parm [eax]
-#pragma aux dech = "dec ah" parm [eax]
-#pragma aux decl = "dec al" parm [eax]
-
-#else
-
-#define sar16 _sar16
-
-#endif
 
 #define FNAME TriangleRenderPIZ2TIP256
 #define SIZE 256

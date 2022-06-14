@@ -16,7 +16,11 @@ static char rscid[] = "$Id: bswap.c 1.12 1995/05/25 13:23:11 sam Exp $";
 #ifndef __IBMC__
 
 #undef _SWAP
-#define _SWAP(a,b) { (a) ^= (b); (b) ^= (a); (a) ^= (b); }
+#define _SWAP(a, b) { \
+	(a) ^= (b); \
+	(b) ^= (a); \
+	(a) ^= (b); \
+}
 
 /*
  * Swap the bytes of a 4 byte word
