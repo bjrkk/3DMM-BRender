@@ -244,7 +244,7 @@ static inline br_boolean __BrBuiltinMulU8Overflow(br_uint_8 a, br_uint_8 b, br_u
 // NOTE(bjrkk): This exists purely because apparently no compiler can
 // properly optimize divisions with a 64-bit dividend and 32-bit divisor
 // into an idiv r/m32.
-#if __BR_BUILTIN_CONSTANT_P && (defined(__i386__) || defined(__x86_64__))
+#if defined(__BR_BUILTIN_CONSTANT_P) && (defined(__i386__) || defined(__x86_64__))
 
 static inline br_int_32 __BrBuiltinDivI64I32(br_int_64 a, br_int_32 b)
 {

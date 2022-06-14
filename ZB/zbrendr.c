@@ -502,7 +502,7 @@ void BR_PUBLIC_ENTRY BrZbSceneRender(br_actor *world, br_actor *camera, br_pixel
 /*
  * Render function for BR_RSTYLE_NONE
  */
-static void ZbNullRender(br_actor *actor, br_model *model, br_material *material, br_uint_8 style, int on_screen)
+void ZbNullRender(br_actor *actor, br_model *model, br_material *material, br_uint_8 style, int on_screen)
 {
 }
 

@@ -8,7 +8,7 @@
 #ifndef _BRBITHAX_H_
 #define _BRBITHAX_H_
 
-static inline br_boolean __BrBitHaxIsPow2(br_uint_32 num)
+inline br_boolean __BrBitHaxIsPow2(br_uint_32 num)
 {
     return num && !(num & (num - 1));
 }

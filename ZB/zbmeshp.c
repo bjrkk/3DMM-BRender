@@ -68,7 +68,7 @@ static void ZbPointsRender(void)
 /*
  * Do per-vertex parameter calculations (intensity, u & v)
  */
-static void ZbPointFindVertexParameters(void)
+void ZbPointFindVertexParameters(void)
 {
     int gv, g, v;
     struct temp_vertex *avp;

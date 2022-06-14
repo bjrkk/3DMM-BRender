@@ -37,7 +37,7 @@ static struct
     {"dither", BR_MATF_DITHER},
 };
 
-static WriteScriptMaterial(br_material *mat, void *df)
+static void WriteScriptMaterial(br_material *mat, void *df)
 {
     int i, j;
 

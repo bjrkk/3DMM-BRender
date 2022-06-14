@@ -276,7 +276,7 @@ void ZbTransformVertices(void)
 /*
  * Do per face work - find all the faces that are on screen
  */
-static void ZbFindFacesAndVertices(void)
+void ZbFindFacesAndVertices(void)
 {
     int f, g, j;
     br_face *fp = zb.model->prepared_faces;
@@ -1071,7 +1071,7 @@ void BR_ASM_CALL ZbRenderFaceGroup_FaceRGB(br_face_group *gp, struct temp_face *
 /*
  * Do per-vertex paramter calculations (intensity, u & v)
  */
-static void ZbFindVertexParameters(void)
+void ZbFindVertexParameters(void)
 {
     int gv, g, v;
     struct temp_vertex *avp;

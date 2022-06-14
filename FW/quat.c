@@ -200,7 +200,7 @@ br_quat *BR_PUBLIC_ENTRY BrMatrix34ToQuat(br_quat *q, br_matrix34 *mat)
     }
     else
     {
-        static n[] = {1, 2, 0};
+        static int n[] = {1, 2, 0};
 
         i = 0;
         if (M(1, 1) > M(0, 0))
