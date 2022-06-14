@@ -7,6 +7,7 @@
  * Misc host compiler configuration (types & special declarators etc.)
  */
 
+#include <stddef.h>
 #include <stdint.h>
 
 #ifndef _COMPILER_H_
