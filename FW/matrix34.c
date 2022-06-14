@@ -16,28 +16,28 @@
 
 static char rscid[] = "$Id: matrix34.c 1.4 1995/03/01 15:26:13 sam Exp $";
 
-static br_matrix34 mattmp1,mattmp2;
+static br_matrix34 mattmp1, mattmp2;
 
 /*
  * A = B
  */
 void BR_PUBLIC_ENTRY BrMatrix34Copy(br_matrix34 *A, br_matrix34 *B)
 {
-	A(0,0) = B(0,0);
-	A(0,1) = B(0,1);
-	A(0,2) = B(0,2);
+    A(0, 0) = B(0, 0);
+    A(0, 1) = B(0, 1);
+    A(0, 2) = B(0, 2);
 
-	A(1,0) = B(1,0);
-	A(1,1) = B(1,1);
-	A(1,2) = B(1,2);
+    A(1, 0) = B(1, 0);
+    A(1, 1) = B(1, 1);
+    A(1, 2) = B(1, 2);
 
-	A(2,0) = B(2,0);
-	A(2,1) = B(2,1);
-	A(2,2) = B(2,2);
+    A(2, 0) = B(2, 0);
+    A(2, 1) = B(2, 1);
+    A(2, 2) = B(2, 2);
 
-	A(3,0) = B(3,0);
-	A(3,1) = B(3,1);
-	A(3,2) = B(3,2);
+    A(3, 0) = B(3, 0);
+    A(3, 1) = B(3, 1);
+    A(3, 2) = B(3, 2);
 }
 
 /*
@@ -45,30 +45,37 @@ void BR_PUBLIC_ENTRY BrMatrix34Copy(br_matrix34 *A, br_matrix34 *B)
  */
 void BR_PUBLIC_ENTRY BrMatrix34Mul(br_matrix34 *A, br_matrix34 *B, br_matrix34 *C)
 {
-	A(0,0) = BR_MAC3(B(0,0),C(0,0), B(0,1),C(1,0), B(0,2),C(2,0));
-	A(0,1) = BR_MAC3(B(0,0),C(0,1), B(0,1),C(1,1), B(0,2),C(2,1));
-	A(0,2) = BR_MAC3(B(0,0),C(0,2), B(0,1),C(1,2), B(0,2),C(2,2));
+    A(0, 0) = BR_MAC3(B(0, 0), C(0, 0), B(0, 1), C(1, 0), B(0, 2), C(2, 0));
+    A(0, 1) = BR_MAC3(B(0, 0), C(0, 1), B(0, 1), C(1, 1), B(0, 2), C(2, 1));
+    A(0, 2) = BR_MAC3(B(0, 0), C(0, 2), B(0, 1), C(1, 2), B(0, 2), C(2, 2));
 
-	A(1,0) = BR_MAC3(B(1,0),C(0,0), B(1,1),C(1,0), B(1,2),C(2,0));
-	A(1,1) = BR_MAC3(B(1,0),C(0,1), B(1,1),C(1,1), B(1,2),C(2,1));
-	A(1,2) = BR_MAC3(B(1,0),C(0,2), B(1,1),C(1,2), B(1,2),C(2,2));
+    A(1, 0) = BR_MAC3(B(1, 0), C(0, 0), B(1, 1), C(1, 0), B(1, 2), C(2, 0));
+    A(1, 1) = BR_MAC3(B(1, 0), C(0, 1), B(1, 1), C(1, 1), B(1, 2), C(2, 1));
+    A(1, 2) = BR_MAC3(B(1, 0), C(0, 2), B(1, 1), C(1, 2), B(1, 2), C(2, 2));
 
-	A(2,0) = BR_MAC3(B(2,0),C(0,0), B(2,1),C(1,0), B(2,2),C(2,0));
-	A(2,1) = BR_MAC3(B(2,0),C(0,1), B(2,1),C(1,1), B(2,2),C(2,1));
-	A(2,2) = BR_MAC3(B(2,0),C(0,2), B(2,1),C(1,2), B(2,2),C(2,2));
+    A(2, 0) = BR_MAC3(B(2, 0), C(0, 0), B(2, 1), C(1, 0), B(2, 2), C(2, 0));
+    A(2, 1) = BR_MAC3(B(2, 0), C(0, 1), B(2, 1), C(1, 1), B(2, 2), C(2, 1));
+    A(2, 2) = BR_MAC3(B(2, 0), C(0, 2), B(2, 1), C(1, 2), B(2, 2), C(2, 2));
 
-	A(3,0) = BR_MAC3(B(3,0),C(0,0), B(3,1),C(1,0), B(3,2),C(2,0)) + C(3,0);
-	A(3,1) = BR_MAC3(B(3,0),C(0,1), B(3,1),C(1,1), B(3,2),C(2,1)) + C(3,1);
-	A(3,2) = BR_MAC3(B(3,0),C(0,2), B(3,1),C(1,2), B(3,2),C(2,2)) + C(3,2);
-
+    A(3, 0) = BR_MAC3(B(3, 0), C(0, 0), B(3, 1), C(1, 0), B(3, 2), C(2, 0)) + C(3, 0);
+    A(3, 1) = BR_MAC3(B(3, 0), C(0, 1), B(3, 1), C(1, 1), B(3, 2), C(2, 1)) + C(3, 1);
+    A(3, 2) = BR_MAC3(B(3, 0), C(0, 2), B(3, 1), C(1, 2), B(3, 2), C(2, 2)) + C(3, 2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34Identity(br_matrix34 *mat)
 {
-	M(0,0) = S1; M(0,1) = S0; M(0,2) = S0;
-	M(1,0) = S0; M(1,1) = S1; M(1,2) = S0;
-	M(2,0) = S0; M(2,1) = S0; M(2,2) = S1;
-	M(3,0) = S0; M(3,1) = S0; M(3,2) = S0;
+    M(0, 0) = S1;
+    M(0, 1) = S0;
+    M(0, 2) = S0;
+    M(1, 0) = S0;
+    M(1, 1) = S1;
+    M(1, 2) = S0;
+    M(2, 0) = S0;
+    M(2, 1) = S0;
+    M(2, 2) = S1;
+    M(3, 0) = S0;
+    M(3, 1) = S0;
+    M(3, 2) = S0;
 }
 
 /*
@@ -84,13 +91,21 @@ void BR_PUBLIC_ENTRY BrMatrix34Identity(br_matrix34 *mat)
  */
 void BR_PUBLIC_ENTRY BrMatrix34RotateX(br_matrix34 *mat, br_angle rx)
 {
-	br_scalar s = BR_SIN(rx);
-	br_scalar c = BR_COS(rx);
+    br_scalar s = BR_SIN(rx);
+    br_scalar c = BR_COS(rx);
 
-	M(0,0) = S1; M(0,1) = S0; M(0,2) = S0;
-	M(1,0) = S0; M(1,1) =  c; M(1,2) =  s;
-	M(2,0) = S0; M(2,1) = -s; M(2,2) =  c;
-	M(3,0) = S0; M(3,1) = S0; M(3,2) = S0;
+    M(0, 0) = S1;
+    M(0, 1) = S0;
+    M(0, 2) = S0;
+    M(1, 0) = S0;
+    M(1, 1) = c;
+    M(1, 2) = s;
+    M(2, 0) = S0;
+    M(2, 1) = -s;
+    M(2, 2) = c;
+    M(3, 0) = S0;
+    M(3, 1) = S0;
+    M(3, 2) = S0;
 }
 
 /*
@@ -106,13 +121,21 @@ void BR_PUBLIC_ENTRY BrMatrix34RotateX(br_matrix34 *mat, br_angle rx)
  */
 void BR_PUBLIC_ENTRY BrMatrix34RotateY(br_matrix34 *mat, br_angle ry)
 {
-	br_scalar s = BR_SIN(ry);
-	br_scalar c = BR_COS(ry);
+    br_scalar s = BR_SIN(ry);
+    br_scalar c = BR_COS(ry);
 
-	M(0,0) =  c; M(0,1) = S0; M(0,2) = -s;
-	M(1,0) = S0; M(1,1) = S1; M(1,2) = S0;
-	M(2,0) =  s; M(2,1) = S0; M(2,2) =  c;
-	M(3,0) = S0; M(3,1) = S0; M(3,2) = S0;
+    M(0, 0) = c;
+    M(0, 1) = S0;
+    M(0, 2) = -s;
+    M(1, 0) = S0;
+    M(1, 1) = S1;
+    M(1, 2) = S0;
+    M(2, 0) = s;
+    M(2, 1) = S0;
+    M(2, 2) = c;
+    M(3, 0) = S0;
+    M(3, 1) = S0;
+    M(3, 2) = S0;
 }
 
 /*
@@ -128,13 +151,21 @@ void BR_PUBLIC_ENTRY BrMatrix34RotateY(br_matrix34 *mat, br_angle ry)
  */
 void BR_PUBLIC_ENTRY BrMatrix34RotateZ(br_matrix34 *mat, br_angle rz)
 {
-	br_scalar s = BR_SIN(rz);
-	br_scalar c = BR_COS(rz);
+    br_scalar s = BR_SIN(rz);
+    br_scalar c = BR_COS(rz);
 
-	M(0,0) =  c; M(0,1) =  s; M(0,2) = S0;
-	M(1,0) = -s; M(1,1) =  c; M(1,2) = S0;
-	M(2,0) = S0; M(2,1) = S0; M(2,2) = S1;
-	M(3,0) = S0; M(3,1) = S0; M(3,2) = S0;
+    M(0, 0) = c;
+    M(0, 1) = s;
+    M(0, 2) = S0;
+    M(1, 0) = -s;
+    M(1, 1) = c;
+    M(1, 2) = S0;
+    M(2, 0) = S0;
+    M(2, 1) = S0;
+    M(2, 2) = S1;
+    M(3, 0) = S0;
+    M(3, 1) = S0;
+    M(3, 2) = S0;
 }
 
 /*
@@ -142,27 +173,33 @@ void BR_PUBLIC_ENTRY BrMatrix34RotateZ(br_matrix34 *mat, br_angle rz)
  */
 void BR_PUBLIC_ENTRY BrMatrix34Rotate(br_matrix34 *mat, br_angle r, br_vector3 *a)
 {
-	br_scalar t,s,c;
-	br_scalar txy,txz,tyz,sx,sy,sz;
+    br_scalar t, s, c;
+    br_scalar txy, txz, tyz, sx, sy, sz;
 
-	s = BR_SIN(r);
-	c = BR_COS(r);
-	t = S1-c;
+    s = BR_SIN(r);
+    c = BR_COS(r);
+    t = S1 - c;
 
-	txy = BR_MUL(t,a->v[X]);
-	txz = BR_MUL(txy,a->v[Z]);
-	txy = BR_MUL(txy,a->v[Y]);
-	tyz = BR_MUL(t,BR_MUL(a->v[Y],a->v[Z]));
+    txy = BR_MUL(t, a->v[X]);
+    txz = BR_MUL(txy, a->v[Z]);
+    txy = BR_MUL(txy, a->v[Y]);
+    tyz = BR_MUL(t, BR_MUL(a->v[Y], a->v[Z]));
 
-	sx = BR_MUL(s,a->v[X]);
-	sy = BR_MUL(s,a->v[Y]);
-	sz = BR_MUL(s,a->v[Z]);
+    sx = BR_MUL(s, a->v[X]);
+    sy = BR_MUL(s, a->v[Y]);
+    sz = BR_MUL(s, a->v[Z]);
 
-	M(0,0) = BR_MUL(t,BR_SQR(a->v[X]))+c; M(0,1) = txy+sz; M(0,2) = txz-sy;
-	M(1,0) = txy-sz; M(1,1) = BR_MUL(t,BR_SQR(a->v[Y]))+c; M(1,2) = tyz+sx;
-	M(2,0) = txz+sy; M(2,1) = tyz-sx; M(2,2) = BR_MUL(t,BR_SQR(a->v[Z]))+c;
+    M(0, 0) = BR_MUL(t, BR_SQR(a->v[X])) + c;
+    M(0, 1) = txy + sz;
+    M(0, 2) = txz - sy;
+    M(1, 0) = txy - sz;
+    M(1, 1) = BR_MUL(t, BR_SQR(a->v[Y])) + c;
+    M(1, 2) = tyz + sx;
+    M(2, 0) = txz + sy;
+    M(2, 1) = tyz - sx;
+    M(2, 2) = BR_MUL(t, BR_SQR(a->v[Z])) + c;
 
-	M(3,0) = M(3,1) = M(3,2) = S0;
+    M(3, 0) = M(3, 1) = M(3, 2) = S0;
 }
 
 /*
@@ -178,10 +215,18 @@ void BR_PUBLIC_ENTRY BrMatrix34Rotate(br_matrix34 *mat, br_angle r, br_vector3 *
  */
 void BR_PUBLIC_ENTRY BrMatrix34Translate(br_matrix34 *mat, br_scalar dx, br_scalar dy, br_scalar dz)
 {
-	M(0,0) = S1; M(0,1) = S0; M(0,2) = S0;
-	M(1,0) = S0; M(1,1) = S1; M(1,2) = S0;
-	M(2,0) = S0; M(2,1) = S0; M(2,2) = S1;
-	M(3,0) = dx; M(3,1) = dy; M(3,2) = dz;
+    M(0, 0) = S1;
+    M(0, 1) = S0;
+    M(0, 2) = S0;
+    M(1, 0) = S0;
+    M(1, 1) = S1;
+    M(1, 2) = S0;
+    M(2, 0) = S0;
+    M(2, 1) = S0;
+    M(2, 2) = S1;
+    M(3, 0) = dx;
+    M(3, 1) = dy;
+    M(3, 2) = dz;
 }
 
 /*
@@ -197,10 +242,18 @@ void BR_PUBLIC_ENTRY BrMatrix34Translate(br_matrix34 *mat, br_scalar dx, br_scal
  */
 void BR_PUBLIC_ENTRY BrMatrix34Scale(br_matrix34 *mat, br_scalar sx, br_scalar sy, br_scalar sz)
 {
-	M(0,0) = sx; M(0,1) = S0; M(0,2) = S0;
-	M(1,0) = S0; M(1,1) = sy; M(1,2) = S0;
-	M(2,0) = S0; M(2,1) = S0; M(2,2) = sz;
-	M(3,0) = S0; M(3,1) = S0; M(3,2) = S0;
+    M(0, 0) = sx;
+    M(0, 1) = S0;
+    M(0, 2) = S0;
+    M(1, 0) = S0;
+    M(1, 1) = sy;
+    M(1, 2) = S0;
+    M(2, 0) = S0;
+    M(2, 1) = S0;
+    M(2, 2) = sz;
+    M(3, 0) = S0;
+    M(3, 1) = S0;
+    M(3, 2) = S0;
 }
 
 /*
@@ -216,10 +269,18 @@ void BR_PUBLIC_ENTRY BrMatrix34Scale(br_matrix34 *mat, br_scalar sx, br_scalar s
  */
 void BR_PUBLIC_ENTRY BrMatrix34ShearX(br_matrix34 *mat, br_scalar sy, br_scalar sz)
 {
-	M(0,0) = S1; M(0,1) = sy; M(0,2) = sz;
-	M(1,0) = S0; M(1,1) = S1; M(1,2) = S0;
-	M(2,0) = S0; M(2,1) = S0; M(2,2) = S1;
-	M(3,0) = S0; M(3,1) = S0; M(3,2) = S0;
+    M(0, 0) = S1;
+    M(0, 1) = sy;
+    M(0, 2) = sz;
+    M(1, 0) = S0;
+    M(1, 1) = S1;
+    M(1, 2) = S0;
+    M(2, 0) = S0;
+    M(2, 1) = S0;
+    M(2, 2) = S1;
+    M(3, 0) = S0;
+    M(3, 1) = S0;
+    M(3, 2) = S0;
 }
 
 /*
@@ -235,10 +296,18 @@ void BR_PUBLIC_ENTRY BrMatrix34ShearX(br_matrix34 *mat, br_scalar sy, br_scalar 
  */
 void BR_PUBLIC_ENTRY BrMatrix34ShearY(br_matrix34 *mat, br_scalar sx, br_scalar sz)
 {
-	M(0,0) = S1; M(0,1) = S0; M(0,2) = S0;
-	M(1,0) = sx; M(1,1) = S1; M(1,2) = sz;
-	M(2,0) = S0; M(2,1) = S0; M(2,2) = S1;
-	M(3,0) = S0; M(3,1) = S0; M(3,2) = S0;
+    M(0, 0) = S1;
+    M(0, 1) = S0;
+    M(0, 2) = S0;
+    M(1, 0) = sx;
+    M(1, 1) = S1;
+    M(1, 2) = sz;
+    M(2, 0) = S0;
+    M(2, 1) = S0;
+    M(2, 2) = S1;
+    M(3, 0) = S0;
+    M(3, 1) = S0;
+    M(3, 2) = S0;
 }
 
 /*
@@ -254,10 +323,18 @@ void BR_PUBLIC_ENTRY BrMatrix34ShearY(br_matrix34 *mat, br_scalar sx, br_scalar 
  */
 void BR_PUBLIC_ENTRY BrMatrix34ShearZ(br_matrix34 *mat, br_scalar sx, br_scalar sy)
 {
-	M(0,0) = S1; M(0,1) = S0; M(0,2) = S0;
-	M(1,0) = S0; M(1,1) = S1; M(1,2) = S0;
-	M(2,0) = sx; M(2,1) = sy; M(2,2) = S1;
-	M(3,0) = S0; M(3,1) = S0; M(3,2) = S0;
+    M(0, 0) = S1;
+    M(0, 1) = S0;
+    M(0, 2) = S0;
+    M(1, 0) = S0;
+    M(1, 1) = S1;
+    M(1, 2) = S0;
+    M(2, 0) = sx;
+    M(2, 1) = sy;
+    M(2, 2) = S1;
+    M(3, 0) = S0;
+    M(3, 1) = S0;
+    M(3, 2) = S0;
 }
 
 /*
@@ -291,7 +368,7 @@ void BR_PUBLIC_ENTRY BrMatrix34ShearZ(br_matrix34 *mat, br_scalar sx, br_scalar 
  *
  * Output:
  *   B  - inverse of 3D affine matrix
- *   
+ *
  * Returned value:
  *   determinant of matrix
  */
@@ -299,15 +376,18 @@ void BR_PUBLIC_ENTRY BrMatrix34ShearZ(br_matrix34 *mat, br_scalar sx, br_scalar 
 
 br_scalar BR_PUBLIC_ENTRY BrMatrix34Inverse(br_matrix34 *B, br_matrix34 *A)
 {
-    br_scalar    idet,det;
-    br_scalar    pos, neg, temp;
+    br_scalar idet, det;
+    br_scalar pos, neg, temp;
 
-#define ACCUMULATE if (temp >= S0) pos += temp; else neg += temp;
+#define ACCUMULATE                                                                                                     \
+    if (temp >= S0)                                                                                                    \
+        pos += temp;                                                                                                   \
+    else                                                                                                               \
+        neg += temp;
 
 #define PRECISION_LIMIT BR_SCALAR(1.0e-15)
 
-#define ABS(a)		(((a)<0) ? -(a) : (a))
-
+#define ABS(a) (((a) < 0) ? -(a) : (a))
 
     /*
      * Calculate the determinant of submatrix A and determine if the
@@ -315,66 +395,66 @@ br_scalar BR_PUBLIC_ENTRY BrMatrix34Inverse(br_matrix34 *B, br_matrix34 *A)
      * floating-point data representation.
      */
     pos = neg = S0;
-    temp =  BR_MUL(BR_MUL(A(0,0) , A(1,1)) , A(2,2));
+    temp = BR_MUL(BR_MUL(A(0, 0), A(1, 1)), A(2, 2));
     ACCUMULATE
-    temp =  BR_MUL(BR_MUL(A(0,1) , A(1,2)) , A(2,0));
+    temp = BR_MUL(BR_MUL(A(0, 1), A(1, 2)), A(2, 0));
     ACCUMULATE
-    temp =  BR_MUL(BR_MUL(A(0,2) , A(1,0)) , A(2,1));
+    temp = BR_MUL(BR_MUL(A(0, 2), A(1, 0)), A(2, 1));
     ACCUMULATE
-    temp = -BR_MUL(BR_MUL(A(0,2) , A(1,1)) , A(2,0));
+    temp = -BR_MUL(BR_MUL(A(0, 2), A(1, 1)), A(2, 0));
     ACCUMULATE
-    temp = -BR_MUL(BR_MUL(A(0,1) , A(1,0)) , A(2,2));
+    temp = -BR_MUL(BR_MUL(A(0, 1), A(1, 0)), A(2, 2));
     ACCUMULATE
-    temp = -BR_MUL(BR_MUL(A(0,0) , A(1,2)) , A(2,1));
+    temp = -BR_MUL(BR_MUL(A(0, 0), A(1, 2)), A(2, 1));
     ACCUMULATE
     det = pos + neg;
 
     /*
-	 * Is the submatrix A singular?
-	 */
-    if(ABS(det) <= BR_SCALAR_EPSILON*2)
-		return S0;
+     * Is the submatrix A singular?
+     */
+    if (ABS(det) <= BR_SCALAR_EPSILON * 2)
+        return S0;
 
-	if((ABS(BR_DIV(det,(pos - neg))) < PRECISION_LIMIT)) {
+    if ((ABS(BR_DIV(det, (pos - neg))) < PRECISION_LIMIT))
+    {
         /*
-		 * Matrix M has no inverse
-		 */
-		return S0;
-	}
-
-   /*
-	* Calculate inverse(A) = adj(A) / det(A)
-	*/
-    idet = BR_DIV(S1,det);
-
-    B(0,0) =  BR_MUL(BR_MAC2(A(1,1),A(2,2), -A(1,2),A(2,1)),idet);
-    B(1,0) = -BR_MUL(BR_MAC2(A(1,0),A(2,2), -A(1,2),A(2,0)),idet);
-    B(2,0) =  BR_MUL(BR_MAC2(A(1,0),A(2,1), -A(1,1),A(2,0)),idet);
-    B(0,1) = -BR_MUL(BR_MAC2(A(0,1),A(2,2), -A(0,2),A(2,1)),idet);
-    B(1,1) =  BR_MUL(BR_MAC2(A(0,0),A(2,2), -A(0,2),A(2,0)),idet);
-    B(2,1) = -BR_MUL(BR_MAC2(A(0,0),A(2,1), -A(0,1),A(2,0)),idet);
-    B(0,2) =  BR_MUL(BR_MAC2(A(0,1),A(1,2), -A(0,2),A(1,1)),idet);
-    B(1,2) = -BR_MUL(BR_MAC2(A(0,0),A(1,2), -A(0,2),A(1,0)),idet);
-    B(2,2) =  BR_MUL(BR_MAC2(A(0,0),A(1,1), -A(0,1),A(1,0)),idet);
+         * Matrix M has no inverse
+         */
+        return S0;
+    }
 
     /*
-	 * Calculate -C * inverse(A)
-	 */
-    B(3,0) = -BR_MAC3(A(3,0),B(0,0), A(3,1),B(1,0), A(3,2),B(2,0));
-    B(3,1) = -BR_MAC3(A(3,0),B(0,1), A(3,1),B(1,1), A(3,2),B(2,1));
-    B(3,2) = -BR_MAC3(A(3,0),B(0,2), A(3,1),B(1,2), A(3,2),B(2,2));
+     * Calculate inverse(A) = adj(A) / det(A)
+     */
+    idet = BR_DIV(S1, det);
+
+    B(0, 0) = BR_MUL(BR_MAC2(A(1, 1), A(2, 2), -A(1, 2), A(2, 1)), idet);
+    B(1, 0) = -BR_MUL(BR_MAC2(A(1, 0), A(2, 2), -A(1, 2), A(2, 0)), idet);
+    B(2, 0) = BR_MUL(BR_MAC2(A(1, 0), A(2, 1), -A(1, 1), A(2, 0)), idet);
+    B(0, 1) = -BR_MUL(BR_MAC2(A(0, 1), A(2, 2), -A(0, 2), A(2, 1)), idet);
+    B(1, 1) = BR_MUL(BR_MAC2(A(0, 0), A(2, 2), -A(0, 2), A(2, 0)), idet);
+    B(2, 1) = -BR_MUL(BR_MAC2(A(0, 0), A(2, 1), -A(0, 1), A(2, 0)), idet);
+    B(0, 2) = BR_MUL(BR_MAC2(A(0, 1), A(1, 2), -A(0, 2), A(1, 1)), idet);
+    B(1, 2) = -BR_MUL(BR_MAC2(A(0, 0), A(1, 2), -A(0, 2), A(1, 0)), idet);
+    B(2, 2) = BR_MUL(BR_MAC2(A(0, 0), A(1, 1), -A(0, 1), A(1, 0)), idet);
+
+    /*
+     * Calculate -C * inverse(A)
+     */
+    B(3, 0) = -BR_MAC3(A(3, 0), B(0, 0), A(3, 1), B(1, 0), A(3, 2), B(2, 0));
+    B(3, 1) = -BR_MAC3(A(3, 0), B(0, 1), A(3, 1), B(1, 1), A(3, 2), B(2, 1));
+    B(3, 2) = -BR_MAC3(A(3, 0), B(0, 2), A(3, 1), B(1, 2), A(3, 2), B(2, 2));
 
     return det;
 }
 #endif
 
-
 #if 0
 
-#define AF(x,y) (AF[x][y])
-#define BF(x,y) (BF[x][y])
+#define AF(x, y) (AF[x][y])
+#define BF(x, y) (BF[x][y])
 
-#define BR_FLOAT_EPSILON	1.192092896e-7f
+#define BR_FLOAT_EPSILON 1.192092896e-7f
 
 /*
  * Use float intermediates for invertion
@@ -386,9 +466,13 @@ br_scalar BR_PUBLIC_ENTRY BrMatrix34Inverse(br_matrix34 *B, br_matrix34 *A)
 	float	AF[4][3], BF[4][3];
 	int i;
 
-#define ACCUMULATE if (temp >= 0.0) pos += temp; else neg += temp;
+#define ACCUMULATE                                                                                                     \
+    if (temp >= 0.0)                                                                                                   \
+        pos += temp;                                                                                                   \
+    else                                                                                                               \
+        neg += temp;
 #define PRECISION_LIMIT BR_SCALAR(1.0e-15)
-#define ABS(a)		(((a)<0) ? -(a) : (a))
+#define ABS(a) (((a) < 0) ? -(a) : (a))
 
 	/*
 	 * Convert input to floats
@@ -471,7 +555,7 @@ br_scalar BR_PUBLIC_ENTRY BrMatrix34Inverse(br_matrix34 *B, br_matrix34 *A)
  * Invert a length preserving matrix
  *
  * Given:
- *	  
+ *
  *  A     0
  *
  *  C     1
@@ -486,38 +570,37 @@ br_scalar BR_PUBLIC_ENTRY BrMatrix34Inverse(br_matrix34 *B, br_matrix34 *A)
  */
 void BR_PUBLIC_ENTRY BrMatrix34LPInverse(br_matrix34 *A, br_matrix34 *B)
 {
-	A(0,0) = B(0,0);
-	A(0,1) = B(1,0);
-	A(0,2) = B(2,0);
+    A(0, 0) = B(0, 0);
+    A(0, 1) = B(1, 0);
+    A(0, 2) = B(2, 0);
 
-	A(1,0) = B(0,1);
-	A(1,1) = B(1,1);
-	A(1,2) = B(2,1);
+    A(1, 0) = B(0, 1);
+    A(1, 1) = B(1, 1);
+    A(1, 2) = B(2, 1);
 
-	A(2,0) = B(0,2);
-	A(2,1) = B(1,2);
-	A(2,2) = B(2,2);
+    A(2, 0) = B(0, 2);
+    A(2, 1) = B(1, 2);
+    A(2, 2) = B(2, 2);
 
     /*
-	 * Calculate -C * inverse(A)
-	 */
-   	A(3,0) = -BR_MAC3(B(3,0),A(0,0), B(3,1),A(1,0), B(3,2),A(2,0));
-    A(3,1) = -BR_MAC3(B(3,0),A(0,1), B(3,1),A(1,1), B(3,2),A(2,1));
-    A(3,2) = -BR_MAC3(B(3,0),A(0,2), B(3,1),A(1,2), B(3,2),A(2,2));
+     * Calculate -C * inverse(A)
+     */
+    A(3, 0) = -BR_MAC3(B(3, 0), A(0, 0), B(3, 1), A(1, 0), B(3, 2), A(2, 0));
+    A(3, 1) = -BR_MAC3(B(3, 0), A(0, 1), B(3, 1), A(1, 1), B(3, 2), A(2, 1));
+    A(3, 2) = -BR_MAC3(B(3, 0), A(0, 2), B(3, 1), A(1, 2), B(3, 2), A(2, 2));
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34LPNormalise(br_matrix34 *A, br_matrix34 *B)
 {
-	BrVector3Normalise((br_vector3 *)A->m[Z],(br_vector3 *)B->m[Z]);
-	BrVector3Cross((br_vector3 *)A->m[X],(br_vector3 *)B->m[Y],(br_vector3 *)A->m[Z]);
-	BrVector3Normalise((br_vector3 *)A->m[X],(br_vector3 *)A->m[X]);
-	BrVector3Cross((br_vector3 *)A->m[Y],(br_vector3 *)A->m[Z],(br_vector3 *)A->m[X]);
+    BrVector3Normalise((br_vector3 *)A->m[Z], (br_vector3 *)B->m[Z]);
+    BrVector3Cross((br_vector3 *)A->m[X], (br_vector3 *)B->m[Y], (br_vector3 *)A->m[Z]);
+    BrVector3Normalise((br_vector3 *)A->m[X], (br_vector3 *)A->m[X]);
+    BrVector3Cross((br_vector3 *)A->m[Y], (br_vector3 *)A->m[Z], (br_vector3 *)A->m[X]);
 
-	A(3,0) = B(3,0);
-	A(3,1) = B(3,1);
-	A(3,2) = B(3,2);	
+    A(3, 0) = B(3, 0);
+    A(3, 1) = B(3, 1);
+    A(3, 2) = B(3, 2);
 }
-
 
 /*
  * From Graphic Gems II - The Rolling Ball, Andrew J. Hanson (pp. 51)
@@ -539,49 +622,58 @@ void BR_PUBLIC_ENTRY BrMatrix34LPNormalise(br_matrix34 *A, br_matrix34 *B)
  * Now plug these values into a rotation by an angle about a vector
  */
 
-void BR_PUBLIC_ENTRY BrMatrix34RollingBall(br_matrix34 *mat, int dx,int dy, int radius)
+void BR_PUBLIC_ENTRY BrMatrix34RollingBall(br_matrix34 *mat, int dx, int dy, int radius)
 {
-	br_scalar nx,ny;
-	br_scalar ca,sa;
-	br_scalar dr,h;
+    br_scalar nx, ny;
+    br_scalar ca, sa;
+    br_scalar dr, h;
 
-	dr = BR_LENGTH2(BrIntToScalar(dx),BrIntToScalar(dy));
+    dr = BR_LENGTH2(BrIntToScalar(dx), BrIntToScalar(dy));
 
-	if(dr == BR_SCALAR(0.0)) {
-		BrMatrix34Identity(mat);
-		return;
-	}
+    if (dr == BR_SCALAR(0.0))
+    {
+        BrMatrix34Identity(mat);
+        return;
+    }
 
-	nx = -BR_DIV(BrIntToScalar(dy),dr);
-	ny =  BR_DIV(BrIntToScalar(dx),dr);
+    nx = -BR_DIV(BrIntToScalar(dy), dr);
+    ny = BR_DIV(BrIntToScalar(dx), dr);
 
-	h = BR_LENGTH2(BrIntToScalar(radius),dr);
-	ca = BR_DIV(BrIntToScalar(radius),h);
-	sa = BR_DIV(dr,h);
+    h = BR_LENGTH2(BrIntToScalar(radius), dr);
+    ca = BR_DIV(BrIntToScalar(radius), h);
+    sa = BR_DIV(dr, h);
 
-	M(0,0) = ca+BR_MUL(BR_MUL(nx,nx),(S1-ca));
-	M(1,0) = BR_MUL(BR_MUL(nx,ny) ,(S1-ca));
-	M(2,0) = BR_MUL(ny,sa);
+    M(0, 0) = ca + BR_MUL(BR_MUL(nx, nx), (S1 - ca));
+    M(1, 0) = BR_MUL(BR_MUL(nx, ny), (S1 - ca));
+    M(2, 0) = BR_MUL(ny, sa);
 
-	M(0,1) = M(1,0);
-	M(1,1) = ca+BR_MUL(BR_MUL(ny,ny),(S1-ca));
-	M(2,1) = -BR_MUL(nx,sa);
+    M(0, 1) = M(1, 0);
+    M(1, 1) = ca + BR_MUL(BR_MUL(ny, ny), (S1 - ca));
+    M(2, 1) = -BR_MUL(nx, sa);
 
-	M(0,2) = -M(2,0);
-	M(1,2) = -M(2,1);
-	M(2,2) = ca;
+    M(0, 2) = -M(2, 0);
+    M(1, 2) = -M(2, 1);
+    M(2, 2) = ca;
 
-	M(3,0) = S0;
-	M(3,1) = S0;
-	M(3,2) = S0;
+    M(3, 0) = S0;
+    M(3, 1) = S0;
+    M(3, 2) = S0;
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34Copy4(br_matrix34 *A, br_matrix4 *B)
 {
-	A(0,0) = B(0,0); A(0,1) = B(0,1); A(0,2) = B(0,2);
-	A(1,0) = B(1,0); A(1,1) = B(1,1); A(1,2) = B(1,2);
-	A(2,0) = B(2,0); A(2,1) = B(2,1); A(2,2) = B(2,2);
-	A(3,0) = B(3,0); A(3,1) = B(3,1); A(3,2) = B(3,2);
+    A(0, 0) = B(0, 0);
+    A(0, 1) = B(0, 1);
+    A(0, 2) = B(0, 2);
+    A(1, 0) = B(1, 0);
+    A(1, 1) = B(1, 1);
+    A(1, 2) = B(1, 2);
+    A(2, 0) = B(2, 0);
+    A(2, 1) = B(2, 1);
+    A(2, 2) = B(2, 2);
+    A(3, 0) = B(3, 0);
+    A(3, 1) = B(3, 1);
+    A(3, 2) = B(3, 2);
 }
 
 /*
@@ -592,9 +684,9 @@ void BR_PUBLIC_ENTRY BrMatrix34Copy4(br_matrix34 *A, br_matrix4 *B)
  */
 void BrMatrix34TApplyFV(br_vector3 *A, br_fvector3 *B, br_matrix34 *C)
 {
-	A->v[0] = BR_FMAC3(B->v[0],C(0,0), B->v[1],C(0,1), B->v[2],C(0,2));
-	A->v[1] = BR_FMAC3(B->v[0],C(1,0), B->v[1],C(1,1), B->v[2],C(1,2));
-	A->v[2] = BR_FMAC3(B->v[0],C(2,0), B->v[1],C(2,1), B->v[2],C(2,2));
+    A->v[0] = BR_FMAC3(B->v[0], C(0, 0), B->v[1], C(0, 1), B->v[2], C(0, 2));
+    A->v[1] = BR_FMAC3(B->v[0], C(1, 0), B->v[1], C(1, 1), B->v[2], C(1, 2));
+    A->v[2] = BR_FMAC3(B->v[0], C(2, 0), B->v[1], C(2, 1), B->v[2], C(2, 2));
 }
 
 /*
@@ -602,9 +694,9 @@ void BrMatrix34TApplyFV(br_vector3 *A, br_fvector3 *B, br_matrix34 *C)
  */
 void BR_PUBLIC_ENTRY BrMatrix34Apply(br_vector3 *A, br_vector4 *B, br_matrix34 *C)
 {
-	A->v[0] = BR_MAC4(B->v[0],C(0,0), B->v[1],C(1,0), B->v[2],C(2,0), B->v[3],C(3,0));
-	A->v[1] = BR_MAC4(B->v[0],C(0,1), B->v[1],C(1,1), B->v[2],C(2,1), B->v[3],C(3,1));
-	A->v[2] = BR_MAC4(B->v[0],C(0,2), B->v[1],C(1,2), B->v[2],C(2,2), B->v[3],C(3,2));
+    A->v[0] = BR_MAC4(B->v[0], C(0, 0), B->v[1], C(1, 0), B->v[2], C(2, 0), B->v[3], C(3, 0));
+    A->v[1] = BR_MAC4(B->v[0], C(0, 1), B->v[1], C(1, 1), B->v[2], C(2, 1), B->v[3], C(3, 1));
+    A->v[2] = BR_MAC4(B->v[0], C(0, 2), B->v[1], C(1, 2), B->v[2], C(2, 2), B->v[3], C(3, 2));
 }
 
 /*
@@ -612,9 +704,9 @@ void BR_PUBLIC_ENTRY BrMatrix34Apply(br_vector3 *A, br_vector4 *B, br_matrix34 *
  */
 void BR_PUBLIC_ENTRY BrMatrix34ApplyP(br_vector3 *A, br_vector3 *B, br_matrix34 *C)
 {
-	A->v[0] = BR_MAC3(B->v[0],C(0,0), B->v[1],C(1,0), B->v[2],C(2,0)) + C(3,0);
-	A->v[1] = BR_MAC3(B->v[0],C(0,1), B->v[1],C(1,1), B->v[2],C(2,1)) + C(3,1);
-	A->v[2] = BR_MAC3(B->v[0],C(0,2), B->v[1],C(1,2), B->v[2],C(2,2)) + C(3,2);
+    A->v[0] = BR_MAC3(B->v[0], C(0, 0), B->v[1], C(1, 0), B->v[2], C(2, 0)) + C(3, 0);
+    A->v[1] = BR_MAC3(B->v[0], C(0, 1), B->v[1], C(1, 1), B->v[2], C(2, 1)) + C(3, 1);
+    A->v[2] = BR_MAC3(B->v[0], C(0, 2), B->v[1], C(1, 2), B->v[2], C(2, 2)) + C(3, 2);
 }
 
 /*
@@ -622,9 +714,9 @@ void BR_PUBLIC_ENTRY BrMatrix34ApplyP(br_vector3 *A, br_vector3 *B, br_matrix34 
  */
 void BR_PUBLIC_ENTRY BrMatrix34ApplyV(br_vector3 *A, br_vector3 *B, br_matrix34 *C)
 {
-	A->v[0] = BR_MAC3(B->v[0],C(0,0), B->v[1],C(1,0), B->v[2],C(2,0));
-	A->v[1] = BR_MAC3(B->v[0],C(0,1), B->v[1],C(1,1), B->v[2],C(2,1));
-	A->v[2] = BR_MAC3(B->v[0],C(0,2), B->v[1],C(1,2), B->v[2],C(2,2));
+    A->v[0] = BR_MAC3(B->v[0], C(0, 0), B->v[1], C(1, 0), B->v[2], C(2, 0));
+    A->v[1] = BR_MAC3(B->v[0], C(0, 1), B->v[1], C(1, 1), B->v[2], C(2, 1));
+    A->v[2] = BR_MAC3(B->v[0], C(0, 2), B->v[1], C(1, 2), B->v[2], C(2, 2));
 }
 
 /*
@@ -632,10 +724,10 @@ void BR_PUBLIC_ENTRY BrMatrix34ApplyV(br_vector3 *A, br_vector3 *B, br_matrix34 
  */
 void BR_PUBLIC_ENTRY BrMatrix34TApply(br_vector4 *A, br_vector4 *B, br_matrix34 *C)
 {
-	A->v[0] = BR_MAC3(B->v[0],C(0,0), B->v[1],C(0,1), B->v[2],C(0,2));
-	A->v[1] = BR_MAC3(B->v[0],C(1,0), B->v[1],C(1,1), B->v[2],C(1,2));
-	A->v[2] = BR_MAC3(B->v[0],C(2,0), B->v[1],C(2,1), B->v[2],C(2,2));
-	A->v[3] = BR_ADD(BR_MAC3(B->v[0],C(3,0), B->v[1],C(3,1), B->v[2],C(3,2)), B->v[3]);
+    A->v[0] = BR_MAC3(B->v[0], C(0, 0), B->v[1], C(0, 1), B->v[2], C(0, 2));
+    A->v[1] = BR_MAC3(B->v[0], C(1, 0), B->v[1], C(1, 1), B->v[2], C(1, 2));
+    A->v[2] = BR_MAC3(B->v[0], C(2, 0), B->v[1], C(2, 1), B->v[2], C(2, 2));
+    A->v[3] = BR_ADD(BR_MAC3(B->v[0], C(3, 0), B->v[1], C(3, 1), B->v[2], C(3, 2)), B->v[3]);
 }
 
 /*
@@ -643,9 +735,9 @@ void BR_PUBLIC_ENTRY BrMatrix34TApply(br_vector4 *A, br_vector4 *B, br_matrix34 
  */
 void BR_PUBLIC_ENTRY BrMatrix34TApplyP(br_vector3 *A, br_vector3 *B, br_matrix34 *C)
 {
-	A->v[0] = BR_MAC3(B->v[0],C(0,0), B->v[1],C(0,1), B->v[2],C(0,2));
-	A->v[1] = BR_MAC3(B->v[0],C(1,0), B->v[1],C(1,1), B->v[2],C(1,2));
-	A->v[2] = BR_MAC3(B->v[0],C(2,0), B->v[1],C(2,1), B->v[2],C(2,2));
+    A->v[0] = BR_MAC3(B->v[0], C(0, 0), B->v[1], C(0, 1), B->v[2], C(0, 2));
+    A->v[1] = BR_MAC3(B->v[0], C(1, 0), B->v[1], C(1, 1), B->v[2], C(1, 2));
+    A->v[2] = BR_MAC3(B->v[0], C(2, 0), B->v[1], C(2, 1), B->v[2], C(2, 2));
 }
 
 /*
@@ -653,9 +745,9 @@ void BR_PUBLIC_ENTRY BrMatrix34TApplyP(br_vector3 *A, br_vector3 *B, br_matrix34
  */
 void BR_PUBLIC_ENTRY BrMatrix34TApplyV(br_vector3 *A, br_vector3 *B, br_matrix34 *C)
 {
-	A->v[0] = BR_MAC3(B->v[0],C(0,0), B->v[1],C(0,1), B->v[2],C(0,2));
-	A->v[1] = BR_MAC3(B->v[0],C(1,0), B->v[1],C(1,1), B->v[2],C(1,2));
-	A->v[2] = BR_MAC3(B->v[0],C(2,0), B->v[1],C(2,1), B->v[2],C(2,2));
+    A->v[0] = BR_MAC3(B->v[0], C(0, 0), B->v[1], C(0, 1), B->v[2], C(0, 2));
+    A->v[1] = BR_MAC3(B->v[0], C(1, 0), B->v[1], C(1, 1), B->v[2], C(1, 2));
+    A->v[2] = BR_MAC3(B->v[0], C(2, 0), B->v[1], C(2, 1), B->v[2], C(2, 2));
 }
 
 /*
@@ -666,149 +758,145 @@ void BR_PUBLIC_ENTRY BrMatrix34TApplyV(br_vector3 *A, br_vector3 *B, br_matrix34
  * BrMatrix34ApplyN()
  */
 
-
 /*
  * Composite matrix operations -
  * pre and post-multiply with an existing matrix
  */
 
-void BR_PUBLIC_ENTRY BrMatrix34Pre(br_matrix34 *mat , br_matrix34 *A)
+void BR_PUBLIC_ENTRY BrMatrix34Pre(br_matrix34 *mat, br_matrix34 *A)
 {
-	BrMatrix34Mul(&mattmp2,A,mat);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34Mul(&mattmp2, A, mat);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
-void BR_PUBLIC_ENTRY BrMatrix34Post(br_matrix34 *mat , br_matrix34 *A)
+void BR_PUBLIC_ENTRY BrMatrix34Post(br_matrix34 *mat, br_matrix34 *A)
 {
-	BrMatrix34Mul(&mattmp2,mat,A);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34Mul(&mattmp2, mat, A);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PreRotateX(br_matrix34 *mat, br_angle rx)
 {
-	BrMatrix34RotateX(&mattmp1,rx);
-	BrMatrix34Mul(&mattmp2,&mattmp1,mat);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34RotateX(&mattmp1, rx);
+    BrMatrix34Mul(&mattmp2, &mattmp1, mat);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PostRotateX(br_matrix34 *mat, br_angle rx)
 {
-	BrMatrix34RotateX(&mattmp1,rx);
-	BrMatrix34Mul(&mattmp2,mat,&mattmp1);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34RotateX(&mattmp1, rx);
+    BrMatrix34Mul(&mattmp2, mat, &mattmp1);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PreRotateY(br_matrix34 *mat, br_angle ry)
 {
-	BrMatrix34RotateY(&mattmp1,ry);
-	BrMatrix34Mul(&mattmp2,&mattmp1,mat);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34RotateY(&mattmp1, ry);
+    BrMatrix34Mul(&mattmp2, &mattmp1, mat);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PostRotateY(br_matrix34 *mat, br_angle ry)
 {
-	BrMatrix34RotateY(&mattmp1,ry);
-	BrMatrix34Mul(&mattmp2,mat,&mattmp1);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34RotateY(&mattmp1, ry);
+    BrMatrix34Mul(&mattmp2, mat, &mattmp1);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PreRotateZ(br_matrix34 *mat, br_angle rz)
-{			  
-	BrMatrix34RotateZ(&mattmp1,rz);
-	BrMatrix34Mul(&mattmp2,&mattmp1,mat);
-	BrMatrix34Copy(mat,&mattmp2);
+{
+    BrMatrix34RotateZ(&mattmp1, rz);
+    BrMatrix34Mul(&mattmp2, &mattmp1, mat);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PostRotateZ(br_matrix34 *mat, br_angle rz)
 {
-	BrMatrix34RotateZ(&mattmp1,rz);
-	BrMatrix34Mul(&mattmp2,mat,&mattmp1);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34RotateZ(&mattmp1, rz);
+    BrMatrix34Mul(&mattmp2, mat, &mattmp1);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PreRotate(br_matrix34 *mat, br_angle r, br_vector3 *axis)
 {
-	BrMatrix34Rotate(&mattmp1,r,axis);
-	BrMatrix34Mul(&mattmp2,&mattmp1,mat);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34Rotate(&mattmp1, r, axis);
+    BrMatrix34Mul(&mattmp2, &mattmp1, mat);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PostRotate(br_matrix34 *mat, br_angle r, br_vector3 *axis)
 {
-	BrMatrix34Rotate(&mattmp1,r,axis);
-	BrMatrix34Mul(&mattmp2,mat,&mattmp1);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34Rotate(&mattmp1, r, axis);
+    BrMatrix34Mul(&mattmp2, mat, &mattmp1);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PreTranslate(br_matrix34 *mat, br_scalar x, br_scalar y, br_scalar z)
 {
-	BrMatrix34Translate(&mattmp1,x,y,z);
-	BrMatrix34Mul(&mattmp2,&mattmp1,mat);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34Translate(&mattmp1, x, y, z);
+    BrMatrix34Mul(&mattmp2, &mattmp1, mat);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PostTranslate(br_matrix34 *mat, br_scalar x, br_scalar y, br_scalar z)
 {
-	BrMatrix34Translate(&mattmp1,x,y,z);
-	BrMatrix34Mul(&mattmp2,mat,&mattmp1);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34Translate(&mattmp1, x, y, z);
+    BrMatrix34Mul(&mattmp2, mat, &mattmp1);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PreScale(br_matrix34 *mat, br_scalar sx, br_scalar sy, br_scalar sz)
 {
-	BrMatrix34Scale(&mattmp1,sx,sy,sz);
-	BrMatrix34Mul(&mattmp2,&mattmp1,mat);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34Scale(&mattmp1, sx, sy, sz);
+    BrMatrix34Mul(&mattmp2, &mattmp1, mat);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PostScale(br_matrix34 *mat, br_scalar sx, br_scalar sy, br_scalar sz)
 {
-	BrMatrix34Scale(&mattmp1,sx,sy,sz);
-	BrMatrix34Mul(&mattmp2,mat,&mattmp1);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34Scale(&mattmp1, sx, sy, sz);
+    BrMatrix34Mul(&mattmp2, mat, &mattmp1);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PreShearX(br_matrix34 *mat, br_scalar sy, br_scalar sz)
 {
-	BrMatrix34ShearX(&mattmp1,sy,sz);
-	BrMatrix34Mul(&mattmp2,&mattmp1,mat);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34ShearX(&mattmp1, sy, sz);
+    BrMatrix34Mul(&mattmp2, &mattmp1, mat);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PostShearX(br_matrix34 *mat, br_scalar sy, br_scalar sz)
 {
-	BrMatrix34ShearX(&mattmp1,sy,sz);
-	BrMatrix34Mul(&mattmp2,mat,&mattmp1);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34ShearX(&mattmp1, sy, sz);
+    BrMatrix34Mul(&mattmp2, mat, &mattmp1);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PreShearY(br_matrix34 *mat, br_scalar sx, br_scalar sz)
 {
-	BrMatrix34ShearY(&mattmp1,sx,sz);
-	BrMatrix34Mul(&mattmp2,&mattmp1,mat);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34ShearY(&mattmp1, sx, sz);
+    BrMatrix34Mul(&mattmp2, &mattmp1, mat);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PostShearY(br_matrix34 *mat, br_scalar sx, br_scalar sz)
 {
-	BrMatrix34ShearY(&mattmp1,sx,sz);
-	BrMatrix34Mul(&mattmp2,mat,&mattmp1);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34ShearY(&mattmp1, sx, sz);
+    BrMatrix34Mul(&mattmp2, mat, &mattmp1);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PreShearZ(br_matrix34 *mat, br_scalar sx, br_scalar sy)
 {
-	BrMatrix34ShearZ(&mattmp1,sx,sy);
-	BrMatrix34Mul(&mattmp2,&mattmp1,mat);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34ShearZ(&mattmp1, sx, sy);
+    BrMatrix34Mul(&mattmp2, &mattmp1, mat);
+    BrMatrix34Copy(mat, &mattmp2);
 }
 
 void BR_PUBLIC_ENTRY BrMatrix34PostShearZ(br_matrix34 *mat, br_scalar sx, br_scalar sy)
 {
-	BrMatrix34ShearZ(&mattmp1,sx,sy);
-	BrMatrix34Mul(&mattmp2,mat,&mattmp1);
-	BrMatrix34Copy(mat,&mattmp2);
+    BrMatrix34ShearZ(&mattmp1, sx, sy);
+    BrMatrix34Mul(&mattmp2, mat, &mattmp1);
+    BrMatrix34Copy(mat, &mattmp2);
 }
-
-
-

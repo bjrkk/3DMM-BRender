@@ -6,4 +6,3 @@
  *
  * #defines to shortcut file operations
  */
-

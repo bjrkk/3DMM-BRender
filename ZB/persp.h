@@ -10,21 +10,23 @@
 #define _PERSP_H_
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-typedef struct {
-    char *start,*end;
-    char *zstart;
-    unsigned int denominator;
-    int u_numerator,v_numerator;
-    int du_numerator,dv_numerator;
-    int dWx;
-    int source;
-    int x,y;
-} TexturedScanLine;
+    typedef struct
+    {
+        char *start, *end;
+        char *zstart;
+        unsigned int denominator;
+        int u_numerator, v_numerator;
+        int du_numerator, dv_numerator;
+        int dWx;
+        int source;
+        int x, y;
+    } TexturedScanLine;
 
-extern TexturedScanLine BR_ASM_DATA tsl;
+    extern TexturedScanLine BR_ASM_DATA tsl;
 
 #ifdef __cplusplus
 };

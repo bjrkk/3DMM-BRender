@@ -138,82 +138,81 @@ br_model *objects[50];
 /*
  * Read animation frames from the file.
  */
-int BR_PUBLIC_ENTRY BrOldAnimLoad(	char *filename,br_animation ***anim,
-						int *num_frames,br_model **objects)
+int BR_PUBLIC_ENTRY BrOldAnimLoad(char *filename, br_animation ***anim, int *num_frames, br_model **objects)
 {
-	int	count=0;
-	int	frame=0,num=0;
-	br_animation *temp;
-	br_animation **frames;
-	FILE *fp;
-	char *name;
+    int count = 0;
+    int frame = 0, num = 0;
+    br_animation *temp;
+    br_animation **frames;
+    FILE *fp;
+    char *name;
 
-	fp=FOPEN(filename,"rb");
+    fp = FOPEN(filename, "rb");
 
-	for(;;)
-	{
-	  	if (DfDataInterpret(fread,fseek,fp)==0)
-			break;
+    for (;;)
+    {
+        if (DfDataInterpret(fread, fseek, fp) == 0)
+            break;
 
-	 	temp=(br_animation*)DfPop(DFST_ANIM_TRANSFORM,&count);
-		NEW_PTR_N(frames,count+1);
-		*num_frames=count;
-		while(count>0)
-		{
-			frames[count]=temp;
-			temp=(br_animation*)DfPop(DFST_ANIM_TRANSFORM,&count);
-		}
-		frames[count]=temp;
-		name=(char*)DfPop(DFST_ANIM_NAME,NULL);
-		count=BrActorFind(name,objects);
+        temp = (br_animation *)DfPop(DFST_ANIM_TRANSFORM, &count);
+        NEW_PTR_N(frames, count + 1);
+        *num_frames = count;
+        while (count > 0)
+        {
+            frames[count] = temp;
+            temp = (br_animation *)DfPop(DFST_ANIM_TRANSFORM, &count);
+        }
+        frames[count] = temp;
+        name = (char *)DfPop(DFST_ANIM_NAME, NULL);
+        count = BrActorFind(name, objects);
 
-		if (count>=0)
-			anim[count]=frames;
-		num++;
-	}
+        if (count >= 0)
+            anim[count] = frames;
+        num++;
+    }
 
-	FCLOSE(fp);
+    FCLOSE(fp);
 
-	return num;
+    return num;
 }
-
 
 /*
  * Find the named model in the renderer's current set, return Model pointer
  */
-br_model * BR_PUBLIC_ENTRY BrOldModelFind(char *name,br_model **objects)
+br_model *BR_PUBLIC_ENTRY BrOldModelFind(char *name, br_model **objects)
 {
-	int	i;
-	for (i=1;objects[i];i++)
-		if (strcmp(name,objects[i]->identifier)==0)	return objects[i];
-	return objects[0];
+    int i;
+    for (i = 1; objects[i]; i++)
+        if (strcmp(name, objects[i]->identifier) == 0)
+            return objects[i];
+    return objects[0];
 }
 
 /*
  * Find the named model in the renderer's current set, return Actor index
  */
-br_uint_32 BR_PUBLIC_ENTRY BrOldActorFind(char *name,br_model **objects)
+br_uint_32 BR_PUBLIC_ENTRY BrOldActorFind(char *name, br_model **objects)
 {
-	int	i;
-	for (i=0;objects[i];i++)
-        if (strncmp(name,objects[i]->identifier,10)==0) return i;
-	return -1;
+    int i;
+    for (i = 0; objects[i]; i++)
+        if (strncmp(name, objects[i]->identifier, 10) == 0)
+            return i;
+    return -1;
 }
-
 
 /*
  * read file type of a file from the p3d_file_info block
  * a file
  */
-br_uint_32 BR_PUBLIC_ENTRY  BrOldTypeRead(char *filename)
+br_uint_32 BR_PUBLIC_ENTRY BrOldTypeRead(char *filename)
 {
-	br_file_info *info;
-	FILE *fp;
+    br_file_info *info;
+    FILE *fp;
 
-	fp=FOPEN(filename,"rb");
-	DfTypeInterpret(fread,fseek,fp);
-	info=(br_file_info *)DfPop(DFST_FILE_INFO,NULL);
-	FCLOSE(fp);
+    fp = FOPEN(filename, "rb");
+    DfTypeInterpret(fread, fseek, fp);
+    info = (br_file_info *)DfPop(DFST_FILE_INFO, NULL);
+    FCLOSE(fp);
 
-	return info->type;
+    return info->type;
 }

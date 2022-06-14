@@ -12,9 +12,9 @@
 #if DEBUG
 void _BrAssert(char *condition, char *file, unsigned line)
 {
-	_ErrorOutput();
-	printf("ASSERTION FAILED %s:%d: \"%s\"\n",file,line,condition);
-	_ErrorExit(10);
+    _ErrorOutput();
+    printf("ASSERTION FAILED %s:%d: \"%s\"\n", file, line, condition);
+    _ErrorExit(10);
 }
 #endif
 
@@ -22,8 +22,8 @@ void _BrAssert(char *condition, char *file, unsigned line)
 
 void _BrUAssert(char *condition, char *file, unsigned line)
 {
-	_ErrorOutput();
-	printf("USER ASSERTION FAILED %s:%d: \"%s\"\n",file,line,condition);
-	_ErrorExit(10);
+    _ErrorOutput();
+    printf("USER ASSERTION FAILED %s:%d: \"%s\"\n", file, line, condition);
+    _ErrorExit(10);
 }
 #endif

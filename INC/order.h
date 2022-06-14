@@ -10,43 +10,45 @@
 #define _ORDER_H_
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-enum {
-	BR_ORDER_TABLE_NEW_BOUNDS	= 0x0001,
-};
+    enum
+    {
+        BR_ORDER_TABLE_NEW_BOUNDS = 0x0001,
+    };
 
-typedef struct br_order_table {
+    typedef struct br_order_table
+    {
 
-	/*
-	 * Order table array
-	 */
-	void **table;
+        /*
+         * Order table array
+         */
+        void **table;
 
-	/*
-	 * Number of entries in array
-	 */
-	br_uint_32 ot_size;
+        /*
+         * Number of entries in array
+         */
+        br_uint_32 ot_size;
 
-	/*
-	 * Next order table in list
-	 */
-	struct br_order_table *next;
+        /*
+         * Next order table in list
+         */
+        struct br_order_table *next;
 
-	/*
-	 * Order table bounds
-	 */
-	br_scalar min_z;
-	br_scalar max_z;
+        /*
+         * Order table bounds
+         */
+        br_scalar min_z;
+        br_scalar max_z;
 
-	/*
-	 * Flags
-	 */
-	br_uint_32 flags;
-    
-} br_order_table;
+        /*
+         * Flags
+         */
+        br_uint_32 flags;
 
+    } br_order_table;
 
 #ifdef __cplusplus
 };

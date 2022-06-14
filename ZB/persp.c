@@ -16,18 +16,19 @@
 #include "zb.h"
 #include "shortcut.h"
 
-#define swap(type, a, b) { \
-	type _; \
-	_ = a; \
-	a = b; \
-	b = _; \
-}
+#define swap(type, a, b)                                                                                               \
+    {                                                                                                                  \
+        type _;                                                                                                        \
+        _ = a;                                                                                                         \
+        a = b;                                                                                                         \
+        b = _;                                                                                                         \
+    }
 
 #define sar16(num) (br_int_32)(br_int_16)((br_uint_32)(num) >> 16)
-#define incv(a, size) ((a) + (size) & (size) * (size) - 1);
-#define incu(a, size) (((a) + 1 & (size) - 1) | ((a) & ~((size)-1)));
-#define decv(a, size) ((a) - (size) & (size) * (size) - 1);
-#define decu(a, size) ((a) - 1 & (size) - 1) | (a & ~((size) - 1));
+#define incv(a, size) ((a) + (size) & (size) * (size)-1);
+#define incu(a, size) (((a) + 1 & (size)-1) | ((a) & ~((size)-1)));
+#define decv(a, size) ((a) - (size) & (size) * (size)-1);
+#define decu(a, size) ((a)-1 & (size)-1) | (a & ~((size)-1));
 
 extern void BR_ASM_CALL ScanLinePIZ2TIP256(void);
 extern void BR_ASM_CALL ScanLinePIZ2TIP64(void);
@@ -41,9 +42,8 @@ BR_ASM_CALL_EXTRA(ScanLinePIZ2TP1024)
 BR_ASM_CALL_EXTRA(ScanLinePIZ2TP256)
 BR_ASM_CALL_EXTRA(ScanLinePIZ2TP64)
 
-extern int BR_ASM_CALL SafeFixedMac2Div(int,int,int,int,int);
+extern int BR_ASM_CALL SafeFixedMac2Div(int, int, int, int, int);
 BR_ASM_CALL_EXTRA(SafeFixedMac2Div)
-
 
 extern int cutoff = 4;
 

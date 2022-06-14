@@ -18,12 +18,13 @@
 #include "shortcut.h"
 #include "brassert.h"
 
-#define swap(type, a, b) { \
-	type _; \
-	_ = a; \
-	a = b; \
-	b = _; \
-}
+#define swap(type, a, b)                                                                                               \
+    {                                                                                                                  \
+        type _;                                                                                                        \
+        _ = a;                                                                                                         \
+        a = b;                                                                                                         \
+        b = _;                                                                                                         \
+    }
 
 extern float frcp[100];
 
@@ -37,7 +38,7 @@ extern void BR_ASM_CALL ScanLinePIZ2TP64(void);
 extern void BR_ASM_CALL ScanLinePIZ2TP1024(void);
 extern void BR_ASM_CALL ScanLinePIZ2TPD1024(void);
 
-extern int BR_ASM_CALL SafeFixedMac2Div(int,int,int,int,int);
+extern int BR_ASM_CALL SafeFixedMac2Div(int, int, int, int, int);
 
 #define cutoff 4.0
 
@@ -50,12 +51,12 @@ extern int incl(int);
 extern int dech(int);
 extern int decl(int);
 
-#pragma aux sar16 = "sar eax,16" parm [eax]
+#pragma aux sar16 = "sar eax,16" parm[eax]
 
-#pragma aux inch = "inc ah" parm [eax]
-#pragma aux incl = "inc al" parm [eax]
-#pragma aux dech = "dec ah" parm [eax]
-#pragma aux decl = "dec al" parm [eax]
+#pragma aux inch = "inc ah" parm[eax]
+#pragma aux incl = "inc al" parm[eax]
+#pragma aux dech = "dec ah" parm[eax]
+#pragma aux decl = "dec al" parm[eax]
 
 #else
 

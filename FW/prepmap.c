@@ -15,10 +15,9 @@ static char rscid[] = "$Id: prepmap.c 1.2 1995/02/22 21:42:23 sam Exp $";
 
 void BR_PUBLIC_ENTRY BrMapUpdate(br_pixelmap *map, br_uint_16 flags)
 {
-	/*
-	 * Call any renderer function
-	 */
-	if(fw.map_update)
-		fw.map_update(map,flags);
+    /*
+     * Call any renderer function
+     */
+    if (fw.map_update)
+        fw.map_update(map, flags);
 }
-

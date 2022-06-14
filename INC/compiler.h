@@ -13,39 +13,40 @@
 #define _COMPILER_H_
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-/*
- * Fixed bitsize integers
- */
+    /*
+     * Fixed bitsize integers
+     */
 
-typedef int64_t br_int_64;
-typedef uint64_t br_uint_64;
-typedef int32_t br_int_32;
-typedef uint32_t br_uint_32;
-typedef int16_t br_int_16;
-typedef uint16_t br_uint_16;
-typedef int8_t br_int_8;
-typedef uint8_t br_uint_8;
+    typedef int64_t br_int_64;
+    typedef uint64_t br_uint_64;
+    typedef int32_t br_int_32;
+    typedef uint32_t br_uint_32;
+    typedef int16_t br_int_16;
+    typedef uint16_t br_uint_16;
+    typedef int8_t br_int_8;
+    typedef uint8_t br_uint_8;
 
-/*
- * Generic size type (in case target environment does not have size_t)
- */
-typedef size_t br_size_t;
+    /*
+     * Generic size type (in case target environment does not have size_t)
+     */
+    typedef size_t br_size_t;
 
-typedef uintptr_t br_uint_ptr;
-typedef intptr_t br_int_ptr;
+    typedef uintptr_t br_uint_ptr;
+    typedef intptr_t br_int_ptr;
 
-/*
- * Boolean type
- */
-typedef int br_boolean;
+    /*
+     * Boolean type
+     */
+    typedef int br_boolean;
 
-#define BR_TRUE		1
-#define BR_FALSE	0
+#define BR_TRUE 1
+#define BR_FALSE 0
 
-#define BR_BOOLEAN(a)	((a) != BR_FALSE)
+#define BR_BOOLEAN(a) ((a) != BR_FALSE)
 
 /**
  ** Compiler specific declarations
@@ -83,16 +84,16 @@ typedef int br_boolean;
 #define stricmp _stricmp
 #define strnicmp _strnicmp
 #define memccpy _memccpy
-#define MEMAVL	0
+#define MEMAVL 0
 
-#pragma aux __cdecl "_*" parm caller [] modify [eax ecx edx] ;
+#pragma aux __cdecl "_*" parm caller[] modify[eax ecx edx];
 
 #define BR_PUBLIC_ENTRY __cdecl
 #define BR_CALLBACK __cdecl
 
 #else
 
-#define MEMAVL	_memavl()
+#define MEMAVL _memavl()
 #define BR_PUBLIC_ENTRY
 #define BR_CALLBACK
 #endif
@@ -109,13 +110,13 @@ typedef int br_boolean;
 
 #define BR_SUFFIX_HOST "-WTC"
 
-#define BR_HAS_FAR	1
+#define BR_HAS_FAR 1
 
 /*
  * Stop unreferenced variables producing a warning
  * Things like "rcsid" and unused fucntion arguments
  */
-#pragma off (unreferenced);
+#pragma off(unreferenced);
 
 #ifndef __H2INC__
 #pragma pack(4);
@@ -133,13 +134,13 @@ typedef int br_boolean;
 
 #define BR_SUFFIX_HOST "-ZTC"
 
-#define BR_HAS_FAR	1
-#define MEMAVL	0
+#define BR_HAS_FAR 1
+#define MEMAVL 0
 
 /*
  * GNU C
  */
-#elif defined (__GNUC__)
+#elif defined(__GNUC__)
 
 #define BR_PUBLIC_ENTRY
 #define BR_CALLBACK
@@ -150,13 +151,13 @@ typedef int br_boolean;
 
 #define BR_SUFFIX_HOST "-GCC"
 
-#define BR_HAS_FAR	0
-#define MEMAVL	0
+#define BR_HAS_FAR 0
+#define MEMAVL 0
 
 /*
  * Apple MPW C
  */
-#elif defined (__MPW__)
+#elif defined(__MPW__)
 #define BR_PUBLIC_ENTRY
 #define BR_CALLBACK
 
@@ -166,13 +167,13 @@ typedef int br_boolean;
 
 #define BR_SUFFIX_HOST "-MPW"
 
-#define BR_HAS_FAR	0
-#define MEMAVL	0
+#define BR_HAS_FAR 0
+#define MEMAVL 0
 
 /*
  * Intel Proton
  */
-#elif defined (__PROTONC__)
+#elif defined(__PROTONC__)
 #define BR_PUBLIC_ENTRY __cdecl
 #define BR_CALLBACK __cdecl
 
@@ -182,13 +183,13 @@ typedef int br_boolean;
 
 #define BR_SUFFIX_HOST "-PROTON"
 
-#define BR_HAS_FAR	1
-#define MEMAVL	0
+#define BR_HAS_FAR 1
+#define MEMAVL 0
 
 /*
  * Microsoft Visual C++
  */
-#elif defined (_MSC_VER)
+#elif defined(_MSC_VER)
 
 #define BR_PUBLIC_ENTRY __cdecl
 #define BR_CALLBACK __cdecl
@@ -199,18 +200,18 @@ typedef int br_boolean;
 
 #define BR_SUFFIX_HOST "-VISUALC"
 
-#define BR_HAS_FAR	0
-#define MEMAVL	0
+#define BR_HAS_FAR 0
+#define MEMAVL 0
 
 #ifndef __H2INC__
-#pragma warning(disable:4103)
+#pragma warning(disable : 4103)
 #pragma pack(4)
 #endif
 
 /*
  * Metaware High-C Version 1
  */
-#elif defined (__HIGHC_V1__)
+#elif defined(__HIGHC_V1__)
 
 #pragma On(Align_members)
 
@@ -223,15 +224,15 @@ typedef int br_boolean;
 
 #define BR_SUFFIX_HOST "-HIGHC1"
 
-#define BR_HAS_FAR	0
-#define MEMAVL	0
+#define BR_HAS_FAR 0
+#define MEMAVL 0
 
 #define stricmp _stricmp
 
 /*
  * Metaware High-C Version 3
  */
-#elif defined (__HIGHC__)
+#elif defined(__HIGHC__)
 
 #pragma Align_members(4)
 
@@ -244,15 +245,15 @@ typedef int br_boolean;
 
 #define BR_SUFFIX_HOST "-HIGHC3"
 
-#define BR_HAS_FAR	0
-#define MEMAVL	0
+#define BR_HAS_FAR 0
+#define MEMAVL 0
 
 #define stricmp _stricmp
 
 /*
  * Borland BC 4
  */
-#elif defined (__BORLANDC__)
+#elif defined(__BORLANDC__)
 #define BR_PUBLIC_ENTRY
 #define BR_CALLBACK
 
@@ -262,9 +263,9 @@ typedef int br_boolean;
 
 #define BR_SUFFIX_HOST "-BORLAND"
 
-#define BR_HAS_FAR	0
+#define BR_HAS_FAR 0
 
-#define MEMAVL	0
+#define MEMAVL 0
 
 #ifndef __H2INC__
 #pragma option -a4
@@ -273,7 +274,7 @@ typedef int br_boolean;
 /*
  * IBM CSet++
  */
-#elif defined (__IBMC__)
+#elif defined(__IBMC__)
 #define BR_PUBLIC_ENTRY _System
 #define BR_CALLBACK _System
 
@@ -283,13 +284,12 @@ typedef int br_boolean;
 
 #define BR_SUFFIX_HOST "-CSET"
 
-#define BR_HAS_FAR	0
-#define MEMAVL	0
+#define BR_HAS_FAR 0
+#define MEMAVL 0
 
 #endif
 
-
-#if defined (__H2INC__)
+#if defined(__H2INC__)
 /*
  * Avoid some tokens that masm chokes on
  */
@@ -324,17 +324,18 @@ typedef int br_boolean;
 /*
  * Macros for producing banners & copyright messages
  */
-#define BR_BANNER(title, year, revision) { \
-	static char _revision[] = revision; \
-	fprintf(stderr, title); \
-	fwrite(_revision + 10, 1, sizeof(_revision) - 12, stderr); \
-	fprintf(stderr, "Copyright (C) " year " by Argonaut Technologies Limited\n"); \
-}
+#define BR_BANNER(title, year, revision)                                                                               \
+    {                                                                                                                  \
+        static char _revision[] = revision;                                                                            \
+        fprintf(stderr, title);                                                                                        \
+        fwrite(_revision + 10, 1, sizeof(_revision) - 12, stderr);                                                     \
+        fprintf(stderr, "Copyright (C) " year " by Argonaut Technologies Limited\n");                                  \
+    }
 
 /*
  * Useful macro for sizing an array
  */
-#define BR_ASIZE(a) (sizeof(a)/sizeof((a)[0]))
+#define BR_ASIZE(a) (sizeof(a) / sizeof((a)[0]))
 
 #ifdef __cplusplus
 };

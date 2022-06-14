@@ -10,7 +10,8 @@
 #define _COMPEND_H_
 
 #ifdef __cplusplus
-	extern "C" {
+extern "C"
+{
 #endif
 
 /*
@@ -30,23 +31,22 @@
 /*
  * GNU C
  */
-#elif defined (__GNUC__)
-
+#elif defined(__GNUC__)
 
 /*
  * Apple MPW C
  */
-#elif defined (__MPW__)
+#elif defined(__MPW__)
 
 /*
  * Intel Proton
  */
-#elif defined (__PROTONC__)
+#elif defined(__PROTONC__)
 
 /*
  * Microsoft Visual C++
  */
-#elif defined (_MSC_VER)
+#elif defined(_MSC_VER)
 
 #ifndef __H2INC__
 #pragma pack()
@@ -55,29 +55,26 @@
 /*
  * Metaware High-C Version 1
  */
-#elif defined (__HIGHC_V1__)
+#elif defined(__HIGHC_V1__)
 
 /*
  * Metaware High-C Version 3
  */
-#elif defined (__HIGHC__)
+#elif defined(__HIGHC__)
 
 /*
  * Borland BC 4
  */
-#elif defined (__BORLANDC__)
+#elif defined(__BORLANDC__)
 
 /*
  * IBM CSet++
  */
-#elif defined (__IBMC__)
+#elif defined(__IBMC__)
 
 #endif
 
 #ifdef __cplusplus
-	};
+};
 #endif
 #endif
-
-
-

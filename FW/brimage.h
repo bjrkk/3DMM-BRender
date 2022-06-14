@@ -9,74 +9,74 @@
 #define _BRIMAGE_H_
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-/*
- * In-memory structure describing a loaded image
- */
-typedef struct br_image_section {
-	char *name;
-	void *base;
-	br_size_t mem_offset;
-	br_size_t mem_size;
-	br_uint_32 data_offset;
-	br_uint_32 data_size;
-} br_image_section;
+    /*
+     * In-memory structure describing a loaded image
+     */
+    typedef struct br_image_section
+    {
+        char *name;
+        void *base;
+        br_size_t mem_offset;
+        br_size_t mem_size;
+        br_uint_32 data_offset;
+        br_uint_32 data_size;
+    } br_image_section;
 
+    typedef struct br_image
+    {
+        /*
+         * Anchor block for list of images
+         */
+        br_node node;
 
-typedef struct br_image {
-	/*
-	 * Anchor block for list of images
-	 */
-	br_node node;
+        /*
+         * DLL name
+         */
+        char *identifier;
 
-	/*
-	 * DLL name
-	 */
-	char *identifier;
+        /*
+         * Flag, true if DLL is resident
+         */
+        br_boolean resident;
 
-	/*
-	 * Flag, true if DLL is resident
-	 */
-	br_boolean resident;
+        /*
+         * Number of references to this DLL
+         */
+        int ref_count;
 
-	/*
-	 * Number of references to this DLL
-	 */
-	int ref_count;
+        /*
+         * Table of exported functions
+         */
+        br_uint_32 ordinal_base;
+        br_uint_32 n_functions;
+        void **functions;
 
-	/*
-	 * Table of exported functions
-	 */
-	br_uint_32 ordinal_base;
-	br_uint_32 n_functions;
-	void ** functions;
+        /*
+         * Name -> ordinal lookup
+         */
+        br_uint_32 n_names;
+        char **names;
+        br_uint_16 *name_ordinals;
 
-	/*
-	 * Name -> ordinal lookup
-	 */
-	br_uint_32 n_names;
-	char		**names;
-	br_uint_16 *name_ordinals;
+        /*
+         * Table of imported image pointers
+         */
+        br_uint_16 n_imports;
+        struct br_image **imports;
 
-	/*
-	 * Table of imported image pointers
-	 */
-	br_uint_16 n_imports;
-	struct br_image ** imports;
+        /*
+         * Image sections
+         */
+        br_uint_16 n_sections;
+        br_image_section *sections;
 
-	/*
-	 * Image sections
-	 */
-	br_uint_16 n_sections;
-	br_image_section *sections;
-
-} br_image;
-
+    } br_image;
 
 #ifdef __cplusplus
 };
 #endif
 #endif
-

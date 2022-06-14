@@ -60,11 +60,11 @@ int BR_PUBLIC_ENTRY BrTokenCount(char *pattern)
  * Convert a string to a token/value list
  */
 
-br_uint_32 * BR_PUBLIC_ENTRY BrTokenFromString(char *string)
+br_uint_32 *BR_PUBLIC_ENTRY BrTokenFromString(char *string)
 {
 }
 
-br_uint_32 * BR_PUBLIC_ENTRY BrTokenToString(br_token *token)
+br_uint_32 *BR_PUBLIC_ENTRY BrTokenToString(br_token *token)
 {
 }
 

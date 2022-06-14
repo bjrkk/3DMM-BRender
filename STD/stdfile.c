@@ -18,12 +18,8 @@
  */
 static br_uint_32 BR_CALLBACK BrStdioAttributes(void)
 {
-	return 
-		BR_FS_ATTR_READABLE   | 
-		BR_FS_ATTR_WRITEABLE  |
-		BR_FS_ATTR_HAS_TEXT   |
-		BR_FS_ATTR_HAS_BINARY |
-		BR_FS_ATTR_HAS_ADVANCE;
+    return BR_FS_ATTR_READABLE | BR_FS_ATTR_WRITEABLE | BR_FS_ATTR_HAS_TEXT | BR_FS_ATTR_HAS_BINARY |
+           BR_FS_ATTR_HAS_ADVANCE;
 }
 
 /*
@@ -40,114 +36,116 @@ static br_uint_32 BR_CALLBACK BrStdioAttributes(void)
  * Return a void * file handle ('FILE *' cast to 'void *') or NULL
  * if open failed
  */
-void * BR_CALLBACK BrStdioOpenRead(char *name, br_size_t n_magics,
-		br_mode_test_cbfn *identify,
-		int *mode_result)
+void *BR_CALLBACK BrStdioOpenRead(char *name, br_size_t n_magics, br_mode_test_cbfn *identify, int *mode_result)
 {
-	FILE *fh;
-	char *br_path;
-   	char try_name[512],*cp;
-	br_uint_8 magics[BR_MAX_FILE_MAGICS];
-	int open_mode = BR_FS_MODE_BINARY;
+    FILE *fh;
+    char *br_path;
+    char try_name[512], *cp;
+    br_uint_8 magics[BR_MAX_FILE_MAGICS];
+    int open_mode = BR_FS_MODE_BINARY;
 
-	/*
-	 * Try the current directory
-	 */
-	strncpy(try_name,name,BR_ASIZE(try_name)-1);
+    /*
+     * Try the current directory
+     */
+    strncpy(try_name, name, BR_ASIZE(try_name) - 1);
 
-	if((fh = fopen(try_name,"rb")) == NULL) {
+    if ((fh = fopen(try_name, "rb")) == NULL)
+    {
 
-		/*
-		 * If that fails, and if a drive or a
-	     * directory were specified, don't search along path
-		 */
-		if(strchr(name,':') || strchr(name,'/') || strchr(name,'\\'))
-			return NULL;
+        /*
+         * If that fails, and if a drive or a
+         * directory were specified, don't search along path
+         */
+        if (strchr(name, ':') || strchr(name, '/') || strchr(name, '\\'))
+            return NULL;
 
-		/*
-		 * For each element of the path, if it exists
-		 */
-		if((br_path = getenv("BRENDER_PATH")) == NULL)
-			return NULL;
+        /*
+         * For each element of the path, if it exists
+         */
+        if ((br_path = getenv("BRENDER_PATH")) == NULL)
+            return NULL;
 
-		while(*br_path) {
-			/*
-			 * Take characters until next seperator or terminator
-			 */
-			cp = try_name;
+        while (*br_path)
+        {
+            /*
+             * Take characters until next seperator or terminator
+             */
+            cp = try_name;
 
-			while(*br_path != ';' && *br_path != '\0')
-				*cp++ = *br_path++;
+            while (*br_path != ';' && *br_path != '\0')
+                *cp++ = *br_path++;
 
-			if(*br_path == ';')
-				br_path++;
+            if (*br_path == ';')
+                br_path++;
 
-			/*
-			 * Add a directory seperator if none
-			 */
-			if(cp != try_name && (*(cp-1) != ':' && *(cp-1) != '/' &&*(cp-1) != '\\'))
-				*cp++ = '/';
+            /*
+             * Add a directory seperator if none
+             */
+            if (cp != try_name && (*(cp - 1) != ':' && *(cp - 1) != '/' && *(cp - 1) != '\\'))
+                *cp++ = '/';
 
-			strcpy(cp,name);
+            strcpy(cp, name);
 
-			if((fh = fopen(try_name,"rb")) != NULL)
-				break;
-		}
+            if ((fh = fopen(try_name, "rb")) != NULL)
+                break;
+        }
 
-		if(fh == NULL)
-			return NULL;
-	}
+        if (fh == NULL)
+            return NULL;
+    }
 
-	if(mode_result)
-		 open_mode = *mode_result;
+    if (mode_result)
+        open_mode = *mode_result;
 
-	if(n_magics != 0) {
-		/*
-		 * Now have an open file, try and grab the first bytes from it
-		 */
-		if(fread(magics, 1, n_magics,fh) != n_magics) {
-			/*
-			 * Could not read all the required data, close and punt
-			 */
-			fclose(fh);
-			return NULL;
-		}
+    if (n_magics != 0)
+    {
+        /*
+         * Now have an open file, try and grab the first bytes from it
+         */
+        if (fread(magics, 1, n_magics, fh) != n_magics)
+        {
+            /*
+             * Could not read all the required data, close and punt
+             */
+            fclose(fh);
+            return NULL;
+        }
 
-		/*
-		 * Try and identify the file
-		 */
-		if(identify)
-			open_mode = identify(magics, n_magics);
+        /*
+         * Try and identify the file
+         */
+        if (identify)
+            open_mode = identify(magics, n_magics);
 
-		if(mode_result)
-			*mode_result = open_mode;
-	}
+        if (mode_result)
+            *mode_result = open_mode;
+    }
 
-	/*
-	 * Reopen file with it's new identity (or abandon if unknown identity)
-	 */
-	fclose(fh);
+    /*
+     * Reopen file with it's new identity (or abandon if unknown identity)
+     */
+    fclose(fh);
 
-	switch(open_mode) {
-	case BR_FS_MODE_TEXT:
-		fh = fopen(try_name,"r");
-		break;
+    switch (open_mode)
+    {
+    case BR_FS_MODE_TEXT:
+        fh = fopen(try_name, "r");
+        break;
 
-	case BR_FS_MODE_BINARY:
-		fh = fopen(try_name,"rb");
-		break;
+    case BR_FS_MODE_BINARY:
+        fh = fopen(try_name, "rb");
+        break;
 
-	case BR_FS_MODE_UNKNOWN:
-		fh = NULL;
-		break;
+    case BR_FS_MODE_UNKNOWN:
+        fh = NULL;
+        break;
 
-	default:
-		BR_ERROR1("BrStdFileOpenRead: invalid open_mode %d",open_mode);
-	}
+    default:
+        BR_ERROR1("BrStdFileOpenRead: invalid open_mode %d", open_mode);
+    }
 
-	return fh;
+    return fh;
 }
-
 
 /*
  * Open a file for writing, overwrites any existing file of the same name
@@ -155,13 +153,13 @@ void * BR_CALLBACK BrStdioOpenRead(char *name, br_size_t n_magics,
  * Return a void * file handle ('FILE *' cast to 'void *') or NULL
  * if open failed
  */
-static void * BR_CALLBACK BrStdioOpenWrite(char *name, int mode)
+static void *BR_CALLBACK BrStdioOpenWrite(char *name, int mode)
 {
-	FILE *fh = NULL;
+    FILE *fh = NULL;
 
-	fh = fopen(name,(mode == BR_FS_MODE_TEXT)?"w":"wb");
+    fh = fopen(name, (mode == BR_FS_MODE_TEXT) ? "w" : "wb");
 
-	return fh;
+    return fh;
 }
 
 /*
@@ -169,7 +167,7 @@ static void * BR_CALLBACK BrStdioOpenWrite(char *name, int mode)
  */
 static void BR_CALLBACK BrStdioClose(void *f)
 {
-	fclose(f);
+    fclose(f);
 }
 
 /*
@@ -177,7 +175,7 @@ static void BR_CALLBACK BrStdioClose(void *f)
  */
 static int BR_CALLBACK BrStdioEof(void *f)
 {
-	return feof((FILE *)f);
+    return feof((FILE *)f);
 }
 
 /*
@@ -185,16 +183,15 @@ static int BR_CALLBACK BrStdioEof(void *f)
  */
 static int BR_CALLBACK BrStdioGetChar(void *f)
 {
-	return getc((FILE *)f);
+    return getc((FILE *)f);
 }
-
 
 /*
  * Write one character to file
  */
 static void BR_CALLBACK BrStdioPutChar(int c, void *f)
 {
-	fputc(c,(FILE *)f);
+    fputc(c, (FILE *)f);
 }
 
 /*
@@ -202,7 +199,7 @@ static void BR_CALLBACK BrStdioPutChar(int c, void *f)
  */
 static br_size_t BR_CALLBACK BrStdioRead(void *buf, br_size_t size, unsigned int n, void *f)
 {
-	return fread(buf,size,n,(FILE *)f);
+    return fread(buf, size, n, (FILE *)f);
 }
 
 /*
@@ -210,7 +207,7 @@ static br_size_t BR_CALLBACK BrStdioRead(void *buf, br_size_t size, unsigned int
  */
 static br_size_t BR_CALLBACK BrStdioWrite(void *buf, br_size_t size, unsigned int n, void *f)
 {
-	return fwrite(buf,size,n,(FILE *)f);
+    return fwrite(buf, size, n, (FILE *)f);
 }
 
 /*
@@ -218,28 +215,28 @@ static br_size_t BR_CALLBACK BrStdioWrite(void *buf, br_size_t size, unsigned in
  *
  * Return length of line
  */
-static br_size_t BR_CALLBACK BrStdioGetLine(char *buf, br_size_t buf_len, void * f)
+static br_size_t BR_CALLBACK BrStdioGetLine(char *buf, br_size_t buf_len, void *f)
 {
-	br_size_t l;
+    br_size_t l;
 
-	if(fgets(buf,buf_len,(FILE *)f) == NULL)
-		return 0;
+    if (fgets(buf, buf_len, (FILE *)f) == NULL)
+        return 0;
 
-	l = strlen(buf);
+    l = strlen(buf);
 
-	if(l > 0 && buf[l-1] == '\n')
-		buf[--l] = '\0';
-		
-	return l;
+    if (l > 0 && buf[l - 1] == '\n')
+        buf[--l] = '\0';
+
+    return l;
 }
 
 /*
  * Write a line to text file, followed by newline
  */
-void BR_CALLBACK BrStdioPutLine(char *buf, void * f)
+void BR_CALLBACK BrStdioPutLine(char *buf, void *f)
 {
-	fputs(buf,(FILE *)f);
-	fputc('\n',(FILE *)f);
+    fputs(buf, (FILE *)f);
+    fputc('\n', (FILE *)f);
 }
 
 /*
@@ -247,31 +244,31 @@ void BR_CALLBACK BrStdioPutLine(char *buf, void * f)
  */
 static void BR_CALLBACK BrStdioAdvance(br_size_t count, void *f)
 {
-	fseek(f,(long int)count,SEEK_CUR);
+    fseek(f, (long int)count, SEEK_CUR);
 }
 
 /*
  * Filesystem structure
  */
 br_filesystem BrStdioFilesystem = {
-	"Standard IO",			/* identifier */
-	
-	BrStdioAttributes,		/* attributes */
-	BrStdioOpenRead,		/* open_read  */
-	BrStdioOpenWrite,		/* openwrite  */
-	BrStdioClose,			/* close      */
-	BrStdioEof,				/* eof		  */
+    "Standard IO", /* identifier */
 
-	BrStdioGetChar,			/* getchar	  */
-	BrStdioPutChar,			/* putchar	  */
+    BrStdioAttributes, /* attributes */
+    BrStdioOpenRead,   /* open_read  */
+    BrStdioOpenWrite,  /* openwrite  */
+    BrStdioClose,      /* close      */
+    BrStdioEof,        /* eof		  */
 
-	BrStdioRead,			/* read		  */
-	BrStdioWrite,			/* write	  */
+    BrStdioGetChar, /* getchar	  */
+    BrStdioPutChar, /* putchar	  */
 
-	BrStdioGetLine,			/* getline	  */
-	BrStdioPutLine,			/* putline	  */
+    BrStdioRead,  /* read		  */
+    BrStdioWrite, /* write	  */
 
-	BrStdioAdvance,			/* advance	  */
+    BrStdioGetLine, /* getline	  */
+    BrStdioPutLine, /* putline	  */
+
+    BrStdioAdvance, /* advance	  */
 };
 
 /*
