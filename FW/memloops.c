@@ -155,12 +155,12 @@ static inline void __COPY_BITS_CORE_N(char *dest, br_int_32 d_stride, br_uint_8 
 				if (bpp == 1) {
 					curr_dest[x * bpp] = (colour & 0xFF);
 				} else if (bpp == 2) {
-					curr_dest[x * bpp + 0] = (colour & 0xFF00);
-					curr_dest[x * bpp + 1] = (colour & 0x00FF) >> 8;
+					curr_dest[x * bpp + 0] = (colour & 0xFF00) >> 8;
+					curr_dest[x * bpp + 1] = (colour & 0x00FF);
 				} else if (bpp == 3) {
-					curr_dest[x * bpp + 0] = (colour & 0xFF0000);
+					curr_dest[x * bpp + 0] = (colour & 0xFF0000) >> 16;
 					curr_dest[x * bpp + 1] = (colour & 0x00FF00) >> 8;
-					curr_dest[x * bpp + 2] = (colour & 0x0000FF) >> 16;
+					curr_dest[x * bpp + 2] = (colour & 0x0000FF);
 				} else if (bpp == 4) {
 					br_uint_32 *dword_dest = (br_uint_32*)curr_dest;
 					dword_dest[x] = colour;
@@ -190,12 +190,12 @@ static inline void __COPY_BITS_CORE_1(char *dest, br_int_32 d_stride, br_uint_8 
 			if (bpp == 1) {
 				dest[x * bpp] = (colour & 0xFF);
 			} else if (bpp == 2) {
-				dest[x * bpp + 0] = (colour & 0xFF00);
-				dest[x * bpp + 1] = (colour & 0x00FF) >> 8;
+				dest[x * bpp + 0] = (colour & 0xFF00) >> 8;
+				dest[x * bpp + 1] = (colour & 0x00FF);
 			} else if (bpp == 3) {
-				dest[x * bpp + 0] = (colour & 0xFF0000);
+				dest[x * bpp + 0] = (colour & 0xFF0000) >> 16;
 				dest[x * bpp + 1] = (colour & 0x00FF00) >> 8;
-				dest[x * bpp + 2] = (colour & 0x0000FF) >> 16;
+				dest[x * bpp + 2] = (colour & 0x0000FF);
 			} else if (bpp == 4) {
 				br_uint_32 *dword_dest = (br_uint_32*)dest;
 				dword_dest[x] = colour;
