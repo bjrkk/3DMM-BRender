@@ -132,6 +132,7 @@ target_include_directories(ZB
 
 add_library(FMT)
 target_sources(FMT PRIVATE
+	"${PROJECT_SOURCE_DIR}/FMT/strcasecmp.c"
 	"${PROJECT_SOURCE_DIR}/FMT/loadnff.c"
 	"${PROJECT_SOURCE_DIR}/FMT/loadasc.c"
 	"${PROJECT_SOURCE_DIR}/FMT/loadscr.c"

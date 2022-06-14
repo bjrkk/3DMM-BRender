@@ -13,6 +13,7 @@
 
 #include "brender.h"
 #include "fmt.h"
+#include "strcasecmp.h"
 
 static char rscid[] = "$Id: loadasc.c 1.10 1995/03/20 21:32:06 sam Exp $";
 
@@ -116,7 +117,7 @@ br_uint_32 BR_PUBLIC_ENTRY BrFmtASCLoad(char *name, br_model **mtable, br_uint_1
             token = K_NOP;
             for (i = 0; i < BR_ASIZE(Keywords); i++)
             {
-                if (!strnicmp(Keywords[i].word, line, Keywords[i].length))
+                if (!BrStrncasecmp(Keywords[i].word, line, Keywords[i].length))
                 {
                     token = Keywords[i].token;
                     line_tail = line + Keywords[i].length;

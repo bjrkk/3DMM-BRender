@@ -14,6 +14,7 @@
 
 #include "brender.h"
 #include "fmt.h"
+#include "strcasecmp.h"
 
 #define LEX_DEBUG 0
 
@@ -398,7 +399,7 @@ static void LexAdvanceReal(void)
              */
             for (n = 0; n < BR_ASIZE(token_keywords); n++)
             {
-                if (token_keywords[n][0] == lex_buffer[0] && !stricmp(token_keywords[n], lex_buffer))
+                if (token_keywords[n][0] == lex_buffer[0] && !BrStrcasecmp(token_keywords[n], lex_buffer))
                 {
                     /*
                      * Found a keyword - which are based at 128
