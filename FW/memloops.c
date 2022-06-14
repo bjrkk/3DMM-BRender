@@ -125,7 +125,7 @@ void BR_ASM_CALL _MemRectCopy_A(char *dest, char *src, br_uint_32 pwidth, br_uin
 
 void BR_ASM_CALL _MemRectFill_A(char *dest, br_uint_32 pwidth, br_uint_32 pheight, br_int_32 d_stride, br_uint_32 bpp, br_uint_32 colour) {
 	br_uint_32 const line_diff = pwidth * bpp;
-    d_stride -= line_diff;
+	d_stride -= line_diff;
 
 	for (br_uint_32 i = 0; i < pheight; i++) {
 		_MemFill_A(dest, pwidth, bpp, colour);

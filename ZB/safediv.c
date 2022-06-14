@@ -9,11 +9,11 @@ static inline br_int_32 __SafeDiv(br_int_64 a, br_int_32 b) {
 		a = -a;
 	}
 
-    if (b < 0) {
+	if (b < 0) {
 		b = -b;
 	} else if (b == 0) {
-        return 0;
-    }
+		return 0;
+	}
 	
 	if ((a >> 32) >= b) {
 		return 0;
@@ -21,7 +21,7 @@ static inline br_int_32 __SafeDiv(br_int_64 a, br_int_32 b) {
 
 	// NOTE(???): div *must* be safe now or I'll eat my hat... NOT!
 	br_uint_32 result = __BrBuiltinDivU64U32(a, b);
-
+	
 	sign >>= 31;
 	result ^= sign;
 	result -= sign;

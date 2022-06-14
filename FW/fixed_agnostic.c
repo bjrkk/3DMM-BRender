@@ -225,39 +225,39 @@ static inline br_fixed_lsf __BrInterpTable(br_angle const *table, br_angle const
 
 static inline br_uint_32 __BrSqrt64(br_uint_64 a) {
 	br_int_32 error = 0;
-    br_int_32 estimate = 0;
+	br_int_32 estimate = 0;
 	br_int_32 estimate_mul2 = 0;
 
-    br_uint_32 hi = a >> 32;
-    br_uint_32 lo = a;
+	br_uint_32 hi = a >> 32;
+	br_uint_32 lo = a;
 
 	for (int i = 0; i < 16; i++) {
 		error <<= 2;
 		error |= hi >> (32 - 2);
-        hi <<= 2;
+		hi <<= 2;
 
 		estimate *= 2;
 		estimate_mul2 *= 2;
 
 		if (estimate_mul2 < error) {
 			error -= estimate_mul2 + 1;
-            estimate += 1;
-            estimate_mul2 += 2;
+			estimate += 1;
+			estimate_mul2 += 2;
 		}
 	}
 
 	for (int i = 0; i < 16; i++) {
 		error <<= 2;
 		error |= lo >> (32 - 2);
-        lo <<= 2;
+		lo <<= 2;
 
 		estimate *= 2;
 		estimate_mul2 *= 2;
 
 		if (estimate_mul2 < error) {
 			error -= estimate_mul2 + 1;
-            estimate += 1;
-            estimate_mul2 += 2;
+			estimate += 1;
+			estimate_mul2 += 2;
 		}
 	}
 	
@@ -344,7 +344,7 @@ br_fixed_ls BR_ASM_CALL BrFixedMac3(br_fixed_ls a, br_fixed_ls b,
 br_fixed_ls BR_ASM_CALL BrFixedMac4(br_fixed_ls a, br_fixed_ls b,
                                     br_fixed_ls c, br_fixed_ls d,
                                     br_fixed_ls e, br_fixed_ls f,
-									br_fixed_ls g, br_fixed_ls h) {
+                                    br_fixed_ls g, br_fixed_ls h) {
 	br_int_64 ab = (br_int_64)a * (br_int_64)b;
 	br_int_64 cd = (br_int_64)c * (br_int_64)d;
 	br_int_64 ef = (br_int_64)e * (br_int_64)f;
@@ -354,7 +354,7 @@ br_fixed_ls BR_ASM_CALL BrFixedMac4(br_fixed_ls a, br_fixed_ls b,
 
 br_fixed_ls BR_ASM_CALL BrFixedMac2Div(br_fixed_ls a, br_fixed_ls b, 
                                        br_fixed_ls c, br_fixed_ls d, 
-									   br_fixed_ls e) {
+                                       br_fixed_ls e) {
 	br_int_64 ab = (br_int_64)a * (br_int_64)b;
 	br_int_64 cd = (br_int_64)c * (br_int_64)d;
 	return __BrBuiltinDivI64I32(ab + cd, e);
@@ -362,8 +362,8 @@ br_fixed_ls BR_ASM_CALL BrFixedMac2Div(br_fixed_ls a, br_fixed_ls b,
 
 br_fixed_ls BR_ASM_CALL BrFixedMac3Div(br_fixed_ls a, br_fixed_ls b, 
                                        br_fixed_ls c, br_fixed_ls d, 
-									   br_fixed_ls e, br_fixed_ls f, 
-									   br_fixed_ls g) {
+                                       br_fixed_ls e, br_fixed_ls f, 
+                                       br_fixed_ls g) {
 	br_int_64 ab = (br_int_64)a * (br_int_64)b;
 	br_int_64 cd = (br_int_64)c * (br_int_64)d;
 	br_int_64 ef = (br_int_64)e * (br_int_64)f;
@@ -374,9 +374,9 @@ br_fixed_ls BR_ASM_CALL BrFixedMac3Div(br_fixed_ls a, br_fixed_ls b,
  */
 br_fixed_ls BR_ASM_CALL BrFixedMac4Div(br_fixed_ls a, br_fixed_ls b, 
                                        br_fixed_ls c, br_fixed_ls d, 
-									   br_fixed_ls e, br_fixed_ls f, 
-									   br_fixed_ls g, br_fixed_ls h, 
-									   br_fixed_ls i) {
+                                       br_fixed_ls e, br_fixed_ls f, 
+                                       br_fixed_ls g, br_fixed_ls h, 
+                                       br_fixed_ls i) {
 	br_int_64 ab = (br_int_64)a * (br_int_64)b;
 	br_int_64 cd = (br_int_64)c * (br_int_64)d;
 	br_int_64 ef = (br_int_64)e * (br_int_64)f;
@@ -385,7 +385,7 @@ br_fixed_ls BR_ASM_CALL BrFixedMac4Div(br_fixed_ls a, br_fixed_ls b,
 }
 
 br_fixed_ls BR_ASM_CALL BrFixedFMac2(br_fixed_lsf a, br_fixed_ls b,
-									 br_fixed_lsf c, br_fixed_ls d) {
+                                     br_fixed_lsf c, br_fixed_ls d) {
 	br_int_64 ab = (br_int_64)a * (br_int_64)b;
 	br_int_64 cd = (br_int_64)c * (br_int_64)d;
 	return (br_uint_64)(ab + cd) >> 15;
@@ -394,8 +394,8 @@ br_fixed_ls BR_ASM_CALL BrFixedFMac2(br_fixed_lsf a, br_fixed_ls b,
 /* result = a*b + c*d + e*f - a,c & e are fractions
  */
 br_fixed_ls BR_ASM_CALL BrFixedFMac3(br_fixed_lsf a, br_fixed_ls b,
-									 br_fixed_lsf c, br_fixed_ls d,
-									 br_fixed_lsf e, br_fixed_ls f) {
+                                     br_fixed_lsf c, br_fixed_ls d,
+                                     br_fixed_lsf e, br_fixed_ls f) {
 	br_int_64 ab = (br_int_64)a * (br_int_64)b;
 	br_int_64 cd = (br_int_64)c * (br_int_64)d;
 	br_int_64 ef = (br_int_64)e * (br_int_64)f;
@@ -405,9 +405,9 @@ br_fixed_ls BR_ASM_CALL BrFixedFMac3(br_fixed_lsf a, br_fixed_ls b,
 /* result = a*b + c*d + e*f + g*h (a,c,e,g are fractions)
  */
 br_fixed_ls BR_ASM_CALL BrFixedFMac4(br_fixed_lsf a, br_fixed_ls b,
-									 br_fixed_lsf c, br_fixed_ls d,
-									 br_fixed_lsf e, br_fixed_ls f,
-									 br_fixed_lsf g, br_fixed_ls h) {
+                                     br_fixed_lsf c, br_fixed_ls d,
+                                     br_fixed_lsf e, br_fixed_ls f,
+                                     br_fixed_lsf g, br_fixed_ls h) {
 	br_int_64 ab = (br_int_64)a * (br_int_64)b;
 	br_int_64 cd = (br_int_64)c * (br_int_64)d;
 	br_int_64 ef = (br_int_64)e * (br_int_64)f;
