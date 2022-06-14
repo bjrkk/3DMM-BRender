@@ -539,5 +539,6 @@ void BR_ASM_CALL PointRender_Null(struct temp_vertex_fixed *v0)
 {
 }
 //#endif
-
-
+
+
+

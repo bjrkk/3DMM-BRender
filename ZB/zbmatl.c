@@ -194,4 +194,4 @@ static br_uint_16 PixelmapHasZeros(br_pixelmap *pm)
     return 0;
 }
 //#endif
-
+

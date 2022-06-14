@@ -782,4 +782,4 @@ struct clip_vertex *ZbTempClip(struct temp_vertex *tvp, struct temp_face *tfp, i
     *n_out = n;
     return cp_in;
 }
-
+

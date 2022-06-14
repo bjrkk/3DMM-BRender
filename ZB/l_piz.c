@@ -1557,4 +1557,4 @@ void BR_ASM_CALL LineRenderPIZ2I_RGB_555(struct temp_vertex_fixed *v0, struct te
         }
     }
 }
-
+

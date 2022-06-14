@@ -67,4 +67,4 @@ void BR_ASM_CALL TriangleRenderPIZ2TIAD(struct temp_vertex_fixed *v0, struct tem
     TriangleRenderPIZ2TIA(tv + 0, tv + 1, tv + 2);
 #endif
 }
-
+
