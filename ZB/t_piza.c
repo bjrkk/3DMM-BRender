@@ -23,7 +23,7 @@
             zb.awsl.source_current += zb.awsl.texture_stride;                                                          \
     }
 
-br_uint_32 noffset;
+br_size_t noffset;
 
 static inline void __TriangleRenderZ2(br_boolean use_light, br_boolean use_bump, br_boolean use_transparency,
                                       br_uint_32 bpp)
@@ -35,14 +35,16 @@ static inline void __TriangleRenderZ2(br_boolean use_light, br_boolean use_bump,
 
     while (zb.awsl.edge->count > 0)
     {
+        zb.awsl.edge->count--;
+
         if (use_bump)
         {
-            noffset = (br_uint_32)(zb.bump_buffer - zb.texture_buffer);
+            noffset = zb.bump_buffer - zb.texture_buffer;
         }
 
         is_forward = zb.awsl.start < zb.awsl.end;
         ptr = zb.awsl.start;
-        u = (zb.awsl.u_current & 0xFFFF0000) | (zb.awsl.u_int_current & 0xFFFF);
+        u = (zb.awsl.u_current & 0xFFFF0000) | zb.awsl.u_int_current;
         v = zb.awsl.v_current;
 
         zb.pz.currentpix = zb.pz.current;
@@ -72,23 +74,29 @@ static inline void __TriangleRenderZ2(br_boolean use_light, br_boolean use_bump,
                 {
                     *zptr = BrFixedToInt(zb.pz.currentpix);
                     zptr++;
-                    *ptr = zb.shade_table[*src | ((BrFixedToInt(zb.pi.currentpix) & 0xFF) << 8)];
+                    for (int i = 0; i < bpp; i++)
+                    {
+                        *ptr = zb.shade_table[*src | ((BrFixedToInt(zb.pi.currentpix) & 0xFF) << 8)];
+                    }
                     zb.pz.currentpix += zb.pz.grad_x;
-                    ptr++;
+                    ptr += bpp;
                     zb.pi.currentpix += zb.pi.grad_x;
                     goto contf;
                 }
                 else
                 {
                     *zptr = BrFixedToInt(zb.pz.currentpix);
-                    *ptr = *src;
+                    for (int i = 0; i < bpp; i++)
+                    {
+                        ptr[i] = src[bpp - i - 1];
+                    }
                 }
 
             failf:
                 if (use_light)
                 {
                     zptr++;
-                    ptr++;
+                    ptr += bpp;
                     ecx = zb.pz.currentpix;
                     edx = zb.pz.grad_x;
                     ecx += edx;
@@ -104,7 +112,7 @@ static inline void __TriangleRenderZ2(br_boolean use_light, br_boolean use_bump,
                     zptr++;
                     edx = zb.pz.grad_x;
                     ecx += edx;
-                    ptr++;
+                    ptr += bpp;
                     zb.pz.currentpix = ecx;
                 }
 
@@ -112,8 +120,9 @@ static inline void __TriangleRenderZ2(br_boolean use_light, br_boolean use_bump,
                 if (add_carry(u, zb.awsl.du))
                 {
                     u++;
-                    src++;
+                    src += bpp;
                 }
+
                 src += zb.awsl.dsource;
                 u += zb.awsl.du_int;
 
@@ -125,10 +134,11 @@ static inline void __TriangleRenderZ2(br_boolean use_light, br_boolean use_bump,
                 if ((u & 0x8000) == 0)
                 {
                     u += zb.awsl.texture_width;
-                    src += zb.awsl.texture_width;
+                    src += zb.awsl.texture_stride;
                 }
 
-                if (src < zb.awsl.texture_start) // Have we underrun?
+                // Have we underrun?
+                if (src < zb.awsl.texture_start)
                 {
                     src += zb.awsl.texture_size;
                 }
@@ -141,14 +151,12 @@ static inline void __TriangleRenderZ2(br_boolean use_light, br_boolean use_bump,
                 zb.pz.currentpix -= zb.pz.grad_x;
 
                 if (use_light)
-                {
                     zb.pi.currentpix -= zb.pi.grad_x;
-                }
 
                 if (add_carry(u, zb.awsl.du))
                 {
                     u++;
-                    src++;
+                    src += bpp;
                 }
 
                 src += zb.awsl.dsource;
@@ -162,18 +170,16 @@ static inline void __TriangleRenderZ2(br_boolean use_light, br_boolean use_bump,
                 if ((u & 0x8000) == 0)
                 {
                     u += zb.awsl.texture_width;
-                    src += zb.awsl.texture_width;
+                    src += zb.awsl.texture_stride;
                 }
 
             nowidthb:
-                if (src < zb.awsl.texture_start)
-                {
+                if (src < zb.awsl.texture_start) // Have we underrun?
                     src += zb.awsl.texture_size;
-                }
 
             nosizeb:
                 zptr--;
-                ptr--;
+                ptr -= bpp;
 
                 if (use_transparency && *src == 0)
                     continue;
@@ -189,7 +195,10 @@ static inline void __TriangleRenderZ2(br_boolean use_light, br_boolean use_bump,
                 }
                 else
                 {
-                    *ptr = *src;
+                    for (int i = 0; i < bpp; i++)
+                    {
+                        ptr[i] = src[bpp - i - 1];
+                    }
                 }
 
                 if (use_bump)
@@ -200,7 +209,10 @@ static inline void __TriangleRenderZ2(br_boolean use_light, br_boolean use_bump,
                     ecx = *ptr;
                     ecx |= (br_uint_32)zb.lighting_table[edx] << 8; // Calculate light level from normal
                     ecx |= zb.shade_table[ecx];                     // Light texel
-                    *ptr = (ecx & 0xFF);
+                    for (int i = 0; i < bpp; i++)
+                    {
+                        *ptr = (ecx & 0xFF);
+                    }
                 }
             }
         }
@@ -213,7 +225,9 @@ static inline void __TriangleRenderZ2(br_boolean use_light, br_boolean use_bump,
         zb.awsl.end += bpp * (zb.awsl.edge->d_i + carry);
         carry = add_carry(zb.main.f, zb.main.d_f);
 
-        zb.awsl.zstart += 2 * (zb.main.d_i + carry);
+        zptr = (unsigned short *)zb.awsl.zstart;
+        zptr += zb.main.d_i + carry;
+        zb.awsl.zstart = (br_fixed_ls *)zptr;
         zb.awsl.start += bpp * (zb.main.d_i + carry);
 
         if (carry)
@@ -229,7 +243,7 @@ static inline void __TriangleRenderZ2(br_boolean use_light, br_boolean use_bump,
         if (zb.awsl.u_int_current >= 0)
         {
             zb.awsl.u_int_current += zb.awsl.texture_width;
-            zb.awsl.source_current += bpp * zb.awsl.texture_width;
+            zb.awsl.source_current += zb.awsl.texture_stride;
         }
 
     lab1:
@@ -237,8 +251,6 @@ static inline void __TriangleRenderZ2(br_boolean use_light, br_boolean use_bump,
         {
             zb.awsl.source_current += zb.awsl.texture_size;
         }
-
-        zb.awsl.edge->count--;
     }
 }
 
