@@ -27,7 +27,8 @@ static br_angle const __sincos_table[] = {
     0x36B9, 0x398C, 0x3C56, 0x3F16, 0x41CD, 0x447A, 0x471C, 0x49B3, 0x4C3F, 0x4EBF, 0x5133, 0x539A, 0x55F4, 0x5842,
     0x5A81, 0x5CB3, 0x5ED6, 0x60EB, 0x62F1, 0x64E7, 0x66CE, 0x68A5, 0x6A6C, 0x6C23, 0x6DC9, 0x6F5E, 0x70E1, 0x7254,
     0x73B5, 0x7503, 0x7640, 0x776B, 0x7883, 0x7989, 0x7A7C, 0x7B5C, 0x7C29, 0x7CE2, 0x7D89, 0x7E1C, 0x7E9C, 0x7F08,
-    0x7F61, 0x7FA6, 0x7FD7, 0x7FF5, 0x7FFF, 0x7FFF};
+    0x7F61, 0x7FA6, 0x7FD7, 0x7FF5, 0x7FFF, 0x7FFF
+};
 
 static br_angle const __arcsin_table[] = {
     0xC001, 0xC519, 0xC737, 0xC8D7, 0xCA37, 0xCB6D, 0xCC87, 0xCD8A, 0xCE7C, 0xCF5F, 0xD037, 0xD104, 0xD1C9, 0xD286,
@@ -48,7 +49,8 @@ static br_angle const __arcsin_table[] = {
     0x1C54, 0x1CBE, 0x1D2A, 0x1D96, 0x1E04, 0x1E73, 0x1EE2, 0x1F53, 0x1FC5, 0x2038, 0x20AD, 0x2123, 0x219A, 0x2213,
     0x228D, 0x2309, 0x2387, 0x2407, 0x2488, 0x250C, 0x2591, 0x2619, 0x26A4, 0x2731, 0x27C1, 0x2854, 0x28EA, 0x2984,
     0x2A21, 0x2AC2, 0x2B68, 0x2C13, 0x2CC4, 0x2D7A, 0x2E37, 0x2EFC, 0x2FC9, 0x30A1, 0x3184, 0x3276, 0x3379, 0x3493,
-    0x35C9, 0x3729, 0x38C9, 0x3AE7, 0x4000};
+    0x35C9, 0x3729, 0x38C9, 0x3AE7, 0x4000
+};
 
 static br_angle const __arccos_table[] = {
     0x7FFF, 0x7AE7, 0x78C9, 0x7729, 0x75C9, 0x7493, 0x7379, 0x7276, 0x7184, 0x70A1, 0x6FC9, 0x6EFC, 0x6E37, 0x6D7A,
@@ -69,7 +71,8 @@ static br_angle const __arccos_table[] = {
     0x23AB, 0x2341, 0x22D5, 0x2269, 0x21FB, 0x218C, 0x211D, 0x20AC, 0x203A, 0x1FC7, 0x1F52, 0x1EDC, 0x1E65, 0x1DEC,
     0x1D72, 0x1CF6, 0x1C78, 0x1BF8, 0x1B77, 0x1AF3, 0x1A6E, 0x19E6, 0x195B, 0x18CE, 0x183E, 0x17AB, 0x1715, 0x167B,
     0x15DE, 0x153D, 0x1497, 0x13EC, 0x133B, 0x1285, 0x11C8, 0x1103, 0x1036, 0x0F5E, 0x0E7B, 0x0D89, 0x0C86, 0x0B6C,
-    0x0A36, 0x08D6, 0x0736, 0x0518, 0x0000};
+    0x0A36, 0x08D6, 0x0736, 0x0518, 0x0000
+};
 
 static br_angle const __arctan_table[] = {
     0x0000, 0x0028, 0x0051, 0x007A, 0x00A2, 0x00CB, 0x00F4, 0x011D, 0x0145, 0x016E, 0x0197, 0x01BF, 0x01E8, 0x0211,
@@ -90,7 +93,8 @@ static br_angle const __arctan_table[] = {
     0x1BFD, 0x1C16, 0x1C2E, 0x1C46, 0x1C5E, 0x1C76, 0x1C8E, 0x1CA5, 0x1CBD, 0x1CD5, 0x1CEC, 0x1D04, 0x1D1B, 0x1D32,
     0x1D49, 0x1D60, 0x1D77, 0x1D8E, 0x1DA5, 0x1DBB, 0x1DD2, 0x1DE9, 0x1DFF, 0x1E15, 0x1E2C, 0x1E42, 0x1E58, 0x1E6E,
     0x1E84, 0x1E99, 0x1EAF, 0x1EC5, 0x1EDA, 0x1EF0, 0x1F05, 0x1F1B, 0x1F30, 0x1F45, 0x1F5A, 0x1F6F, 0x1F84, 0x1F99,
-    0x1FAD, 0x1FC2, 0x1FD7, 0x1FEB, 0x2000};
+    0x1FAD, 0x1FC2, 0x1FD7, 0x1FEB, 0x2000
+};
 
 static br_angle const __sqrt_table[] = {
     0x8000, 0x80FF, 0x81FC, 0x82F7, 0x83F0, 0x84E7, 0x85DD, 0x86D1, 0x87C3, 0x88B4, 0x89A3, 0x8A90, 0x8B7C, 0x8C66,
@@ -190,6 +194,7 @@ static inline br_uint_32 __BrSqrt64(br_uint_64 a)
 static inline br_uint_32 __BrFastRSqrt(br_uint_64 a)
 {
     unsigned char clz = __BrBuiltinCLZ(a);
+    
     if (clz == 0)
     {
         return 0;
@@ -214,10 +219,8 @@ static inline br_uint_32 __BrFastRSqrt64(br_uint_64 a)
     {
         return __BrFastRSqrt(a >> 32);
     }
-    else
-    {
-        return __BrFastRSqrt(a);
-    }
+
+    return __BrFastRSqrt(a);
 }
 
 br_fixed_ls BR_ASM_CALL BrFixedAbs(br_fixed_ls a)
@@ -226,10 +229,8 @@ br_fixed_ls BR_ASM_CALL BrFixedAbs(br_fixed_ls a)
     {
         return a;
     }
-    else
-    {
-        return -a;
-    }
+    
+    return -a;
 }
 
 br_fixed_ls BR_ASM_CALL BrFixedMul(br_fixed_ls a, br_fixed_ls b)
@@ -455,227 +456,134 @@ br_angle BR_ASM_CALL BrFixedACos(br_fixed_ls a)
     return __BrInterpTable(__arccos_table, a);
 }
 
-br_angle BR_ASM_CALL BrFixedATan2(br_fixed_ls x, br_fixed_ls y)
+br_angle BR_ASM_CALL BrFixedATan2(br_fixed_ls x, br_fixed_ls y) 
 {
-    // TODO(bjrkk): Get this out of goto hell
-
     if (x < 0)
     {
-        goto octant_4567;
-    }
-    else if (x == 0)
-    {
-        goto y_zero;
-    }
+        x = -x;
+        if (y > 0)
+        {
+            if (y > x)
+            {
+                return -__BrInterpTable(__arctan_table, BrFixedDiv(x, y));
+            }
+            if (y == x)
+            {
+                return 0xE000;
+            }
+            
+            return 0xC000 + __BrInterpTable(__arctan_table, BrFixedDiv(y, x));
+        }
 
-octant_0123:
+        y = -y;
+        if (y < x)
+        {
+            return 0xC000 - __BrInterpTable(__arctan_table, BrFixedDiv(y, x));
+        }
+        if (y == x)
+        {
+            return 0xA000;
+        }
+        
+        return 0x8000 + __BrInterpTable(__arctan_table, BrFixedDiv(x, y));
+    } 
+    if (x == 0) 
+    {
+        if (y < 0)
+        {
+            return 0x8000;
+        }
+
+        return 0;
+    }
     if (y < 0)
     {
-        goto octant_23;
-    }
+        y = -y;
+        if (y > x)
+        {
+            return 0x8000 - __BrInterpTable(__arctan_table, BrFixedDiv(x, y));
+        }
+        if (y == x)
+        {
+            return 0x6000;
+        }
 
-octant_01:
+        return 0x4000 + __BrInterpTable(__arctan_table, BrFixedDiv(y, x));
+    }
     if (y < x)
     {
-        goto octant_1;
+        return 0x4000 - __BrInterpTable(__arctan_table, BrFixedDiv(y, x));
     }
-    else if (y == x)
+    if (y == x)
     {
-        goto boundary_01;
+        return 0x2000;
     }
 
-octant_0:
     return __BrInterpTable(__arctan_table, BrFixedDiv(x, y));
-
-boundary_01:
-    return 0x2000;
-
-octant_1:
-    return 0x4000 - __BrInterpTable(__arctan_table, BrFixedDiv(y, x));
-
-octant_23:
-    y = -y;
-    if (y > x)
-    {
-        goto octant_3;
-    }
-    else if (y == x)
-    {
-        goto boundary_23;
-    }
-
-octant_2:
-    return 0x4000 + __BrInterpTable(__arctan_table, BrFixedDiv(y, x));
-
-boundary_23:
-    return 0x6000;
-
-octant_3:
-    return 0x8000 - __BrInterpTable(__arctan_table, BrFixedDiv(x, y));
-
-octant_4567:
-    x = -x;
-    if (y > 0)
-    {
-        goto octant_67;
-    }
-
-octant_45:
-    y = -y;
-    if (y < x)
-    {
-        goto octant_5;
-    }
-    else if (y == x)
-    {
-        goto boundary_45;
-    }
-
-octant_4:
-    return 0x8000 + __BrInterpTable(__arctan_table, BrFixedDiv(x, y));
-
-boundary_45:
-    return 0xA000;
-
-octant_5:
-    return 0xC000 - __BrInterpTable(__arctan_table, BrFixedDiv(y, x));
-
-octant_67:
-    if (y > x)
-    {
-        goto octant_7;
-    }
-    else if (y == x)
-    {
-        goto boundary_67;
-    }
-
-octant_6:
-    return 0xC000 + __BrInterpTable(__arctan_table, BrFixedDiv(y, x));
-
-boundary_67:
-    return 0xE000;
-
-octant_7:
-    return -__BrInterpTable(__arctan_table, BrFixedDiv(x, y));
-
-y_zero:
-    if (y < 0)
-    {
-        return 0x8000;
-    }
-    return 0;
 }
 
 br_angle BR_ASM_CALL BrFixedATan2Fast(br_fixed_ls x, br_fixed_ls y)
 {
-    // TODO(bjrkk): Get this out of goto hell
-
-    if (x < 0)
+    if (x < 0) 
     {
-        goto octant_4567;
-    }
-    else if (x == 0)
-    {
-        goto x_zero;
-    }
+        x = -x;
+        if (y > 0)
+        {
+            if (y > x)
+            {
+                return -((x / y) >> 19);
+            }
+            if (y == x)
+            {
+                return 0xE000;
+            }
 
-octant_0123:
+            return 0xC000 + ((y / x) >> 19);
+        }
+        if (y == 0)
+        {
+            return 0xA000;
+        }
+
+        y = -y;
+        if (y < x)
+        {
+            return 0xC000 + -((y / x) >> 19);
+        }
+
+        return 0x8000 + ((x / y) >> 19);
+    }
+    if (x == 0)
+    {
+        if (y < 0)
+        {
+            return 0x8000;
+        }
+        
+        return 0;
+    } 
     if (y < 0)
     {
-        goto octant_23;
-    }
+        y = -y;
+        if (y > x)
+        {
+            return 0x8000 + -((x / y) >> 19);
+        }
+        if (y == x)
+        {
+            return 0x6000;
+        }
 
-octant_01:
+        return 0x4000 + ((y / x) >> 19);
+    }
     if (y < x)
     {
-        goto octant_1;
+        return 0x4000 + -((y / x) >> 19);
     }
-    else if (y == x)
+    if (y == x)
     {
-        goto boundary_01;
+        return 0x2000;
     }
-
-octant_0:
+    
     return ((x / y) >> 19);
-
-octant_1:
-    return 0x4000 + -((y / x) >> 19);
-
-boundary_01:
-    return 0x2000;
-
-octant_23:
-    y = -y;
-    if (y > x)
-    {
-        goto octant_3;
-    }
-    else if (y == x)
-    {
-        goto boundary_23;
-    }
-
-octant_2:
-    return 0x4000 + ((y / x) >> 19);
-
-boundary_23:
-    return 0x6000;
-
-octant_3:
-    return 0x8000 + -((x / y) >> 19);
-
-octant_4567:
-    x = -x;
-    if (y > 0)
-    {
-        goto octant_67;
-    }
-    else if (y == 0)
-    {
-        goto boundary_45;
-    }
-
-octant_45:
-    y = -y;
-    if (y < x)
-    {
-        goto octant_5;
-    }
-
-octant_4:
-    return 0x8000 + ((x / y) >> 19);
-
-boundary_45:
-    return 0xA000;
-
-octant_5:
-    return 0xC000 + -((y / x) >> 19);
-
-octant_67:
-    if (y > x)
-    {
-        goto octant_7;
-    }
-    else if (y == x)
-    {
-        goto boundary_67;
-    }
-
-octant_6:
-    return 0xC000 + ((y / x) >> 19);
-
-boundary_67:
-    return 0xE000;
-
-octant_7:
-    return -((x / y) >> 19);
-
-x_zero:
-    if (y < 0)
-    {
-        return 0x8000;
-    }
-
-    return 0;
 }
