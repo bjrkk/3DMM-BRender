@@ -14,7 +14,7 @@
 #ifndef _BRBUILTIN_H_
 #define _BRBUILTIN_H_
 
-#if defined(__GNUC__)
+#if defined(__GNUC__) || defined(__clang__)
 
 #if __has_builtin(__builtin_clz)
 #define __BR_BUILTIN_CLZ
