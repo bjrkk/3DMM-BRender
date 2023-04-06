@@ -13,7 +13,8 @@
             "inherits": "base",
             "hidden": true,
             "cacheVariables": {
-                "CMAKE_C_COMPILER": "cl.exe"
+                "CMAKE_C_COMPILER": "cl.exe",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true
             },
             "condition": {
                 "type": "equals",
