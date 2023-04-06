@@ -9,6 +9,18 @@ option (BRENDER_USE_FIXED_POINT
 	"This determines if BRender should prefer fixed-point math routines over floating-point maths." 
 	ON)
 
+option (BRENDER_ASAN
+	"This determines if BRender should attempt to compile with AddressSanitizer."
+	ON)
+
+if (BRENDER_ASAN)
+	if (MSVC)
+		add_link_options(/fsanitize=address)
+	else()
+		add_link_options(-fsanitize=address)
+	endif()
+endif()
+
 add_compile_definitions (
 	$<$<PLATFORM_ID:Windows>:_CRT_SECURE_NO_WARNINGS>)
 
@@ -35,6 +47,7 @@ endif ()
 include_directories("${PROJECT_SOURCE_DIR}/INC")
 
 add_library(FW)
+
 target_sources(FW PRIVATE 
 	"${PROJECT_SOURCE_DIR}/FW/actsupt.c"
 	"${PROJECT_SOURCE_DIR}/FW/angles.c"
@@ -93,10 +106,10 @@ target_sources(FW PRIVATE
 	"${PROJECT_SOURCE_DIR}/FW/font_f_3x5.c"
 	"${PROJECT_SOURCE_DIR}/FW/font_p_4x6.c"
 	"${PROJECT_SOURCE_DIR}/FW/font_p_7x9.c"
-	"${PROJECT_SOURCE_DIR}/FW/memloops.c"
-)
+	"${PROJECT_SOURCE_DIR}/FW/memloops.c")
 
 add_library(ZB)
+
 target_sources(ZB PRIVATE
 	"${PROJECT_SOURCE_DIR}/ZB/awtmz.c"
 	"${PROJECT_SOURCE_DIR}/ZB/bbox.c"
@@ -117,17 +130,20 @@ target_sources(ZB PRIVATE
 	"${PROJECT_SOURCE_DIR}/ZB/mesh_agnostic.c"
 	"${PROJECT_SOURCE_DIR}/ZB/safediv.c"
 	"${PROJECT_SOURCE_DIR}/ZB/t_piza.c"
-	"${PROJECT_SOURCE_DIR}/ZB/ti8_pizp.c"
-	"${PROJECT_SOURCE_DIR}/ZB/ti8_piz.c"
+    "${PROJECT_SOURCE_DIR}/ZB/ti8_pizp.c"
+    "${PROJECT_SOURCE_DIR}/ZB/ti8_piz.c"
 	"${PROJECT_SOURCE_DIR}/ZB/tt15_piz.c"
 	"${PROJECT_SOURCE_DIR}/ZB/tt24_piz.c"
 )
 
 target_include_directories(ZB
-	PRIVATE
+    PUBLIC
 		"${PROJECT_SOURCE_DIR}/FW")
 
+target_link_libraries(ZB PUBLIC FW)
+
 add_library(FMT)
+
 target_sources(FMT PRIVATE
 	"${PROJECT_SOURCE_DIR}/FMT/strcasecmp.c"
 	"${PROJECT_SOURCE_DIR}/FMT/loadnff.c"
@@ -137,18 +153,19 @@ target_sources(FMT PRIVATE
 	"${PROJECT_SOURCE_DIR}/FMT/loadiff.c"
 	"${PROJECT_SOURCE_DIR}/FMT/loadbmp.c"
 	"${PROJECT_SOURCE_DIR}/FMT/loadtga.c"
-	"${PROJECT_SOURCE_DIR}/FMT/savescr.c"
-)
+	"${PROJECT_SOURCE_DIR}/FMT/savescr.c")
+
 target_include_directories(FMT
 	PRIVATE
 		"${PROJECT_SOURCE_DIR}/FW")
 
 add_library(STD)
+
 target_sources(STD PRIVATE
 	"${PROJECT_SOURCE_DIR}/STD/stdfile.c"
 	"${PROJECT_SOURCE_DIR}/STD/stdmem.c"
-	"${PROJECT_SOURCE_DIR}/STD/stddiag.c"
-)
+	"${PROJECT_SOURCE_DIR}/STD/stddiag.c")
+
 target_include_directories(STD
 	PRIVATE
 		"${PROJECT_SOURCE_DIR}/FW")
