@@ -315,7 +315,7 @@ static inline void __TRAPEZOID_PIZ2TI(struct scan_edge *edge, br_boolean is_forw
     }
 }
 
-static inline void __SETUP_PI(struct temp_vertex_fixed *v0, struct temp_vertex_fixed *v1, struct temp_vertex_fixed *v2)
+static inline br_boolean __SETUP_PI(struct temp_vertex_fixed *v0, struct temp_vertex_fixed *v1, struct temp_vertex_fixed *v2)
 {
     // NOTE(???): Should really do this at projection time
     vertex_0[0] = v0->v[0] >> 16;
@@ -328,7 +328,7 @@ static inline void __SETUP_PI(struct temp_vertex_fixed *v0, struct temp_vertex_f
 
     if (vertex_0[1] == vertex_2[1])
     {
-        return;
+        return BR_TRUE; // zero height polys
     }
 
     zb.top.x = vertex_1[0] - vertex_0[0];
@@ -364,6 +364,7 @@ static inline void __SETUP_PI(struct temp_vertex_fixed *v0, struct temp_vertex_f
     zb.bot.i = (vertex_1[1] * zb.row_width) + vertex_1[0];
 
     g_divisor = zb.top.x * zb.main.y - zb.main.x * zb.top.y;
+    return BR_FALSE;
 }
 
 static inline void __PARAM_PI_DIRN(screen_scalar a, screen_scalar b, screen_scalar c, struct scan_parameter *param)
@@ -418,7 +419,8 @@ void BR_ASM_CALL RawTriangle_PIZ2(struct temp_vertex_fixed *v0, struct temp_vert
         }
     }
 
-    __SETUP_PI(a, b, c);
+    if(__SETUP_PI(a, b, c))
+        return;
 
     if (g_divisor == 0)
     {
@@ -485,7 +487,8 @@ void BR_ASM_CALL RawTriangle_PIZ2I(struct temp_vertex_fixed *v0, struct temp_ver
         }
     }
 
-    __SETUP_PI(a, b, c);
+    if(__SETUP_PI(a, b, c))
+        return;
 
     if (g_divisor == 0)
     {
@@ -549,7 +552,8 @@ void BR_ASM_CALL RawTriangle_PIZ2T(struct temp_vertex_fixed *v0, struct temp_ver
         }
     }
 
-    __SETUP_PI(a, b, c);
+    if(__SETUP_PI(a, b, c))
+        return;
 
     if (g_divisor == 0)
     {
@@ -614,7 +618,8 @@ void BR_ASM_CALL RawTriangle_PIZ2TI(struct temp_vertex_fixed *v0, struct temp_ve
         }
     }
 
-    __SETUP_PI(a, b, c);
+    if(__SETUP_PI(a, b, c))
+        return;
 
     if (g_divisor == 0)
     {
